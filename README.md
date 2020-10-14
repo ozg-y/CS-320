@@ -4,8 +4,8 @@ XXX is a desktop-based software application that allows OzU students to sell/buy
 
 
 ## by 
-    Arslan, B.
-    Ölmezcan, A.
+    Arslan, B,
+    Ölmezcan, A,
     Sadikhov, E.
     Saydemir, A.
     Simitçioğlu, E.
