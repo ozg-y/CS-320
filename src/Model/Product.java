@@ -1,3 +1,5 @@
+package Model;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -79,6 +81,5 @@ public class Product {
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
-
 
 }
