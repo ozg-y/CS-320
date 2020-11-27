@@ -59,11 +59,11 @@ public class Student {
         this.studentPassword = studentPassword;
     }
 
-    public void postProduct(Product p1){
+    public void postProduct(Product p){
 
     }
 
-    public void manageProduct(Product p1){
+    public void manageProduct(Product p){
 
     }
 
