@@ -1,12 +1,4 @@
 package Controller;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class HomePage {
 
@@ -20,5 +12,5 @@ public class HomePage {
     private ProfilePage ppPressed;
     private ProfilePage saveChanges;
     private Garage productPressed;
-    public void homePage(){}
+    public void HomePage(){}
 }
