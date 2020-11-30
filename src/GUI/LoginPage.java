@@ -22,6 +22,7 @@ public class LoginPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //todo-controller
+                //todo-Should go SignUpPage
             }
         });
     }
