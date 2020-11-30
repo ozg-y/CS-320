@@ -1,14 +1,28 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginPage {
-    private JLabel mail;
-    private JTextField mailText;
-    private JLabel password;
-    private JPasswordField passwordField;
-    private JButton login;
+    private JTextField textField1;
+    private JPasswordField passwordField1;
+    private JButton loginButton;
+    private JButton signUpButton;
 
-    public LoginPage() {}
-    void login() {}
+    public LoginPage() {
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //todo-Burası size emanet controller team
+            }
+        });
+
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //todo-controller
+            }
+        });
+    }
 }
