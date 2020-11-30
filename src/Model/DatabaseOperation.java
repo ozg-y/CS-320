@@ -43,4 +43,28 @@ public class DatabaseOperation {
             System.out.println(e);
         }
     }
+
+    public int pull_student_confirmation_code(String email) throws SQLException {
+        try {
+            String query = "SELECT studentConfirmationCode\n" +
+                    "            FROM StudentConfirmation\n" +
+                    "            WHERE studentEmail = ";
+            query += "'" + email + "'" + ";";
+
+            ResultSet resultSet = null;
+
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            if(resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error occured");
+            System.out.println(e);
+        }
+        return -1;
+    }
+
 }
