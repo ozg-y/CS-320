@@ -4,5 +4,9 @@ public class HomePage {
     LPanel lPanel;
     Garage garage;
 
-    public HomePage() {}
+    public HomePage() {
+        lPanel = new LPanel();
+        garage = new Garage();
+
+    }
 }
