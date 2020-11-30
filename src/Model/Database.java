@@ -2,9 +2,9 @@ package Model;
 
 public class Database {
 
-    public String DBusername = "admin";
-    public String DBpassword = "ozu-garage";
-    public int DBport = 3306;
-    public String DBip = "ozu-g.ciruougoyzca.us-east-2.rds.amazonaws.com";
+    public static final String DBusername = "admin";
+    public static final String DBpassword = "ozu-garage";
+    public static final int DBport = 3306;
+    public static final String DBip = "ozu-g.ciruougoyzca.us-east-2.rds.amazonaws.com";
 
 }
