@@ -29,4 +29,18 @@ public class DatabaseOperation {
             JOptionPane.showMessageDialog(frame,"Database Connection Fails.Try Again.");
         }
     }
+
+    public void push_student_confirmation(String email, int confirmation_code) throws SQLException {
+        try {
+            String query = "INSERT INTO StudentConfirmation VALUES (";
+            query += "\'" + email + "\'" + "," + confirmation_code + ");";
+
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Succesfully executed");
+        } catch (SQLException e) {
+            System.out.println("Error occured");
+            System.out.println(e);
+        }
+    }
 }
