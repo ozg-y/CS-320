@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Product {
+    private int productID;
     private String productName;
     private String productCategory;
     private ArrayList<ImageIcon> productPhotos;
@@ -25,6 +26,10 @@ public class Product {
         this.productSeller = productSeller;
         this.productDescription = productDescription;
         this.databaseOperation = databaseOperation;
+    }
+
+    public int getProductID() {
+        return productID;
     }
 
     public String getProductName() {

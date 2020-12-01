@@ -1,10 +1,12 @@
 package Model;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseOperation {
 
@@ -88,9 +90,48 @@ public class DatabaseOperation {
             System.out.println("Error occured");
             System.out.println(e);
         }
-
     }
 
+    public void push_product(String productName, String  productCategory, double productPrice,
+                             String productSeller, String productDescription, ArrayList<String> productPhotos) {
+
+        try {
+            String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription) VALUES (" +
+                    "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + "\'"  +
+                    productSeller + "\',\'" + productDescription + "\');";
+
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+
+            // Gets the last inserted productID
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery("SELECT productID FROM  Product GROUP BY productID ORDER BY DESC");
+
+            int productID = 0;
+
+            if(set.next()) {
+                productID = set.getInt(0);
+            }
+
+            // Push photo
+            for(int i = 0; i < productPhotos.size(); i++) {
+                String photo_query = "INSERT INTO ProductPhotos VALUES (" + productID + ",?);";
+
+                preparedStatement = con.prepareStatement(photo_query);
+
+                File file = new File(productPhotos.get(i));
+
+                InputStream sqlPhoto = new FileInputStream(file);
+                preparedStatement.setBinaryStream(1, sqlPhoto);
+                preparedStatement.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public int pull_student_confirmation_code(String email) throws SQLException {
         try {
