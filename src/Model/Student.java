@@ -1,23 +1,34 @@
 package Model;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Student {
 
     private String studentName;
     private String studentSurname;
-    private BufferedImage studentProfilePhoto;
+    private ImageIcon studentProfilePhoto;
     private String studentEmail;
     private String studentPassword;
-    private DatabaseOperation databaseOperation;
 
-    public Student(String _studentName,String _studentSurname,BufferedImage _studentProfilePhoto,String _studentEmail,String _studentPassword,DatabaseOperation _databaseOperation){
+    public Student(String _studentName, String _studentSurname, InputStream _studentProfilePhoto, String _studentEmail, String _studentPassword){
         studentName = _studentName;
         studentSurname = _studentSurname;
-        studentProfilePhoto = _studentProfilePhoto;
         studentEmail = _studentEmail;
         studentPassword = _studentPassword;
-        databaseOperation = _databaseOperation;
+
+        try{
+            Image image = ImageIO.read(_studentProfilePhoto);
+            ImageIcon icon = new ImageIcon(image);
+            studentProfilePhoto = icon;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String getStudentName() {
@@ -36,11 +47,11 @@ public class Student {
         this.studentSurname = studentSurname;
     }
 
-    public BufferedImage getStudentProfilePhoto() {
+    public ImageIcon getStudentProfilePhoto() {
         return studentProfilePhoto;
     }
 
-    public void setStudentProfilePhoto(BufferedImage studentProfilePhoto) { this.studentProfilePhoto = studentProfilePhoto; }
+    public void setStudentProfilePhoto(ImageIcon studentProfilePhoto) { this.studentProfilePhoto = studentProfilePhoto; }
 
     public String getStudentEmail() {
         return studentEmail;
