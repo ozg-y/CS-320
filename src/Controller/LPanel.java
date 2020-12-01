@@ -8,6 +8,8 @@ public class LPanel extends JPanel{
     public void homePressed(){}
     public void searchPressed(){}
     public void profilePressed(){}
-    public void categoryPressed(){}
+    public void categoryPressed(){
+        return;
+    }
 
 }
