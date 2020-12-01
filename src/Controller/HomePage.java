@@ -12,5 +12,8 @@ public class HomePage {
     private ProfilePage ppPressed;
     private ProfilePage saveChanges;
     private Garage productPressed;
-    public void HomePage(){}
+    public void HomePage(){
+
+        // hello world
+    }
 }
