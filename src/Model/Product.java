@@ -1,12 +1,14 @@
 package Model;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Product {
+    private int productID;
     private String productName;
     private String productCategory;
-    private ArrayList<BufferedImage> productPhotos;
+    private ArrayList<ImageIcon> productPhotos;
     private double productPrice;
     private ArrayList<String> productComments;
     private Student productSeller;
@@ -14,7 +16,7 @@ public class Product {
     private DatabaseOperation databaseOperation;
 
     public Product(String productName, String productCategory,
-                   ArrayList<BufferedImage> productPhotos, double productPrice, ArrayList<String> productComments,
+                   ArrayList<ImageIcon> productPhotos, double productPrice, ArrayList<String> productComments,
                    Student productSeller, String productDescription, DatabaseOperation databaseOperation) {
         this.productName = productName;
         this.productCategory = productCategory;
@@ -24,6 +26,10 @@ public class Product {
         this.productSeller = productSeller;
         this.productDescription = productDescription;
         this.databaseOperation = databaseOperation;
+    }
+
+    public int getProductID() {
+        return productID;
     }
 
     public String getProductName() {
@@ -42,11 +48,11 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public ArrayList<BufferedImage> getProductPhotos() {
+    public ArrayList<ImageIcon> getProductPhotos() {
         return productPhotos;
     }
 
-    public void setProductPhotos(ArrayList<BufferedImage> productPhotos) {
+    public void setProductPhotos(ArrayList<ImageIcon> productPhotos) {
         this.productPhotos = productPhotos;
     }
 
