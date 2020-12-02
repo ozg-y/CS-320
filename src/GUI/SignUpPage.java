@@ -22,6 +22,10 @@ public class SignUpPage {
     private String studentPassword;
 
 
+    public JPanel getSignUpPage() {
+        return panel1;
+    }
+
     public SignUpPage() {
         signUpButton.addActionListener (new ActionListener() {
             @Override

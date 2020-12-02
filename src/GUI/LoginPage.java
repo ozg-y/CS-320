@@ -16,6 +16,8 @@ public class LoginPage {
         return MainPanel;
     }
 
+
+
     public LoginPage() {
         HomePage homepage = new HomePage();
         loginButton.addActionListener(new ActionListener() {
