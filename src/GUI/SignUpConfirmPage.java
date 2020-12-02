@@ -29,8 +29,6 @@ public class SignUpConfirmPage {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //todo-If code is correct go to LoginPage
-                //todo-If not stay
                 String mail = email.getText();
                 String text = code.getText();
                 int confirmation_code = Integer.parseInt(text);
@@ -40,6 +38,10 @@ public class SignUpConfirmPage {
                         LoginPage login = new LoginPage();
                         panelC.removeAll();
                         panelC.add(login.getMainPanel());
+                    }else{
+                        textField1.setText("");
+                        code.setText("");
+                        JOptionPane.showMessageDialog(null, "Incorrect Code");
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
