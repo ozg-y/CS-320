@@ -3,7 +3,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import Model.DatabaseOperation;
 
 public class LoginPage {
     private JTextField textField1;
