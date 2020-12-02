@@ -11,6 +11,10 @@ public class SignUpPage {
     private JPasswordField passwordField2;
     private JButton signUpButton;
 
+    public JPanel getSignUpPage() {
+        return panel1;
+    }
+
     public SignUpPage() {
         signUpButton.addActionListener(new ActionListener() {
             @Override

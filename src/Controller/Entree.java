@@ -1,4 +1,7 @@
 package Controller;
+import java.awt.*;
+import java.awt.event.*;
+import java.swing.*;
 
 public class Entree {
     public Entree(){}
