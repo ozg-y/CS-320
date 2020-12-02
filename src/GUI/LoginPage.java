@@ -12,6 +12,11 @@ public class LoginPage {
     private JButton signUpButton;
     private JPanel MainPanel;
     private DatabaseOperation operation;
+    public JPanel getMainPanel(){
+        return MainPanel;
+    }
+
+
 
     public LoginPage() {
         HomePage homepage = new HomePage();
