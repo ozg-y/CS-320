@@ -1,8 +1,10 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.InputStream;
 
 import Model.Student;
@@ -14,6 +16,9 @@ public class SignUpPage {
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private JButton signUpButton;
+    private JButton photoButton;
+    private JTextField textField2;
+    private JTextField textField3;
     private DatabaseOperation operation;
     private String studentName;
     private String studentSurname;
@@ -49,6 +54,28 @@ public class SignUpPage {
                     }
                 }
 
+            }
+        });
+        photoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser j = new JFileChooser();
+                j.showSaveDialog(null);
+
+                File photo = j.getSelectedFile();
+
+                System.out.println(photo.getAbsolutePath());
+
+
+                ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+                Image image = icon.getImage(); // transform it
+                Image newimg = image.getScaledInstance(400, 300, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+
+                //imageLabel.setIcon(icon);
+                photoButton.setBackground(new java.awt.Color(187,187,187));
+                photoButton.setOpaque(true);
+                photoButton.setBorderPainted(false);
+                photoButton.setIcon(icon);
             }
         });
     }
