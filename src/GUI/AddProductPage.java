@@ -1,5 +1,7 @@
 package GUI;
 
-public class AddProductPage {
+import javax.swing.*;
 
+public class AddProductPage {
+    private JButton button1;
 }
