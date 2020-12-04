@@ -1,6 +1,7 @@
 package Model;
 
 import javax.swing.*;
+import javax.xml.transform.Result;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,6 +34,32 @@ public class DatabaseOperation {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(frame,"Database Connection Fails.Try Again.");
         }
+    }
+
+    public boolean checkForLogin(String studentEmail,String studentPassword){
+
+        try {
+
+            // Creating sql query
+            String query = "SELECT studentName FROM Student WHERE studentEmail = \"" + studentEmail + "\" AND studentPassword = \"" + studentPassword + "\"";
+
+            // Creating statement for database
+            statement = con.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // If the student exists return true
+            if(resultSet.next()){
+                return true;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        // If the student doesn't exists return false
+        return false;
+
     }
 
     public void push_student(String studentName,String studentSurname,String studentPhoto,String studentEmail,String studentPassword){
@@ -68,8 +95,7 @@ public class DatabaseOperation {
             ResultSet resultSet = statement.executeQuery(query);
 
             if(resultSet.next()){
-                Student student = new Student(resultSet.getString(0),resultSet.getString(1),resultSet.getBinaryStream(2),studentEmail,resultSet.getString(4));
-                return student;
+                return new Student(resultSet.getString(0),resultSet.getString(1),resultSet.getBinaryStream(2),studentEmail,resultSet.getString(4));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -78,7 +104,7 @@ public class DatabaseOperation {
         return null;
     }
 
-    public void push_student_confirmation(String email, int confirmation_code) throws SQLException {
+    public void push_student_confirmation(String email, int confirmation_code) {
         try {
             String query = "INSERT INTO StudentConfirmation VALUES (";
             query += "\'" + email + "\'" + "," + confirmation_code + ");";
@@ -86,10 +112,34 @@ public class DatabaseOperation {
             statement = con.createStatement();
             statement.executeUpdate(query);
             System.out.println("Succesfully executed");
+
         } catch (SQLException e) {
             System.out.println("Error occured");
             System.out.println(e);
         }
+    }
+
+    public int pull_student_confirmation_code(String email) throws SQLException {
+        try {
+            String query = "SELECT studentConfirmationCode\n" +
+                    "            FROM StudentConfirmation\n" +
+                    "            WHERE studentEmail = ";
+            query += "'" + email + "'" + ";";
+
+            ResultSet resultSet = null;
+
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            if(resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error occured");
+            System.out.println(e);
+        }
+        return -1;
     }
 
     public void push_product(String productName, String  productCategory, double productPrice,
@@ -131,29 +181,6 @@ public class DatabaseOperation {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public int pull_student_confirmation_code(String email) throws SQLException {
-        try {
-            String query = "SELECT studentConfirmationCode\n" +
-                    "            FROM StudentConfirmation\n" +
-                    "            WHERE studentEmail = ";
-            query += "'" + email + "'" + ";";
-
-            ResultSet resultSet = null;
-
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(query);
-
-            if(resultSet.next()) {
-                return resultSet.getInt(1);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error occured");
-            System.out.println(e);
-        }
-        return -1;
     }
 
 }
