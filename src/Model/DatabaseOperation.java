@@ -181,6 +181,45 @@ public class DatabaseOperation {
         }
     }
 
+    public Product pull_product(int productID) {
+        try {
+            ArrayList<String> comments = pull_comment(productID);       // comments
+            ArrayList<ImageIcon> photos = pull_product_photos(productID);       // product_photos
+
+            String query = "SELECT * FROM Product WHERE productID = " + productID + ";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+            while(set.next()) {
+                return new Product(set.getInt(0), set.getString(1), set.getString(2), photos,
+                        set.getDouble(3), comments, pull_student(set.getString(4))  , set.getString(5));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ArrayList<ImageIcon> pull_product_photos(int productID) throws SQLException {
+        try {
+            statement = con.createStatement();
+            ResultSet photo_set = statement.executeQuery("SELECT productPhotos FROM ProductPhotos WHERE productID = " + productID + ";");
+            ArrayList<ImageIcon> photos = new ArrayList<>();
+
+            while(photo_set.next()) {
+                ImageIcon icon = new ImageIcon(ImageIO.read(photo_set.getBinaryStream("productPhotos"))) ;
+                photos.add(icon);
+            }
+
+            return photos;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public void push_comment(int productID, String comment) {
         try {
 
