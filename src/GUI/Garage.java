@@ -16,7 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Garage {
-    private JPanel productPanel;
+    public JPanel productPanel;
     private JButton product1;
     private JButton product4;
     private JButton product2;
@@ -31,6 +31,9 @@ public class Garage {
     private JButton product12;
     private JButton downScrollButton;
     private JButton upScrollButton;
+    private JTextField textField1;
+    private JButton refreshButtonButton;
+    private JComboBox filterComboBox;
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();

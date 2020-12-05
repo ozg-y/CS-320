@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 
 public class LPanel {
+
     private HomePage homePage;
     private JTextField searchBar;
     private JButton profile;
@@ -14,11 +15,22 @@ public class LPanel {
     private JComboBox filter;
     private JButton refresh;
     private JButton home;
+    private JPanel garagePanel;
+    private JButton category1IconButton;
+    private JButton category2IconButton;
+    private JButton catagory3IconButton;
+    private JButton profilePhotoButton;
 
-    public LPanel() {}
+    public LPanel(JPanel garagePanel) {
+
+        this.garagePanel = garagePanel;
+
+
+    }
 
     void refreshGarage() {}
     void profile() {}
     void returnHome() {}
+
 
 }
