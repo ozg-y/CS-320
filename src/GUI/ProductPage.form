@@ -18,12 +18,12 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="e5c23" class="javax.swing.JButton" binding="button1" default-binding="true">
+          <component id="e5c23" class="javax.swing.JButton" binding="productPhotoButton" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Button"/>
+              <text value="ProductPhoto"/>
             </properties>
           </component>
           <component id="134a0" class="javax.swing.JLabel">
@@ -101,7 +101,7 @@
           </hspacer>
         </children>
       </grid>
-      <component id="24ec" class="javax.swing.JEditorPane" binding="editorPane1" default-binding="true">
+      <component id="24ec" class="javax.swing.JEditorPane" binding="productDetails">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -114,7 +114,7 @@
           <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="c3c81" class="javax.swing.JEditorPane" binding="editorPane2" default-binding="true">
+      <component id="c3c81" class="javax.swing.JEditorPane" binding="productComments">
         <constraints>
           <grid row="0" column="5" row-span="3" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
