@@ -13,11 +13,10 @@ public class Product {
     private ArrayList<String> productComments;
     private Student productSeller;
     private String productDescription;
-    private DatabaseOperation databaseOperation;
 
     public Product(String productName, String productCategory,
                    ArrayList<ImageIcon> productPhotos, double productPrice, ArrayList<String> productComments,
-                   Student productSeller, String productDescription, DatabaseOperation databaseOperation) {
+                   Student productSeller, String productDescription) {
         this.productName = productName;
         this.productCategory = productCategory;
         this.productPhotos = productPhotos;
@@ -25,7 +24,18 @@ public class Product {
         this.productComments = productComments;
         this.productSeller = productSeller;
         this.productDescription = productDescription;
-        this.databaseOperation = databaseOperation;
+    }
+
+    public Product(int productID, String productName, String productCategory, ArrayList<ImageIcon> productPhotos,
+                   double productPrice, ArrayList<String> productComments, Student productSeller, String productDescription) {
+        this.productID = productID;
+        this.productName = productName;
+        this.productCategory = productCategory;
+        this.productPhotos = productPhotos;
+        this.productPrice = productPrice;
+        this.productComments = productComments;
+        this.productSeller = productSeller;
+        this.productDescription = productDescription;
     }
 
     public int getProductID() {
