@@ -1,11 +1,9 @@
 package Model;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.xml.transform.Result;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.awt.*;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -181,6 +179,38 @@ public class DatabaseOperation {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void push_comment(int productID, String comment) {
+        try {
+
+            String query = "INSERT INTO ProductComments (productID, productComments) VALUES (" + productID + "," + "\'" + comment + "\'" + ");";
+            statement = con.createStatement();
+            statement.execute(query);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> pull_comment(int productID) {
+        try {
+            String query = "SELECT productComments FROM ProductComments WHERE productID =" + productID + ";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+            ArrayList<String> comments = new ArrayList<>();
+
+            while(set.next()) {
+                comments.add(set.getString("productComments"));
+            }
+
+            return comments;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
 }
