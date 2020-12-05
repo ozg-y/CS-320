@@ -69,9 +69,6 @@ public class Mail {
         } catch (MessagingException mex) { // Email Error
             JOptionPane.showMessageDialog(null,"Email Couldn't Send It In Properly.","Error",JOptionPane.ERROR_MESSAGE);
             mex.printStackTrace();
-        } catch (SQLException throwables) { // Database Error
-            JOptionPane.showMessageDialog(null,"The System Couldn't Save The Confirmation Code And Email Properly","Error",JOptionPane.ERROR_MESSAGE);
-            throwables.printStackTrace();
         }
     }
 }
