@@ -22,10 +22,9 @@ public class SignUpPage {
     private DatabaseOperation operation;
     private String studentName;
     private String studentSurname;
-    private InputStream studentProfilePhoto;
+    private String studentProfilePhoto;
     private String studentEmail;
-    private String studentPassword;
-
+    private File photo;
 
     public JPanel getSignUpPage() {
         return panel1;
@@ -39,44 +38,34 @@ public class SignUpPage {
                 String password2 = passwordField2.getText();
 
                 if(password1.equals(password2)) {
-                    Student student = new Student(studentName,studentSurname,studentProfilePhoto,studentEmail,studentPassword);
-                      studentName = student.getStudentName();
-                      studentSurname = student.getStudentSurname();
-                      studentProfilePhoto = student.getStudentProfilePhoto();
-                      studentEmail = student.getStudentEmail();
-                      studentPassword = student.getStudentPassword();
+                      studentName = textField2.getText();
+                      studentSurname = textField3.getText();
+                      studentProfilePhoto = photo.getAbsolutePath();
+                      studentEmail = textField1.getText();
 
-                    operation.push_student(studentName,studentSurname,studentProfilePhoto,studentEmail,studentPassword){
-                    //studentProfilePhoto string
-                        SignUpConfirmPage confirm = new SignUpConfirmPage();
-                        panel1.removeAll();
-                        panel1.add(confirm.getpanelC());
+                    operation.push_student(studentName,studentSurname,studentProfilePhoto,studentEmail,password1);
+                    SignUpConfirmPage confirm = new SignUpConfirmPage();
+                    panel1.removeAll();
+                    panel1.add(confirm.getpanelC());
                     }
                 }
 
-            }
+
         });
         photoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser j = new JFileChooser();
                 j.showSaveDialog(null);
-
-                File photo = j.getSelectedFile();
-
-                System.out.println(photo.getAbsolutePath());
-
-
+                photo = j.getSelectedFile();
                 ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
-                Image image = icon.getImage(); // transform it
-                Image newimg = image.getScaledInstance(400, 300, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-
-                //imageLabel.setIcon(icon);
                 photoButton.setBackground(new java.awt.Color(187,187,187));
                 photoButton.setOpaque(true);
                 photoButton.setBorderPainted(false);
                 photoButton.setIcon(icon);
             }
         });
+
+
     }
 }
