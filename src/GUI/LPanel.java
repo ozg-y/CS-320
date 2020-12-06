@@ -18,19 +18,17 @@ public class LPanel {
     private JPanel garagePanel;
     private JButton category1IconButton;
     private JButton category2IconButton;
-    private JButton catagory3IconButton;
+    private JButton category3IconButton;
     private JButton profilePhotoButton;
+    private JButton addProductButton;
 
     public LPanel(JPanel garagePanel) {
 
         this.garagePanel = garagePanel;
-
-
     }
 
     void refreshGarage() {}
     void profile() {}
     void returnHome() {}
-
 
 }
