@@ -64,10 +64,11 @@ public class Mail {
 
             // Send message
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+
+            JOptionPane.showMessageDialog(null,"Email Sent Correctly");
 
         } catch (MessagingException mex) { // Email Error
-            JOptionPane.showMessageDialog(null,"Email Couldn't Send It In Properly.","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Email Couldn't Send It In Properly","Error",JOptionPane.ERROR_MESSAGE);
             mex.printStackTrace();
         }
     }
