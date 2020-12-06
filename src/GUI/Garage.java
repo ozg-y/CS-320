@@ -33,7 +33,7 @@ public class Garage {
     private JButton upScrollButton;
     private JTextField textField1;
     private JButton refreshButtonButton;
-    private JComboBox filterComboBox;
+    private JComboBox<String> filterComboBox;
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
@@ -182,6 +182,18 @@ public class Garage {
                 }
             }
         });
+
+        String[] productOrder = { "Newest first", "Oldest first", "Most expensive first", "Cheapest first" };
+        filterComboBox = new JComboBox(productOrder);
+        filterComboBox.setSelectedIndex(0);
+        filterComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JComboBox filterComboBox = (JComboBox)e.getSource();
+                String productOrder = (String)filterComboBox.getSelectedItem();
+            }
+        });
+        productPanel.add(filterComboBox);
+
     }
 
 }
