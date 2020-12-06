@@ -273,7 +273,7 @@ public class DatabaseOperation {
     public ResultSet sort_price_decreasing() {
         try {
             statement = con.createStatement();
-            ResultSet set = statement.executeQuery("SELECT productPrice\n" +
+            ResultSet set = statement.executeQuery("SELECT * \n" +
                     "FROM Product\n" +
                     "ORDER BY productPrice desc;");
 
@@ -287,9 +287,37 @@ public class DatabaseOperation {
     public ResultSet sort_price_increasing() {
         try {
             statement = con.createStatement();
-            ResultSet set = statement.executeQuery("SELECT productPrice\n" +
+            ResultSet set = statement.executeQuery("SELECT * \n" +
                     "FROM Product\n" +
                     "ORDER BY productPrice ASC;");
+
+            return set;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet sort_date_latest() {
+        try {
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery("SELECT * \n" +
+                    "FROM Product\n" +
+                    "ORDER BY productID DESC;");
+
+            return set;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet sort_date_earliest() {
+        try {
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery("SELECT * \n" +
+                    "FROM Product\n" +
+                    "ORDER BY productID ASC;");
 
             return set;
         } catch (SQLException throwables) {
