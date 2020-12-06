@@ -39,7 +39,6 @@ public class Garage {
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
     private DatabaseOperation operation;
 
-    int order = 0;
     int imageArrayIndex = 0;
     int nextProduct = 0;
 
@@ -50,7 +49,7 @@ public class Garage {
         try {
 
             // Adding productID's in a ArrayList(productIDs) from database
-            String query = "SELECT productID FROM Product GROUP BY productID ORDER BY productID DESC LIMIT " + order + ",12;";
+            String query = "SELECT productID FROM Product GROUP BY productID ORDER BY productID DESC";
             Statement statement = operation.con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -59,7 +58,7 @@ public class Garage {
             }
 
             // Adding productID's in a ArrayList(productImages) from database
-            query = "SELECT productPhotos FROM ProductPhotos ORDER BY productID DESC LIMIT " + order + ",12;";
+            query = "SELECT productPhotos FROM ProductPhotos GROUP BY productID ORDER BY productID DESC ;";
             statement = operation.con.createStatement();
             resultSet = statement.executeQuery(query);
 
@@ -100,7 +99,7 @@ public class Garage {
 
 
 
-                // Backup plan
+            // Backup plan
 //            product1.setIcon(images.get(imageArrayIndex++));
 //            product2.setIcon(images.get(imageArrayIndex++));
 //            product3.setIcon(images.get(imageArrayIndex++));
@@ -135,36 +134,8 @@ public class Garage {
         downScrollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                order+=12;
-                nextProduct++;
-                try {
-                    String query = "SELECT productID FROM Product GROUP BY productID ORDER BY productID DESC LIMIT " + order + ",12;";
-                    Statement statement = operation.con.createStatement();
-                    ResultSet resultSet = statement.executeQuery(query);
-
-                    while (resultSet.next()) {
-                        productIds.add(resultSet.getInt("productID"));
-                    }
-
-                    query = "SELECT productPhotos FROM ProductPhotos ORDER BY productID DESC LIMIT " + order + ",12;";
-                    statement = operation.con.createStatement();
-                    resultSet = statement.executeQuery(query);
-
-                    while (resultSet.next()) {
-                        InputStream x = (resultSet.getBinaryStream("productPhotos"));
-                        Image image = ImageIO.read(x);
-                        ImageIcon icon = new ImageIcon(image);
-                        productImages.add(icon);
-                    }
-
-                    for(JButton but : productButtons){
-                        but.setIcon(productImages.get(imageArrayIndex++));
-                    }
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                } catch (IOException z) {
-                    z.printStackTrace();
+                for(JButton but : productButtons){
+                    but.setIcon(productImages.get(imageArrayIndex++));
                 }
             }
         });
@@ -173,27 +144,147 @@ public class Garage {
         upScrollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int pastImageArrayIndex = imageArrayIndex-24;
-                nextProduct--;
-                order-=12;
+                imageArrayIndex -= 24;
 
                 for(JButton but : productButtons){
-                    but.setIcon(productImages.get(pastImageArrayIndex));
+                    but.setIcon(productImages.get(imageArrayIndex++));
                 }
+
             }
         });
 
         String[] productOrder = { "Newest first", "Oldest first", "Most expensive first", "Cheapest first" };
         filterComboBox = new JComboBox(productOrder);
         filterComboBox.setSelectedIndex(0);
-        filterComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JComboBox filterComboBox = (JComboBox)e.getSource();
-                String productOrder = (String)filterComboBox.getSelectedItem();
-            }
-        });
         productPanel.add(filterComboBox);
 
-    }
+        filterComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String productOrder = (String)filterComboBox.getSelectedItem();
 
+                if(productOrder.equals("Most expensive first")){
+                    try {
+                        ResultSet myRst = operation.sort_price_increasing();
+
+                        productIds.clear();
+                        productImages.clear();
+
+                        while (myRst.next()) {
+                            productIds.add(myRst.getInt("productID"));
+                        }
+
+                        for(int id : productIds){
+                            String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                            operation.statement = operation.con.createStatement();
+                            myRst = operation.statement.executeQuery(sql);
+
+                            while(myRst.next()){
+                                InputStream x = (myRst.getBinaryStream("productPhotos"));
+                                Image image = ImageIO.read(x);
+                                ImageIcon icon = new ImageIcon(image);
+                                productImages.add(icon);
+                            }
+                        }
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+
+                }
+
+                else if(productOrder.equals("Cheapest first")){
+                    try {
+                        ResultSet myRst = operation.sort_price_decreasing();
+
+                        productIds.clear();
+                        productImages.clear();
+
+                        while (myRst.next()) {
+                            productIds.add(myRst.getInt("productID"));
+                        }
+
+                        for(int id : productIds){
+                            String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                            operation.statement = operation.con.createStatement();
+                            myRst = operation.statement.executeQuery(sql);
+
+                            while(myRst.next()){
+                                InputStream x = (myRst.getBinaryStream("productPhotos"));
+                                Image image = ImageIO.read(x);
+                                ImageIcon icon = new ImageIcon(image);
+                                productImages.add(icon);
+                            }
+                        }
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+
+                else if(productOrder.equals("Oldest first")){
+                    try {
+                        ResultSet myRst = operation.sort_date_latest();
+
+                        productIds.clear();
+                        productImages.clear();
+
+                        while (myRst.next()) {
+                            productIds.add(myRst.getInt("productID"));
+                        }
+
+                        for(int id : productIds){
+                            String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                            operation.statement = operation.con.createStatement();
+                            myRst = operation.statement.executeQuery(sql);
+
+                            while(myRst.next()){
+                                InputStream x = (myRst.getBinaryStream("productPhotos"));
+                                Image image = ImageIO.read(x);
+                                ImageIcon icon = new ImageIcon(image);
+                                productImages.add(icon);
+                            }
+                        }
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+
+                else if(productOrder.equals("Newest first")){
+                    try {
+                        ResultSet myRst = operation.sort_date_earliest();
+
+                        productIds.clear();
+                        productImages.clear();
+
+                        while (myRst.next()) {
+                            productIds.add(myRst.getInt("productID"));
+                        }
+
+                        for(int id : productIds){
+                            String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                            operation.statement = operation.con.createStatement();
+                            myRst = operation.statement.executeQuery(sql);
+
+                            while(myRst.next()){
+                                InputStream x = (myRst.getBinaryStream("productPhotos"));
+                                Image image = ImageIO.read(x);
+                                ImageIcon icon = new ImageIcon(image);
+                                productImages.add(icon);
+                            }
+                        }
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
 }
