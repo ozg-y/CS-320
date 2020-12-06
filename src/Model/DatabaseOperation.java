@@ -104,6 +104,24 @@ public class DatabaseOperation {
         return null;
     }
 
+    public void change_student_password(String studentEmail,String newPassword){
+        try{
+
+            //Writing SQL query for update
+            String query = "UPDATE Student set studentPassword = \'" + newPassword + "\' where studentEmail = \'" + studentEmail + "\'";
+
+            //Creating statemnt for our database query
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+
+            JOptionPane.showMessageDialog(null,"Your Password Has Been Changed Correctly");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Your Password Was Not Changed Correctly");
+        }
+    }
+
     public void push_student_confirmation(String email, int confirmation_code) {
         try {
             String query = "INSERT INTO StudentConfirmation VALUES (";
