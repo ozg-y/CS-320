@@ -15,6 +15,8 @@ public class Student {
     private String studentEmail;
     private String studentPassword;
 
+    public Student(){}
+
     public Student(String _studentName, String _studentSurname, InputStream _studentProfilePhoto, String _studentEmail, String _studentPassword){
         studentName = _studentName;
         studentSurname = _studentSurname;
