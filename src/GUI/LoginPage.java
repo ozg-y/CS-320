@@ -26,15 +26,19 @@ public class LoginPage {
                 //todo-Burası size emanet controller team
                 String email=textField1.getText();
                 String password=passwordField1.getText();
-                Object obj=e.getSource();
+
                 if(operation.checkForLogin(email,password)){
                     JOptionPane.showMessageDialog(null, "Logged in.");
                     //go to homepage
                     MainPanel.removeAll();
                     MainPanel.add(homepage.getPanel1());
 
+
                 } else{
                     JOptionPane.showMessageDialog(null, "Wrong data entered.");
+                    textField1.setText("");
+                    passwordField1.setText("");
+
                 }
             }
         });

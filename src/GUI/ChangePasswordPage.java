@@ -1,5 +1,8 @@
 package GUI;
 
+import Model.DatabaseOperation;
+import Model.Student;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
