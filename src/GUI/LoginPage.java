@@ -32,6 +32,7 @@ public class LoginPage {
                     //go to homepage
                     MainPanel.removeAll();
                     //test
+                    //test2
                     MainPanel.add(homepage.getPanel1());
 
 
