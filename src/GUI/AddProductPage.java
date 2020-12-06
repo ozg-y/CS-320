@@ -8,4 +8,5 @@ public class AddProductPage {
     private JTextField textField2;
     private JTextArea textArea1;
     private JComboBox comboBox1;
+    private JButton ADDButton;
 }
