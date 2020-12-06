@@ -270,4 +270,32 @@ public class DatabaseOperation {
         return null;
     }
 
+    public ResultSet sort_price_decreasing() {
+        try {
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery("SELECT productPrice\n" +
+                    "FROM Product\n" +
+                    "ORDER BY productPrice desc;");
+
+            return set;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet sort_price_increasing() {
+        try {
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery("SELECT productPrice\n" +
+                    "FROM Product\n" +
+                    "ORDER BY productPrice ASC;");
+
+            return set;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
 }
