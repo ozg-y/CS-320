@@ -31,6 +31,7 @@ public class LoginPage {
                     JOptionPane.showMessageDialog(null, "Logged in.");
                     //go to homepage
                     MainPanel.removeAll();
+                    //test
                     MainPanel.add(homepage.getPanel1());
 
 
