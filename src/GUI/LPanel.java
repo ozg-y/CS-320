@@ -15,17 +15,19 @@ public class LPanel {
     private JComboBox filter;
     private JButton refresh;
     private JButton home;
-    private JPanel garagePanel;
     private JButton category1IconButton;
     private JButton category2IconButton;
     private JButton category3IconButton;
     private JButton profilePhotoButton;
     private JButton addProductButton;
+    private JPanel lpanel;
 
-    public LPanel(JPanel garagePanel) {
 
-        this.garagePanel = garagePanel;
+
+    public JPanel getLpanel(){
+        return lpanel;
     }
+
 
     void refreshGarage() {}
     void profile() {}
