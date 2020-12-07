@@ -286,5 +286,25 @@ public class Garage {
                 }
             }
         });
+
+
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        };
+        product4.addActionListener(listener);
+        product9.addActionListener(listener);
+        product8.addActionListener(listener);
+        product11.addActionListener(listener);
+        product7.addActionListener(listener);
+        product6.addActionListener(listener);
+        product2.addActionListener(listener);
+        product3.addActionListener(listener);
+        product5.addActionListener(listener);
+        product1.addActionListener(listener);
+        product12.addActionListener(listener);
+        product10.addActionListener(listener);
     }
 }
