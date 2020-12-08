@@ -12,35 +12,31 @@ public class LoginPage {
     private JButton signUpButton;
     private JPanel MainPanel;
     private DatabaseOperation operation;
+
+
     public JPanel getMainPanel(){
         return MainPanel;
     }
 
+    public LoginPage(JFrame frame, DatabaseOperation operation) {
+        this.operation = operation;
 
-
-    public LoginPage() {
-        HomePage homepage = new HomePage();
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //todo-Burası size emanet controller team
                 String email=textField1.getText();
                 String password=passwordField1.getText();
-
+                Object obj=e.getSource();
                 if(operation.checkForLogin(email,password)){
                     JOptionPane.showMessageDialog(null, "Logged in.");
                     //go to homepage
-                    MainPanel.removeAll();
-                    //test
-                    //test2
-                    MainPanel.add(homepage.getPanel1());
+                    //MainPanel.removeAll();
+                    //MainPanel.add(homepage.getPanel1());
 
 
                 } else{
                     JOptionPane.showMessageDialog(null, "Wrong data entered.");
-                    textField1.setText("");
-                    passwordField1.setText("");
-
                 }
             }
         });
@@ -48,12 +44,12 @@ public class LoginPage {
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //todo-controller
-                //todo-Should go SignUpPage
-                SignUpPage signup=new SignUpPage();
+                frame.getContentPane().removeAll();
+                frame.repaint();
 
-                MainPanel.removeAll();
-                MainPanel.add(signup.getSignUpPage());
+                SignUpPage signup = new SignUpPage(frame, operation);
+                frame.getContentPane().add(signup.signUpPanel);
+                frame.revalidate();
             }
         });
     }

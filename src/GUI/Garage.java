@@ -31,7 +31,7 @@ public class Garage {
     private JButton product12;
     private JButton downScrollButton;
     private JButton upScrollButton;
-    private JTextField textField1;
+    private JTextField searchBar;
     private JButton refreshButtonButton;
     private JComboBox<String> filterComboBox;
     private ArrayList<JButton> productButtons = new ArrayList<>();
