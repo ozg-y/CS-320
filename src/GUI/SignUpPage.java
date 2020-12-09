@@ -105,16 +105,13 @@ public class SignUpPage {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Ozu-Garage Confirmation Email Code");
+            message.setSubject("OzU-Garage Confirmation Email Code");
 
             // Creating confirmation code for the new user
             int confirmationCode = ThreadLocalRandom.current().nextInt(100000, 999998 + 1);
 
             // Now set the actual message
             message.setText("Your confirmation code is  :" + confirmationCode + "\nOzU-G Team");
-
-            // Pushing the new user's confirmation code and email to the database
-            operation.push_student_confirmation(to,confirmationCode);
 
             // Send message
             Transport.send(message);
