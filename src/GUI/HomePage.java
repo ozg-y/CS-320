@@ -35,9 +35,9 @@ public class HomePage {
 
         SwingUtilities.invokeLater(() -> {
 
-            frame = new JFrame("Progam");
+            frame = new JFrame("Program");
             frame.setSize(1600,900);
-            //frame.setResizable(false);
+            frame.setResizable(false);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
