@@ -45,8 +45,8 @@ public class Garage {
     int imageArrayIndex = 0;
     int nextProduct = 0;
 
-
     public Garage(DatabaseOperation operation){
+
         this.operation = operation;
 
         /*product1.setBounds(0,50,100,150);
@@ -335,4 +335,8 @@ public class Garage {
         product11.addMouseListener(listener);
         product1.addMouseListener(listener);
     }
+    public JPanel getProductPanel() {
+        return productPanel;
+    }
+
 }
