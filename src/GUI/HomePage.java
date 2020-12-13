@@ -16,7 +16,6 @@ public class HomePage {
 
     public JFrame frame;
     public LoginPage login;
-    public SignUpPage signUp;
 
     public HomePage(DatabaseOperation operation){
 

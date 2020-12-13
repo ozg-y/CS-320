@@ -21,7 +21,7 @@ public class SignUpConfirmPage {
     private JButton button1;
     private JTextField code;
 
-    public SignUpConfirmPage(JFrame frame, DatabaseOperation operation,String mail) {
+    public SignUpConfirmPage(JFrame frame, DatabaseOperation operation,String studentEmail) {
         this.operation = operation;
 
         button1.addActionListener(new ActionListener() {
@@ -31,17 +31,23 @@ public class SignUpConfirmPage {
                 int confirmation_code = Integer.parseInt(text);
 
                 try {
-                    if(confirmation_code == operation.pull_student_confirmation_code(mail)){
-                        System.out.println("EŞLEŞTİ...");
-                    }else{
-                        System.out.println("EŞLEŞMEDİ...");
+                    if(confirmation_code == operation.pull_student_confirmation_code(studentEmail)){
+                        operation.confirmed_new_stundet(studentEmail);
+
+                        LoginPage reLogin = new LoginPage(frame,operation);
+                        frame.getContentPane().removeAll();
+                        frame.repaint();
+
+                        frame.getContentPane().add(reLogin.getMainPanel());
+                        frame.revalidate();
+                    }
+                    else{
                         code.setText("");
-                        JOptionPane.showMessageDialog(null, "Incorrect Code");
+                        JOptionPane.showMessageDialog(null, "Incorrect Code","Error",JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
             }
         });
     }

@@ -158,6 +158,20 @@ public class DatabaseOperation {
         return -1;
     }
 
+    public void confirmed_new_stundet(String studentEmail){
+
+        try {
+            String query = "UPDATE Student set studentConfirmationCheck = 1 where studentEmail = \'" + studentEmail + "\'";
+
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
     public void push_product(String productName, String  productCategory, double productPrice,
                              String productSeller, String productDescription, ArrayList<String> productPhotos) {
 

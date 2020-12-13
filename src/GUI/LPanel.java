@@ -20,7 +20,7 @@ public class LPanel {
     private JButton category3IconButton;
     private JButton profilePhotoButton;
     private JButton addProductButton;
-    private JPanel lpanel;
+    public JPanel lpanel;
 
 
 

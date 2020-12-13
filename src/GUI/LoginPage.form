@@ -130,6 +130,7 @@
               <enabled value="true"/>
               <focusCycleRoot value="false"/>
               <focusPainted value="true"/>
+              <focusTraversalPolicyProvider value="false"/>
               <focusable value="true"/>
               <font size="20" style="1"/>
               <foreground color="-1"/>
@@ -138,6 +139,7 @@
               <opaque value="true"/>
               <requestFocusEnabled value="true"/>
               <rolloverEnabled value="true"/>
+              <selected value="false"/>
               <text value="  Login  "/>
               <verticalTextPosition value="1"/>
             </properties>
