@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Garage {
+
     public JPanel productPanel;
     private JButton product1;
     private JButton product4;
@@ -46,6 +49,23 @@ public class Garage {
     public Garage(DatabaseOperation operation){
         this.operation = operation;
 
+        /*product1.setBounds(0,50,100,150);
+        product2.setBounds(0,50,0,50);
+        product3.setBounds(0,50,0,50);
+        product4.setBounds(0,50,0,50);
+        product5.setBounds(0,50,0,50);
+        product6.setBounds(0,50,0,50);
+        product7.setBounds(0,50,0,50);
+        product8.setBounds(0,50,0,50);
+        product9.setBounds(0,50,0,50);
+        product10.setBounds(0,50,0,50);
+        product11.setBounds(0,50,0,50);
+        product12.setBounds(0,50,0,50);
+
+         */
+
+
+
         try {
 
             // Adding productID's in a ArrayList(productIDs) from database
@@ -65,7 +85,7 @@ public class Garage {
             while (resultSet.next()) {
                 InputStream x = (resultSet.getBinaryStream("productPhotos"));
                 Image image = ImageIO.read(x);
-                ImageIcon icon = new ImageIcon(image);
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
                 productImages.add(icon);
             }
 
@@ -84,8 +104,8 @@ public class Garage {
             productButtons.add(product12);
 
             // Setting Icons to proper product
-            for(JButton but : productButtons){
-                but.setIcon(productImages.get(imageArrayIndex++));
+            for(int i = 0;i<productImages.size();i++){
+                productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
             }
 
 
@@ -120,6 +140,7 @@ public class Garage {
         }
 
         ActionListener getProductDetails = e -> {
+
             int selectedProductIndex = productButtons.indexOf((JButton)e.getSource()) + ((nextProduct)*12);
 
             // todo GetProductDetails() with specific index
@@ -153,10 +174,12 @@ public class Garage {
             }
         });
 
-        String[] productOrder = { "Newest first", "Oldest first", "Most expensive first", "Cheapest first" };
+        /*String[] productOrder = { "Newest first", "Oldest first", "Most expensive first", "Cheapest first" };
         filterComboBox = new JComboBox(productOrder);
         filterComboBox.setSelectedIndex(0);
         productPanel.add(filterComboBox);
+
+         */
 
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -286,5 +309,30 @@ public class Garage {
                 }
             }
         });
+        MouseAdapter listener = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ((JButton)e.getSource()).setBackground(new Color(8,33,41));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ((JButton)e.getSource()).setBackground(new Color(6,9,15));
+            }
+        };
+        product4.addMouseListener(listener);
+        product9.addMouseListener(listener);
+        product8.addMouseListener(listener);
+        product7.addMouseListener(listener);
+        product6.addMouseListener(listener);
+        product2.addMouseListener(listener);
+        product3.addMouseListener(listener);
+        product5.addMouseListener(listener);
+        product12.addMouseListener(listener);
+        product10.addMouseListener(listener);
+        product11.addMouseListener(listener);
+        product1.addMouseListener(listener);
     }
 }
