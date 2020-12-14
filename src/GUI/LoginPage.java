@@ -37,8 +37,8 @@ public class LoginPage {
                     frame.getContentPane().removeAll();
                     frame.repaint();
 
-                    LPanel lPanel = new LPanel(frame,operation);
                     Garage garage = new Garage(operation);
+                    LPanel lPanel = new LPanel(frame,operation,garage);
                     frame.getContentPane().add(lPanel.lpanel);
                     frame.getContentPane().add(garage.productPanel);
                     frame.revalidate();
