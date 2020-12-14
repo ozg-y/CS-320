@@ -11,4 +11,5 @@ public class ProductPage {
     public JPanel getProductppanel(){
         return productppanel;
     }
+
 }

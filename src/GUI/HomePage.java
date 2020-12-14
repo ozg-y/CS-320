@@ -6,18 +6,22 @@ import Model.DatabaseOperation;
 import javax.swing.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class HomePage {
-    private JPanel panel1;
 
-    public JPanel getPanel1() {
-        return panel1;
+public class HomePage {
+
+    private JPanel homepanel;
+
+    public JPanel getHomepanel() {
+        return homepanel;
     }
 
 
     public JFrame frame;
     public LoginPage login;
 
-    public HomePage(DatabaseOperation operation){
+
+
+    public HomePage(DatabaseOperation operation) {
 
 
         try {
@@ -35,15 +39,17 @@ public class HomePage {
         SwingUtilities.invokeLater(() -> {
 
             frame = new JFrame("Program");
-            frame.setSize(1600,900);
+            frame.setSize(1600, 900);
             frame.setResizable(false);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
 
-            login = new LoginPage(frame,operation);
+            login = new LoginPage(frame, operation);
             frame.add(login.getMainPanel());
+
+
 
         });
 
@@ -52,6 +58,11 @@ public class HomePage {
 
 
 
+
     }
-}
+
+
+    }
+
+
 

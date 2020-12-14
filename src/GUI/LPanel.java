@@ -1,6 +1,13 @@
 package GUI;
 
+import Model.DatabaseOperation;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LPanel {
 
@@ -22,15 +29,56 @@ public class LPanel {
     private JButton addProductButton;
     public JPanel lpanel;
 
-
-
     public JPanel getLpanel(){
         return lpanel;
     }
 
-
     void refreshGarage() {}
     void profile() {}
     void returnHome() {}
+
+
+    public LPanel(JFrame frame,DatabaseOperation operation) {
+
+
+        addProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProductPage productp = new ProductPage();
+                frame.getContentPane().removeAll();
+                frame.repaint();
+                frame.getContentPane().add(productp.getProductppanel());
+                frame.revalidate();
+            }
+        });
+        profilePhotoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProfilePage profilep = new ProfilePage();
+                frame.getContentPane().removeAll();
+                frame.repaint();
+                frame.getContentPane().add(profilep.getProfileppanel());
+                frame.revalidate();
+            }
+        });
+        category1IconButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        category2IconButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        category3IconButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
 
 }

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import Model.DatabaseOperation;
 
 public class LoginPage {
@@ -38,7 +37,7 @@ public class LoginPage {
                     frame.getContentPane().removeAll();
                     frame.repaint();
 
-                    LPanel lPanel = new LPanel();
+                    LPanel lPanel = new LPanel(frame,operation);
                     Garage garage = new Garage(operation);
                     frame.getContentPane().add(lPanel.lpanel);
                     frame.getContentPane().add(garage.productPanel);
@@ -92,4 +91,6 @@ public class LoginPage {
             }
         });
     }
+
+
 }

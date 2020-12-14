@@ -11,6 +11,7 @@ public class ChangePasswordPage {
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private JButton changePasswordButton;
+    private JPanel changeppanel;
     private Student student;
     private DatabaseOperation operation;
 

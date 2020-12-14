@@ -9,4 +9,5 @@ public class AddProductPage {
     private JTextArea textArea1;
     private JComboBox comboBox1;
     private JButton ADDButton;
+    private JPanel addppanel;
 }
