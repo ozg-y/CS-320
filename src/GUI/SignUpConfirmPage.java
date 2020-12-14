@@ -4,12 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import Model.DatabaseOperation;
-import GUI.LoginPage;
-
 
 
 public class SignUpConfirmPage {
@@ -18,13 +17,13 @@ public class SignUpConfirmPage {
     public JPanel getpanelC(){
         return panelC;
     }
-    private JButton button1;
+    private JButton submitButton;
     private JTextField code;
 
     public SignUpConfirmPage(JFrame frame, DatabaseOperation operation,String studentEmail) {
         this.operation = operation;
 
-        button1.addActionListener(new ActionListener() {
+        submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = code.getText();
@@ -48,6 +47,22 @@ public class SignUpConfirmPage {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+            }
+        });
+
+        submitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                submitButton.setBackground(Color.white);
+                submitButton.setForeground(new Color(163,0,80));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                submitButton.setBackground(new Color(163,0,80));
+                submitButton.setForeground(Color.white);
             }
         });
     }
