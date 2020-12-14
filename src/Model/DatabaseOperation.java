@@ -13,7 +13,7 @@ public class DatabaseOperation {
     public Statement statement;
     public PreparedStatement preparedStatement;
 
-    public DatabaseOperation(){
+    public DatabaseOperation() {
 
         JFrame frame = new JFrame();
         String url = "jdbc:mysql://" + Database.DBip + ":" + Database.DBport + "/" + "ozug";
@@ -26,15 +26,15 @@ public class DatabaseOperation {
         }
 
         try {
-            con = DriverManager.getConnection(url, Database.DBusername,Database.DBpassword);
+            con = DriverManager.getConnection(url, Database.DBusername, Database.DBpassword);
             System.out.println("Database Connection Successful");
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(frame,"Database Connection Fails.Try Again.");
+            JOptionPane.showMessageDialog(frame, "Database Connection Fails.Try Again.");
         }
     }
 
-    public boolean checkForLogin(String studentEmail,String studentPassword){
+    public boolean checkForLogin(String studentEmail, String studentPassword) {
 
         try {
 
@@ -47,7 +47,7 @@ public class DatabaseOperation {
             ResultSet resultSet = statement.executeQuery(query);
 
             // If the student exists return true
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
             }
 
@@ -60,8 +60,8 @@ public class DatabaseOperation {
 
     }
 
-    public void push_student(String studentName,String studentSurname,String studentPhoto,String studentEmail,String studentPassword){
-        try{
+    public void push_student(String studentName, String studentSurname, String studentPhoto, String studentEmail, String studentPassword) {
+        try {
 
             // Changing type of the studentPhoto
             InputStream sqlPhoto = new FileInputStream(studentPhoto);
@@ -71,7 +71,7 @@ public class DatabaseOperation {
             preparedStatement = con.prepareStatement(query);
 
             // Pushing the studentPhoto in binary format
-            preparedStatement.setBinaryStream(1,sqlPhoto);
+            preparedStatement.setBinaryStream(1, sqlPhoto);
             preparedStatement.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -82,7 +82,7 @@ public class DatabaseOperation {
 
     }
 
-    public Student pull_student(String studentEmail){
+    public Student pull_student(String studentEmail) {
         try {
 
             // Writing SQL query for push
@@ -92,8 +92,8 @@ public class DatabaseOperation {
             // Creating ResultSet type to pull data from database
             ResultSet resultSet = statement.executeQuery(query);
 
-            if(resultSet.next()){
-                return new Student(resultSet.getString(0),resultSet.getString(1),resultSet.getBinaryStream(2),studentEmail,resultSet.getString(4));
+            if (resultSet.next()) {
+                return new Student(resultSet.getString(0), resultSet.getString(1), resultSet.getBinaryStream(2), studentEmail, resultSet.getString(4));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -102,8 +102,8 @@ public class DatabaseOperation {
         return null;
     }
 
-    public void change_student_password(String studentEmail,String newPassword){
-        try{
+    public void change_student_password(String studentEmail, String newPassword) {
+        try {
 
             //Writing SQL query for update
             String query = "UPDATE Student set studentPassword = \'" + newPassword + "\' where studentEmail = \'" + studentEmail + "\'";
@@ -112,11 +112,11 @@ public class DatabaseOperation {
             statement = con.createStatement();
             statement.executeUpdate(query);
 
-            JOptionPane.showMessageDialog(null,"Your Password Has Been Changed Correctly");
+            JOptionPane.showMessageDialog(null, "Your Password Has Been Changed Correctly");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Your Password Was Not Changed Correctly");
+            JOptionPane.showMessageDialog(null, "Your Password Was Not Changed Correctly");
         }
     }
 
@@ -147,7 +147,7 @@ public class DatabaseOperation {
             statement = con.createStatement();
             resultSet = statement.executeQuery(query);
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return resultSet.getInt(1);
             }
 
@@ -158,7 +158,7 @@ public class DatabaseOperation {
         return -1;
     }
 
-    public void confirmed_new_stundet(String studentEmail){
+    public void confirmed_new_stundet(String studentEmail) {
 
         try {
             String query = "UPDATE Student set studentConfirmationCheck = 1 where studentEmail = \'" + studentEmail + "\'";
@@ -172,12 +172,12 @@ public class DatabaseOperation {
 
     }
 
-    public void push_product(String productName, String  productCategory, double productPrice,
+    public void push_product(String productName, String productCategory, double productPrice,
                              String productSeller, String productDescription, ArrayList<String> productPhotos) {
 
         try {
             String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription) VALUES (" +
-                    "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + "\'"  +
+                    "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + "\'" +
                     productSeller + "\',\'" + productDescription + "\');";
 
             statement = con.createStatement();
@@ -189,12 +189,12 @@ public class DatabaseOperation {
 
             int productID = 0;
 
-            if(set.next()) {
+            if (set.next()) {
                 productID = set.getInt(0);
             }
 
             // Push photo
-            for(int i = 0; i < productPhotos.size(); i++) {
+            for (int i = 0; i < productPhotos.size(); i++) {
                 String photo_query = "INSERT INTO ProductPhotos VALUES (" + productID + ",?);";
 
                 preparedStatement = con.prepareStatement(photo_query);
@@ -222,9 +222,9 @@ public class DatabaseOperation {
             statement = con.createStatement();
             ResultSet set = statement.executeQuery(query);
 
-            while(set.next()) {
+            while (set.next()) {
                 return new Product(set.getInt(0), set.getString(1), set.getString(2), photos,
-                        set.getDouble(3), comments, pull_student(set.getString(4))  , set.getString(5));
+                        set.getDouble(3), comments, pull_student(set.getString(4)), set.getString(5));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -239,8 +239,8 @@ public class DatabaseOperation {
             ResultSet photo_set = statement.executeQuery("SELECT productPhotos FROM ProductPhotos WHERE productID = " + productID + ";");
             ArrayList<ImageIcon> photos = new ArrayList<>();
 
-            while(photo_set.next()) {
-                ImageIcon icon = new ImageIcon(ImageIO.read(photo_set.getBinaryStream("productPhotos"))) ;
+            while (photo_set.next()) {
+                ImageIcon icon = new ImageIcon(ImageIO.read(photo_set.getBinaryStream("productPhotos")));
                 photos.add(icon);
             }
 
@@ -272,7 +272,7 @@ public class DatabaseOperation {
 
             ArrayList<String> comments = new ArrayList<>();
 
-            while(set.next()) {
+            while (set.next()) {
                 comments.add(set.getString("productComments"));
             }
 
@@ -340,4 +340,94 @@ public class DatabaseOperation {
         return null;
     }
 
+    public ResultSet book_category() {
+        try {
+            String query = "SELECT * FROM Product WHERE productName =\" book \";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+
+            return set;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+
+    }
+    public ResultSet book_photos() {
+        try {
+            String query = "SELECT * FROM ProductPhotos WHERE productName =\" book \";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+
+            return set;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+
+    }
+    public ResultSet ticket_category() {
+        try {
+            String query = "SELECT * FROM Product WHERE productCategory =\" ticket \";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+
+            return set;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+
+    }
+    public ResultSet ticket_photos() {
+        try {
+            String query = "SELECT * FROM ProductPhotos WHERE productCategory =\" ticket \";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+
+            return set;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+
+    }
+    public ResultSet furniture_category() {
+        try {
+            String query = "SELECT * FROM Product WHERE productCategory =\" furniture \";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+
+            return set;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+
+    }
+    public ResultSet furniture_photos() {
+        try {
+            String query = "SELECT * FROM ProductPhotos WHERE productCategory =\" furniture \";";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+
+            return set;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+
+    }
 }

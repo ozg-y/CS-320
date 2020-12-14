@@ -174,12 +174,6 @@ public class Garage {
             }
         });
 
-        /*String[] productOrder = { "Newest first", "Oldest first", "Most expensive first", "Cheapest first" };
-        filterComboBox = new JComboBox(productOrder);
-        filterComboBox.setSelectedIndex(0);
-        productPanel.add(filterComboBox);
-
-         */
 
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -335,8 +329,38 @@ public class Garage {
         product11.addMouseListener(listener);
         product1.addMouseListener(listener);
     }
+    //************************************************************
+    public void Refresh(){
+        for(int i = 0; i < productImages.size();i++){
+            productButtons.get(i).setIcon(productImages.get(i));
+        }
+    }
+    //************************************************************
     public JPanel getProductPanel() {
         return productPanel;
     }
 
+    public ArrayList<JButton> getProductButtons() {
+        return productButtons;
+    }
+
+    public void setProductButtons(ArrayList<JButton> productButtons) {
+        this.productButtons = productButtons;
+    }
+
+    public ArrayList<Integer> getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(ArrayList<Integer> productIds) {
+        this.productIds = productIds;
+    }
+
+    public ArrayList<ImageIcon> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(ArrayList<ImageIcon> productImages) {
+        this.productImages = productImages;
+    }
 }
