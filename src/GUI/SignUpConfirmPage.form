@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="821" height="590"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-5131855"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="4a4dc" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -13,7 +15,9 @@
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-5131855"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="32bb1" class="javax.swing.JLabel">
@@ -21,7 +25,8 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Calibri" size="18" style="1"/>
+              <font size="18" style="1"/>
+              <foreground color="-6094769"/>
               <text value="Confirmation Code"/>
             </properties>
           </component>
@@ -37,17 +42,19 @@
           </hspacer>
         </children>
       </grid>
-      <grid id="26f35" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="26f35" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="true"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-5131855"/>
+        </properties>
         <border type="none"/>
         <children>
           <hspacer id="1fcb3">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
           <component id="207f7" class="javax.swing.JTextField" binding="code">
@@ -56,16 +63,41 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-16768928"/>
+              <foreground color="-1"/>
+              <text value=""/>
+            </properties>
           </component>
-          <component id="c9f35" class="javax.swing.JButton" binding="button1" default-binding="true">
+          <component id="c9f35" class="javax.swing.JButton" binding="submitButton">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-6094769"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <font size="20" style="1"/>
+              <foreground color="-1"/>
+              <opaque value="true"/>
               <text value="Submit"/>
             </properties>
           </component>
+          <vspacer id="39f24">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="a296">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="cd5b2">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
         </children>
       </grid>
       <grid id="e2113" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -73,7 +105,9 @@
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-5131855"/>
+        </properties>
         <border type="none"/>
         <children/>
       </grid>
@@ -82,7 +116,9 @@
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-5131855"/>
+        </properties>
         <border type="none"/>
         <children/>
       </grid>

@@ -4,8 +4,11 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
@@ -56,9 +59,24 @@ public class SignUpPage {
                     frame.revalidate();
                 }
             }
-
-
         });
+
+        signUpButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                signUpButton.setBackground(Color.white);
+                signUpButton.setForeground(new Color(163,0,80));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                signUpButton.setBackground(new Color(163,0,80));
+                signUpButton.setForeground(Color.white);
+            }
+        });
+
         photoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
