@@ -1,6 +1,9 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.concurrent.atomic.AtomicReference;import GUI.LPanel;
 import Model.DatabaseOperation;
 import javax.swing.*;
@@ -45,10 +48,8 @@ public class HomePage {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
-            login = new LoginPage(frame, operation);
-            frame.add(login.getMainPanel());
-
         });
+
     }
 }
 
