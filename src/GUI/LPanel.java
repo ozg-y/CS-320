@@ -4,13 +4,9 @@ import Model.DatabaseOperation;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,17 +51,17 @@ public class LPanel {
                 ProductPage productp = new ProductPage();
                 frame.getContentPane().removeAll();
                 frame.repaint();
-                frame.getContentPane().add(productp.getProductppanel());
+                frame.getContentPane().add(productp.getProductPPanel());
                 frame.revalidate();
             }
         });
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProfilePage profilep = new ProfilePage();
+                ProfilePage profilep = new ProfilePage(frame, operation);
                 frame.getContentPane().removeAll();
                 frame.repaint();
-                frame.getContentPane().add(profilep.getProfileppanel());
+                frame.getContentPane().add(profilep.getProfilePPanel());
                 frame.revalidate();
             }
         });
