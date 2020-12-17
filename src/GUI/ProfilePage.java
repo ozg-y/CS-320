@@ -1,33 +1,52 @@
 package GUI;
 
+import Model.DatabaseOperation;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
-import GUI.LPanel;
+
 public class ProfilePage {
     private JButton profilePhotoButton;
     private JButton changePasswordButton;
-    private JPanel profileppanel;
+    private JPanel profilePPanel;
+    private JLabel name;
+    private JLabel email;
+    private File photo;
 
-    public JPanel getProfileppanel(){
-        return profileppanel;
+    public JPanel getProfilePPanel(){
+        return profilePPanel;
     }
 
-    public ProfilePage() {
+    public ProfilePage(JFrame frame, DatabaseOperation operation) {
+
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JFileChooser j = new JFileChooser();
+                j.showSaveDialog(null);
+                photo = j.getSelectedFile();
+                ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+                profilePhotoButton.setText(null);
+                profilePhotoButton.setBackground(new java.awt.Color(187,187,187));
+                profilePhotoButton.setOpaque(true);
+                profilePhotoButton.setBorderPainted(false);
+                profilePhotoButton.setIcon(icon);
             }
         });
         changePasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ChangePasswordPage passwordPage = new ChangePasswordPage(frame, operation);
+                frame.getContentPane().removeAll();
+                frame.repaint();
+                frame.getContentPane().add(passwordPage.getPasswordPanel());
+                frame.revalidate();
             }
         });
 

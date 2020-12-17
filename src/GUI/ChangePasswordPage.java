@@ -14,10 +14,15 @@ public class ChangePasswordPage {
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private JButton changePasswordButton;
+    private JPanel passwordPanel;
     private Student student;
     private DatabaseOperation operation;
 
-    public ChangePasswordPage() {
+    public JPanel getPasswordPanel() {
+        return passwordPanel;
+    }
+
+    public ChangePasswordPage(JFrame frame,DatabaseOperation operation) {
         Student student= new Student();
         this.student=student;
         changePasswordButton.addActionListener(new ActionListener() {
