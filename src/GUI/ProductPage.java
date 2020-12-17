@@ -7,6 +7,8 @@ public class ProductPage {
     private JEditorPane productDetails;
     private JEditorPane productComments;
     private JPanel productppanel;
+    private JTextField textField1;
+    private JButton commentButton;
 
     public JPanel getProductppanel(){
         return productppanel;
