@@ -45,7 +45,7 @@ public class Garage {
     int imageArrayIndex = 0;
     int nextProduct = 0;
 
-    public Garage(DatabaseOperation operation){
+    public Garage(JFrame frame, DatabaseOperation operation){
 
         this.operation = operation;
 
@@ -139,8 +139,13 @@ public class Garage {
 
             int selectedProductIndex = productButtons.indexOf((JButton)e.getSource()) + ((nextProduct)*12);
 
-            // todo GetProductDetails() with specific index
-            System.out.println(productIds.get(selectedProductIndex));
+            // todo ProductPage() with specific index
+            int productID = productIds.get(selectedProductIndex);
+            ProductPage productp = new ProductPage(productID,operation);
+            frame.getContentPane().removeAll();
+            frame.repaint();
+            frame.getContentPane().add(productp.getProductPPanel());
+            frame.revalidate();
         };
 
         // Added all buttons to getProductDetails actionListener

@@ -24,6 +24,11 @@
               <text value="ProfilePhoto"/>
             </properties>
           </component>
+          <vspacer id="93893">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
           <component id="72ddb" class="javax.swing.JButton" binding="addProductButton" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -32,11 +37,6 @@
               <text value="addProduct"/>
             </properties>
           </component>
-          <vspacer id="93893">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
         </children>
       </grid>
       <grid id="4e83d" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
