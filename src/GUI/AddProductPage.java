@@ -1,17 +1,14 @@
 package GUI;
 
 import Model.DatabaseOperation;
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -21,8 +18,8 @@ public class AddProductPage {
     private JTextField textField2;
     private JTextArea textArea1;
    // private JComboBox comboBox1;
-    private JButton ADDButton;
-    private JPanel addppanel;
+    private JButton addButton;
+    private JPanel addPanel;
     private File photo;
     private JComboBox<String> comboBox1;
     private String productPhoto;
@@ -53,7 +50,7 @@ public class AddProductPage {
             }
         });
 
-        ADDButton.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 productTitle = textField1.getText();
@@ -78,6 +75,22 @@ public class AddProductPage {
                 button1.setOpaque(true);
                 button1.setBorderPainted(false);
                 button1.setIcon(icon);
+            }
+        });
+
+        addButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                addButton.setBackground(Color.white);
+                addButton.setForeground(new Color(163,0,80));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                addButton.setBackground(new Color(163,0,80));
+                addButton.setForeground(Color.white);
             }
         });
     }

@@ -45,18 +45,12 @@ public class HomePage {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
-
             login = new LoginPage(frame, operation);
             frame.add(login.getMainPanel());
 
-
-
         });
-
     }
-
-
-    }
+}
 
 
 
