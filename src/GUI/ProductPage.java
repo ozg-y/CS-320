@@ -9,9 +9,10 @@ public class ProductPage {
     private JPanel productppanel;
     private JTextField textField1;
     private JButton commentButton;
+    private JPanel productPPanel;
 
-    public JPanel getProductppanel(){
-        return productppanel;
+    public JPanel getProductPPanel(){
+        return productPPanel;
     }
 
 }
