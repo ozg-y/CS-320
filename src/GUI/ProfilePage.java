@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.DatabaseOperation;
+import Model.Student;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,10 @@ public class ProfilePage {
     }
 
     public ProfilePage(JFrame frame, DatabaseOperation operation) {
+
+        Student student = new Student();
+        name.setText(student.getStudentName()+student.getStudentSurname());
+        email.setText(student.getStudentEmail());
 
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
