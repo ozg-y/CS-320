@@ -49,7 +49,8 @@ public class Garage {
 
         this.operation = operation;
 
-        /*product1.setBounds(0,50,100,150);
+        /*
+        product1.setBounds(0,50,100,150);
         product2.setBounds(0,50,0,50);
         product3.setBounds(0,50,0,50);
         product4.setBounds(0,50,0,50);
@@ -61,10 +62,7 @@ public class Garage {
         product10.setBounds(0,50,0,50);
         product11.setBounds(0,50,0,50);
         product12.setBounds(0,50,0,50);
-
-         */
-
-
+        */
 
         try {
 
@@ -115,8 +113,6 @@ public class Garage {
 
             File downArrow = new File("\\Icons\\Arrow-Down.png");
             downScrollButton.setIcon(new ImageIcon(downArrow.getAbsolutePath()));
-
-
 
 
             // Backup plan
