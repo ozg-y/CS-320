@@ -224,7 +224,9 @@
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-16768928"/>
+            </properties>
           </component>
         </children>
       </grid>
