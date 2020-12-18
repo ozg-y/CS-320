@@ -142,7 +142,7 @@ public class Garage {
 
             // todo ProductPage() with specific index
             int productID = productIds.get(selectedProductIndex);
-            ProductPage productp = new ProductPage(productID,operation);
+            ProductPage productp = new ProductPage(productID,operation, student);
             frame.getContentPane().removeAll();
             frame.repaint();
             frame.getContentPane().add(productp.getProductPPanel());
