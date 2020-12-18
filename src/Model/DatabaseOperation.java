@@ -93,7 +93,7 @@ public class DatabaseOperation {
             ResultSet resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-                return new Student(resultSet.getString(0), resultSet.getString(1), resultSet.getBinaryStream(2), studentEmail, resultSet.getString(4));
+                return new Student(resultSet.getString("studentName"), resultSet.getString("studentSurname"), resultSet.getBinaryStream("studentProfilePhoto"), studentEmail, resultSet.getString("studentPassword"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -227,8 +227,8 @@ public class DatabaseOperation {
             ResultSet set = statement.executeQuery(query);
 
             while (set.next()) {
-                return new Product(set.getInt(0), set.getString(1), set.getString(2), photos,
-                        set.getDouble(3), comment, pull_student(set.getString(4)), set.getString(5));
+                return new Product(set.getInt(1), set.getString(2), set.getString(3), photos,
+                        set.getDouble(4), comment, pull_student(set.getString(5)), set.getString(6));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

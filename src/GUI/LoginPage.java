@@ -47,6 +47,7 @@ public class LoginPage {
                     frame.getContentPane().removeAll();
                     frame.repaint();
 
+
                     Student student = operation.pull_student(email);
                     Garage garage = new Garage(frame,operation, student);
                     LPanel lPanel = new LPanel(frame,operation,garage, student);
