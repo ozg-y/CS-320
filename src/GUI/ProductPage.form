@@ -226,6 +226,7 @@
             </constraints>
             <properties>
               <background color="-16768928"/>
+              <text value=""/>
             </properties>
           </component>
         </children>

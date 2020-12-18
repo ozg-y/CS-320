@@ -65,6 +65,7 @@
               <background color="-16768928"/>
               <font size="20" style="1"/>
               <foreground color="-1"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="cc9de" class="javax.swing.JLabel">
