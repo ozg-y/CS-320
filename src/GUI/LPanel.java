@@ -5,9 +5,12 @@ import Model.Student;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,10 +46,20 @@ public class LPanel {
 
     public LPanel(JFrame frame,DatabaseOperation operation, Garage garage, Student student) {
 
+        File electronics = new File("\\Icons\\electronics.png");
+        ImageIcon eIcon = scaleImageIcon(150,150,electronics);
+        category1IconButton.setIcon(eIcon);
+
+        File furniture = new File("\\Icons\\electronics.png");
+        ImageIcon fIcon = scaleImageIcon(150,150,electronics);
+        category1IconButton.setIcon(fIcon);
+
+
 
         addProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 AddProductPage addProductPage = new AddProductPage(operation, student);
                 frame.getContentPane().removeAll();
                 frame.repaint();
@@ -127,6 +140,14 @@ public class LPanel {
                 }
             }
         });
+    }
+
+    public ImageIcon scaleImageIcon(int width, int height, File file)
+    {
+        ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+        Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
+        icon = new ImageIcon(transformed);
+        return icon;
     }
 
 }
