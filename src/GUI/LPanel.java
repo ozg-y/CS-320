@@ -38,8 +38,6 @@ public class LPanel {
     }
 
     void refreshGarage() {}
-    void profile() {}
-    void returnHome() {}
 
 
     public LPanel(JFrame frame,DatabaseOperation operation, Garage garage) {

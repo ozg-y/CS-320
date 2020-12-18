@@ -26,7 +26,6 @@ public class HomePage {
 
     public HomePage(DatabaseOperation operation) {
 
-
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException e) {

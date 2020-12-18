@@ -25,6 +25,8 @@ public class ProductPage {
                 operation.push_comment(productID, comment);
             }
         });
+
+        // TODO delete this actionlistener
         productPhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

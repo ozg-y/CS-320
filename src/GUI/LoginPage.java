@@ -37,7 +37,7 @@ public class LoginPage {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //todo-Burası size emanet controller team
+
                 String email=textField1.getText();
                 String password=passwordField1.getText();
                 Object obj=e.getSource();
