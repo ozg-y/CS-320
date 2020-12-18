@@ -50,7 +50,7 @@ public class LoginPage {
                     Student student = operation.pull_student(email);
                     Garage garage = new Garage(frame,operation, student);
                     LPanel lPanel = new LPanel(frame,operation,garage, student);
-                    frame.getContentPane().add(lPanel.lpanel);
+                    frame.getContentPane().add(lPanel.lPanel);
                     frame.getContentPane().add(garage.productPanel);
                     frame.pack();
                     frame.repaint();
