@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.DatabaseOperation;
+import Model.Student;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -40,16 +41,16 @@ public class LPanel {
     void refreshGarage() {}
 
 
-    public LPanel(JFrame frame,DatabaseOperation operation, Garage garage) {
+    public LPanel(JFrame frame,DatabaseOperation operation, Garage garage, Student student) {
 
 
         addProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProductPage productp = new ProductPage();
+                AddProductPage addProductPage = new AddProductPage(operation, student);
                 frame.getContentPane().removeAll();
                 frame.repaint();
-                frame.getContentPane().add(productp.getProductPPanel());
+                frame.getContentPane().add(addProductPage.getAddPanel());
                 frame.revalidate();
             }
         });

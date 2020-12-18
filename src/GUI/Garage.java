@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.DatabaseOperation;
+import Model.Student;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class Garage {
     int imageArrayIndex = 0;
     int nextProduct = 0;
 
-    public Garage(JFrame frame, DatabaseOperation operation){
+    public Garage(JFrame frame, DatabaseOperation operation, Student student){
 
         this.operation = operation;
 

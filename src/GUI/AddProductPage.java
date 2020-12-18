@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.DatabaseOperation;
+import Model.Student;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,36 +31,29 @@ public class AddProductPage {
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
     private DatabaseOperation operation;
+    private ArrayList<String> productPhotos =new ArrayList<>();
 
-    public AddProductPage(DatabaseOperation operation) {
-        comboBox1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                productCategory = (String) comboBox1.getSelectedItem();
-                if (productCategory.equals("Book")) {
-                    operation.push_product(textField1.getText(), "book", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
-                } else if (productCategory.equals("Ticket")) {
+    public JPanel getAddPanel() {
+        return addPanel;
+    }
 
-                    operation.push_product(textField1.getText(), "ticket", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
-
-                } else if (productCategory.equals("Furniture")) {
-
-                    operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
-
-                }
-            }
-        });
+    public AddProductPage(DatabaseOperation operation, Student student) {
 
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                productTitle = textField1.getText();
-                productPrice = Double.parseDouble(textField2.getText());
-                productDescription = textArea1.getText();
-                productCategory = (String)comboBox1.getSelectedItem();
+                productCategory = (String) comboBox1.getSelectedItem();
+                if (productCategory.equals("Book")) {
+                    operation.push_product(textField1.getText(), "book", Double.parseDouble(textField2.getText()),student.getStudentEmail(), textArea1.getText(),productPhotos);
+                } else if (productCategory.equals("Ticket")) {
 
-                operation.push_product(productTitle,productCategory,productPrice,productSeller,productDescription,productPhoto);
+                    operation.push_product(textField1.getText(), "ticket", Double.parseDouble(textField2.getText()),student.getStudentEmail(), textArea1.getText(),productPhotos);
 
+                } else if (productCategory.equals("Furniture")) {
+
+                    operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText()),student.getStudentEmail(), textArea1.getText(),productPhotos);
+
+                }
             }
         });
 
@@ -70,6 +64,7 @@ public class AddProductPage {
                 j.showSaveDialog(null);
                 photo = j.getSelectedFile();
                 ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+                productPhotos.add(photo.getAbsolutePath());
                 button1.setText(null);
                 button1.setBackground(new java.awt.Color(187,187,187));
                 button1.setOpaque(true);

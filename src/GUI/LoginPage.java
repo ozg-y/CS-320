@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import Model.Student;
 
 import Model.DatabaseOperation;
 
@@ -46,9 +47,9 @@ public class LoginPage {
 
                     frame.getContentPane().removeAll();
                     frame.repaint();
-
-                    Garage garage = new Garage(frame,operation);
-                    LPanel lPanel = new LPanel(frame,operation,garage);
+                    Student student = operation.pull_student(email);
+                    Garage garage = new Garage(frame,operation, student);
+                    LPanel lPanel = new LPanel(frame,operation,garage, student);
                     frame.getContentPane().add(lPanel.lpanel);
                     frame.getContentPane().add(garage.productPanel);
                     frame.revalidate();
