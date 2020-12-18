@@ -35,7 +35,7 @@ public class Garage {
     private JButton downScrollButton;
     private JButton upScrollButton;
     private JTextField searchBar;
-    private JButton refreshButtonButton;
+    private JButton refreshButton;
     private JComboBox<String> filterComboBox;
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
@@ -329,6 +329,22 @@ public class Garage {
         product10.addMouseListener(listener);
         product11.addMouseListener(listener);
         product1.addMouseListener(listener);
+
+        refreshButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                refreshButton.setBackground(Color.white);
+                refreshButton.setForeground(new Color(163,0,80));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                refreshButton.setBackground(new Color(163,0,80));
+                refreshButton.setForeground(Color.white);
+            }
+        });
     }
     //************************************************************
     public void Refresh(){

@@ -16,7 +16,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -26,7 +26,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -36,7 +36,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -46,7 +46,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -58,6 +58,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -69,6 +70,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -78,7 +80,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -88,7 +90,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <contentAreaFilled value="true"/>
           <text value=""/>
         </properties>
@@ -99,7 +101,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -109,7 +111,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -119,7 +121,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -130,17 +132,28 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-5131855"/>
-          <foreground color="-9211021"/>
+          <background color="-16768928"/>
+          <caretColor color="-1"/>
+          <disabledTextColor color="-1"/>
+          <font size="20" style="1"/>
+          <foreground color="-1"/>
+          <inheritsPopupMenu value="false"/>
         </properties>
       </component>
-      <component id="dbc39" class="javax.swing.JButton" binding="refreshButtonButton" default-binding="true">
+      <component id="dbc39" class="javax.swing.JButton" binding="refreshButton">
         <constraints>
           <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-5131855"/>
-          <text value="RefreshButton"/>
+          <actionCommand value="refreshButton"/>
+          <background color="-6094768"/>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <defaultCapable value="false"/>
+          <font size="20" style="1"/>
+          <foreground color="-1"/>
+          <opaque value="true"/>
+          <text value="Refresh"/>
         </properties>
       </component>
       <component id="e85c5" class="javax.swing.JButton" binding="product10">
@@ -149,7 +162,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -158,9 +171,13 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-5131855"/>
-          <foreground color="-9211021"/>
+          <background color="-6094768"/>
+          <doubleBuffered value="false"/>
+          <font size="20" style="1"/>
+          <foreground color="-1"/>
+          <inheritsPopupMenu value="false"/>
           <model/>
+          <popupVisible value="false"/>
         </properties>
       </component>
       <component id="da1bb" class="javax.swing.JButton" binding="product11">
@@ -169,7 +186,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <text value=""/>
         </properties>
       </component>
@@ -179,7 +196,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <contentAreaFilled value="true"/>
           <foreground color="-1"/>
           <text value=""/>
