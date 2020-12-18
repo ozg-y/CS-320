@@ -41,12 +41,13 @@ public class HomePage {
         SwingUtilities.invokeLater(() -> {
 
             frame = new JFrame("Program");
-            frame.setSize(1600, 900);
-            frame.setResizable(false);
+            frame.setSize(800, 1000);
+            frame.setResizable(true);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-
+            login = new LoginPage(frame, operation);
+            frame.add(login.getMainPanel());
         });
 
     }
