@@ -50,20 +50,10 @@ public class Garage {
 
         this.operation = operation;
 
-        /*
-        product1.setBounds(0,50,100,150);
-        product2.setBounds(0,50,0,50);
-        product3.setBounds(0,50,0,50);
-        product4.setBounds(0,50,0,50);
-        product5.setBounds(0,50,0,50);
-        product6.setBounds(0,50,0,50);
-        product7.setBounds(0,50,0,50);
-        product8.setBounds(0,50,0,50);
-        product9.setBounds(0,50,0,50);
-        product10.setBounds(0,50,0,50);
-        product11.setBounds(0,50,0,50);
-        product12.setBounds(0,50,0,50);
-        */
+       filterComboBox.addItem("Most expensive first");
+       filterComboBox.addItem("Cheapest first");
+       filterComboBox.addItem("Oldest first");
+       filterComboBox.addItem("Newest first");
 
         try {
 
