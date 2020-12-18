@@ -17,6 +17,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
+          <doubleBuffered value="false"/>
         </properties>
         <border type="none"/>
         <children>
@@ -157,8 +158,12 @@
             </constraints>
             <properties>
               <background color="-6094769"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <defaultCapable value="false"/>
               <font size="18" style="1"/>
               <foreground color="-1"/>
+              <opaque value="true"/>
               <text value="Sign Up"/>
             </properties>
           </component>
