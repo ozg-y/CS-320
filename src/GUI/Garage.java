@@ -119,6 +119,15 @@ public class Garage {
 //            product11.setIcon(images.get(imageArrayIndex++));
 //            product12.setIcon(images.get(imageArrayIndex++));
 
+
+
+            for (JButton but : productButtons) {
+                if (but.getIcon() == null) {
+                    but.setEnabled(false);
+                    but.setOpaque(false);
+                }
+            }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (IOException e) {
@@ -278,7 +287,7 @@ public class Garage {
                             operation.statement = operation.con.createStatement();
                             myRst = operation.statement.executeQuery(sql);
 
-                            while(myRst.next()){
+                            while(myRst.next()) {
                                 InputStream x = (myRst.getBinaryStream("productPhotos"));
                                 Image image = ImageIO.read(x);
                                 ImageIcon icon = new ImageIcon(image);
@@ -291,6 +300,7 @@ public class Garage {
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
+
                 }
             }
         });

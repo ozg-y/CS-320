@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,26 +31,22 @@ public class LPanel {
     private JButton category3IconButton;
     private JButton profilePhotoButton;
     private JButton addProductButton;
-    public JPanel lpanel;
+    public JPanel lPanel;
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
 
-    public JPanel getLpanel(){
-        return lpanel;
-    }
 
     void refreshGarage() {}
 
 
     public LPanel(JFrame frame,DatabaseOperation operation, Garage garage) {
 
-        File electronics = new File("\\Icons\\electronics.png");
-        ImageIcon eIcon = scaleImageIcon(150,150,electronics);
+
+        ImageIcon eIcon = scaleFile(150,150,"electronics.png");
         category1IconButton.setIcon(eIcon);
 
-        File furniture = new File("\\Icons\\electronics.png");
-        ImageIcon fIcon = scaleImageIcon(150,150,electronics);
-        category1IconButton.setIcon(fIcon);
+        ImageIcon fIcon = scaleFile(150,150,"furniture.png");
+        category2IconButton.setIcon(fIcon);
 
 
 
@@ -140,12 +135,14 @@ public class LPanel {
         });
     }
 
-    public ImageIcon scaleImageIcon(int width, int height, File file)
-    {
+    public static ImageIcon scaleFile(int width, int height, String filename) {
+        String path = System.getProperty("user.dir");
+        File file = new File(path + "\\src\\Icons\\" + filename);
         ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-        Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
+        Image transformed = icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH);
         icon = new ImageIcon(transformed);
         return icon;
     }
+
 
 }

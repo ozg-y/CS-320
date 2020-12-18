@@ -32,37 +32,37 @@ public class AddProductPage {
     private DatabaseOperation operation;
 
     public AddProductPage(DatabaseOperation operation) {
-        comboBox1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                productCategory = (String) comboBox1.getSelectedItem();
-                if (productCategory.equals("Book")) {
-                    operation.push_product(textField1.getText(), "book", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
-                } else if (productCategory.equals("Ticket")) {
-
-                    operation.push_product(textField1.getText(), "ticket", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
-
-                } else if (productCategory.equals("Furniture")) {
-
-                    operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
-
-                }
-            }
-        });
-
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                productTitle = textField1.getText();
-                productPrice = Double.parseDouble(textField2.getText());
-                productDescription = textArea1.getText();
-                productCategory = (String)comboBox1.getSelectedItem();
-
-                operation.push_product(productTitle,productCategory,productPrice,productSeller,productDescription,productPhoto);
-
-            }
-        });
-
+//        comboBox1.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                productCategory = (String) comboBox1.getSelectedItem();
+//                if (productCategory.equals("Book")) {
+//                    operation.push_product(textField1.getText(), "book", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
+//                } else if (productCategory.equals("Ticket")) {
+//
+//                    operation.push_product(textField1.getText(), "ticket", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
+//
+//                } else if (productCategory.equals("Furniture")) {
+//
+//                    operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText(), productSeller, textArea1.getText()));
+//
+//                }
+//            }
+//        });
+//
+//        addButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                productTitle = textField1.getText();
+//                productPrice = Double.parseDouble(textField2.getText());
+//                productDescription = textArea1.getText();
+//                productCategory = (String)comboBox1.getSelectedItem();
+//
+//                operation.push_product(productTitle,productCategory,productPrice,productSeller,productDescription,productPhoto);
+//
+//            }
+//        });
+//
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
