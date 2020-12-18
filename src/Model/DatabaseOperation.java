@@ -215,16 +215,20 @@ public class DatabaseOperation {
 
     public Product pull_product(int productID) {
         try {
-            ArrayList<String> comments = pull_comment(productID);       // comments
+            ArrayList<Comment> comments = pull_comment(productID);       // comments
             ArrayList<ImageIcon> photos = pull_product_photos(productID);       // product_photos
+            ArrayList<String> comment = new ArrayList<>();
 
+            for(Comment c : comments){
+                comment.add(c.comment);
+            }
             String query = "SELECT * FROM Product WHERE productID = " + productID + ";";
             statement = con.createStatement();
             ResultSet set = statement.executeQuery(query);
 
             while (set.next()) {
                 return new Product(set.getInt(0), set.getString(1), set.getString(2), photos,
-                        set.getDouble(3), comments, pull_student(set.getString(4)), set.getString(5));
+                        set.getDouble(3), comment, pull_student(set.getString(4)), set.getString(5));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -252,10 +256,11 @@ public class DatabaseOperation {
         return null;
     }
 
-    public void push_comment(int productID, String comment) {
+    public void push_comment(int productID, String comment, String StudentEmail) {
+
         try {
 
-            String query = "INSERT INTO ProductComments (productID, productComments) VALUES (" + productID + "," + "\'" + comment + "\'" + ");";
+            String query = "INSERT INTO ProductComments (productID, StudentEmail, productComments) VALUES (" + productID + "," + "\'" + StudentEmail + "\'" + "\'" + comment + "\'" + ");";
             statement = con.createStatement();
             statement.execute(query);
 
@@ -264,16 +269,17 @@ public class DatabaseOperation {
         }
     }
 
-    public ArrayList<String> pull_comment(int productID) {
+    public ArrayList<Comment> pull_comment(int productID) {
         try {
-            String query = "SELECT productComments FROM ProductComments WHERE productID =" + productID + ";";
+            String query = "SELECT * FROM ProductComments WHERE productID =" + productID + ";";
             statement = con.createStatement();
             ResultSet set = statement.executeQuery(query);
 
-            ArrayList<String> comments = new ArrayList<>();
+            ArrayList<Comment> comments = new ArrayList<>();
 
             while (set.next()) {
-                comments.add(set.getString("productComments"));
+                Comment comment=new Comment(set.getString("StudentEmail"),set.getString("productComments"));
+                comments.add(comment);
             }
 
             return comments;

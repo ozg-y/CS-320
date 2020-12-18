@@ -30,14 +30,14 @@
               <text value="ProductPhoto"/>
             </properties>
           </component>
-          <component id="134a0" class="javax.swing.JLabel">
+          <component id="134a0" class="javax.swing.JLabel" binding="productName">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="18" style="1"/>
               <foreground color="-16768928"/>
-              <text value="Name"/>
+              <text value=""/>
             </properties>
           </component>
           <vspacer id="9dab3">
@@ -73,14 +73,14 @@
               <text value="Seller"/>
             </properties>
           </component>
-          <component id="2bd1e" class="javax.swing.JLabel">
+          <component id="2bd1e" class="javax.swing.JLabel" binding="sellerInfoLabel">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="16" style="0"/>
               <foreground color="-16777216"/>
-              <text value="Label"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="ecdd5" class="javax.swing.JLabel">
@@ -93,19 +93,19 @@
               <text value="Price"/>
             </properties>
           </component>
-          <component id="dd7a6" class="javax.swing.JLabel">
+          <component id="dd7a6" class="javax.swing.JLabel" binding="productPrice">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="16" style="0"/>
               <foreground color="-16777216"/>
-              <text value="Label"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="6c32d" class="javax.swing.JLabel">
             <constraints>
-              <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="14"/>
@@ -174,18 +174,6 @@
           <foreground color="-16777216"/>
         </properties>
       </component>
-      <component id="c3c81" class="javax.swing.JEditorPane" binding="productComments">
-        <constraints>
-          <grid row="0" column="6" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-5131855"/>
-          <foreground color="-16777216"/>
-          <text value=""/>
-        </properties>
-      </component>
       <grid id="f8aa3" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
@@ -231,6 +219,21 @@
           </component>
         </children>
       </grid>
+      <scrollpane id="d58c2">
+        <constraints>
+          <grid row="0" column="6" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="eb41c" class="javax.swing.JEditorPane" binding="productComments">
+            <constraints/>
+            <properties>
+              <background color="-5131855"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>
