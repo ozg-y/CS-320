@@ -1,11 +1,15 @@
 package GUI;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 import Model.DatabaseOperation;
 
 public class LoginPage {
@@ -14,6 +18,8 @@ public class LoginPage {
     private JButton loginButton;
     private JButton signUpButton;
     private JPanel MainPanel;
+    private JPanel topPanel;
+    private JLabel iconLabel;
     private DatabaseOperation operation;
 
 
@@ -23,6 +29,10 @@ public class LoginPage {
 
     public LoginPage(JFrame frame, DatabaseOperation operation) {
         this.operation = operation;
+
+        File ozuLogo = new File("\\Icons\\ozu_logo.png");
+        iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
+
 
         loginButton.addActionListener(new ActionListener() {
             @Override
