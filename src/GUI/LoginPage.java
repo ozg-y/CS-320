@@ -1,15 +1,14 @@
 package GUI;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import Model.Student;
+
 
 import Model.DatabaseOperation;
 
@@ -30,8 +29,8 @@ public class LoginPage {
 
     public LoginPage(JFrame frame, DatabaseOperation operation) {
         this.operation = operation;
-
-        File ozuLogo = new File("\\Icons\\ozu_logo.png");
+        String path = System.getProperty("user.dir");
+        File ozuLogo = new File(path+ "\\src\\Icons\\ozu_logo.jpg");
         iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
 
 
@@ -47,11 +46,14 @@ public class LoginPage {
 
                     frame.getContentPane().removeAll();
                     frame.repaint();
+
                     Student student = operation.pull_student(email);
                     Garage garage = new Garage(frame,operation, student);
                     LPanel lPanel = new LPanel(frame,operation,garage, student);
                     frame.getContentPane().add(lPanel.lpanel);
                     frame.getContentPane().add(garage.productPanel);
+                    frame.pack();
+                    frame.repaint();
                     frame.revalidate();
                 } else{
                     JOptionPane.showMessageDialog(null, "Wrong data entered.");
