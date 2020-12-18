@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.DatabaseOperation;
+import Model.Student;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class LPanel {
     void refreshGarage() {}
 
 
-    public LPanel(JFrame frame,DatabaseOperation operation, Garage garage) {
+    public LPanel(JFrame frame,DatabaseOperation operation, Garage garage, Student student) {
 
         File electronics = new File("\\Icons\\electronics.png");
         ImageIcon eIcon = scaleImageIcon(150,150,electronics);
@@ -58,10 +59,11 @@ public class LPanel {
         addProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProductPage productPage = new ProductPage();
+
+                AddProductPage addProductPage = new AddProductPage(operation, student);
                 frame.getContentPane().removeAll();
                 frame.repaint();
-                frame.getContentPane().add(productPage.getProductPPanel());
+                frame.getContentPane().add(addProductPage.getAddPanel());
                 frame.revalidate();
             }
         });
