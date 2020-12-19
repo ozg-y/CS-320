@@ -21,6 +21,7 @@ public class ProductPage {
     private JLabel productPrice;
     private JLabel productName;
     private JEditorPane productComments;
+    private JLabel productPhotoLabel;
     private File photo;
     private Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
@@ -31,7 +32,7 @@ public class ProductPage {
 
         String finishedComment="";
         product=operation.pull_product(productID);
-
+        productPhotoLabel.setIcon(product.getProductPhotos().get(0));
         productName.setText(product.getProductName());
         sellerInfoLabel.setText(product.getProductSeller().getStudentEmail());
         productPrice.setText(Double.toString(product.getProductPrice()));
@@ -51,21 +52,6 @@ public class ProductPage {
             }
         });
 
-        // TODO delete this actionlistener
-        productPhotoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser j = new JFileChooser();
-                j.showSaveDialog(null);
-                photo = j.getSelectedFile();
-                ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
-                productPhotoButton.setText(null);
-                productPhotoButton.setBackground(new java.awt.Color(187,187,187));
-                productPhotoButton.setOpaque(true);
-                productPhotoButton.setBorderPainted(false);
-                productPhotoButton.setIcon(icon);
-            }
-        });
     }
 
     public JPanel getProductPPanel(){

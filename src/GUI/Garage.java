@@ -138,14 +138,20 @@ public class Garage {
         ActionListener getProductDetails = e -> {
 
             int selectedProductIndex = productButtons.indexOf((JButton)e.getSource()) + ((nextProduct)*12);
-
-            // todo ProductPage() with specific index
             int productID = productIds.get(selectedProductIndex);
             ProductPage productp = new ProductPage(productID,operation, student);
+
             frame.getContentPane().removeAll();
+            frame.setLayout(new BorderLayout());
             frame.repaint();
-            frame.getContentPane().add(productp.getProductPPanel());
+
+            LPanel lPanel = new LPanel(frame,operation,this, student);
+            frame.getContentPane().add(productp.getProductPPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+            frame.pack();
+            frame.repaint();
             frame.revalidate();
+            frame.setSize(1400, 900);
         };
 
         // Added all buttons to getProductDetails actionListener
