@@ -24,10 +24,9 @@ public class ProfilePage {
         return profilePPanel;
     }
 
-    public ProfilePage(JFrame frame, DatabaseOperation operation) {
+    public ProfilePage(JFrame frame, DatabaseOperation operation, Student student) {
 
-        Student student = new Student();
-        name.setText(student.getStudentName()+student.getStudentSurname());
+        name.setText(student.getStudentName() + " " + student.getStudentSurname());
         email.setText(student.getStudentEmail());
 
         profilePhotoButton.addActionListener(new ActionListener() {
