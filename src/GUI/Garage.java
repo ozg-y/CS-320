@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import static GUI.LPanel.scaleFile;
+
 public class Garage {
 
     public JPanel productPanel;
@@ -98,12 +100,12 @@ public class Garage {
             }
 
 
+            ImageIcon upIcon = scaleFile(20,20,"Arrow-Up.png");
+            upScrollButton.setIcon(upIcon);
 
-            File upArrow = new File("\\Icons\\Arrow-Up.png");
-            upScrollButton.setIcon(new ImageIcon(upArrow.getAbsolutePath()));
 
-            File downArrow = new File("\\Icons\\Arrow-Down.png");
-            downScrollButton.setIcon(new ImageIcon(downArrow.getAbsolutePath()));
+            ImageIcon downIcon = scaleFile(20,20,"Arrow-Down.png");
+            downScrollButton.setIcon(downIcon);
 
 
             // Backup plan
