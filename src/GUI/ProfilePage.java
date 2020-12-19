@@ -46,7 +46,7 @@ public class ProfilePage {
         changePasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangePasswordPage passwordPage = new ChangePasswordPage(frame, operation);
+                ChangePasswordPage passwordPage = new ChangePasswordPage(frame, operation,student);
                 frame.getContentPane().removeAll();
                 frame.repaint();
                 frame.getContentPane().add(passwordPage.getPasswordPanel());

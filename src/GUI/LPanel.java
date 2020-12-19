@@ -37,11 +37,7 @@ public class LPanel {
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
 
 
-    void refreshGarage() {}
-
-
     public LPanel(JFrame frame,DatabaseOperation operation, Garage garage, Student student) {
-
 
         profilePhotoButton.setIcon(student.getStudentProfilePhoto());
 
@@ -50,9 +46,6 @@ public class LPanel {
 
         ImageIcon fIcon = scaleFile(150,150,"furniture.png");
         category2IconButton.setIcon(fIcon);
-
-
-
 
         addProductButton.addActionListener(new ActionListener() {
             @Override
