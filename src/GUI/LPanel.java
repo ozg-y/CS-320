@@ -68,7 +68,7 @@ public class LPanel {
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProfilePage profilep = new ProfilePage(frame, operation);
+                ProfilePage profilep = new ProfilePage(frame, operation, student);
                 frame.getContentPane().removeAll();
                 frame.repaint();
                 frame.getContentPane().add(profilep.getProfilePPanel());
@@ -148,6 +148,4 @@ public class LPanel {
         icon = new ImageIcon(transformed);
         return icon;
     }
-
-
 }
