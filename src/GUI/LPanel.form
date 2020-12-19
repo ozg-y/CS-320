@@ -26,7 +26,7 @@
             </constraints>
             <properties>
               <background color="-5131855"/>
-              <text value="ProfilePhoto"/>
+              <text value=""/>
             </properties>
           </component>
           <vspacer id="93893">

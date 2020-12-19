@@ -37,7 +37,11 @@ public class AddProductPage {
         return addPanel;
     }
 
-    public AddProductPage(DatabaseOperation operation, Student student) {
+    public AddProductPage(DatabaseOperation operation, Student student,JFrame frame) {
+
+        comboBox1.addItem("Furniture");
+        comboBox1.addItem("Ticket");
+        comboBox1.addItem("Book");
 
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -54,6 +58,11 @@ public class AddProductPage {
                     operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText()),student.getStudentEmail(), textArea1.getText(),productPhotos);
 
                 }
+
+                frame.getContentPane().removeAll();
+
+
+
             }
         });
 

@@ -177,7 +177,7 @@ public class DatabaseOperation {
 
         try {
             String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription) VALUES (" +
-                    "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + "\'" +
+                    "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + ",\'" +
                     productSeller + "\',\'" + productDescription + "\');";
 
             statement = con.createStatement();
@@ -185,12 +185,12 @@ public class DatabaseOperation {
 
             // Gets the last inserted productID
             statement = con.createStatement();
-            ResultSet set = statement.executeQuery("SELECT productID FROM  Product GROUP BY productID ORDER BY DESC");
+            ResultSet set = statement.executeQuery("SELECT productID FROM Product ORDER BY productID DESC");
 
             int productID = 0;
 
             if (set.next()) {
-                productID = set.getInt(0);
+                productID = set.getInt(1);
             }
 
             // Push photo

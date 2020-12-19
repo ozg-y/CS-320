@@ -43,6 +43,8 @@ public class LPanel {
     public LPanel(JFrame frame,DatabaseOperation operation, Garage garage, Student student) {
 
 
+        profilePhotoButton.setIcon(student.getStudentProfilePhoto());
+
         ImageIcon eIcon = scaleFile(150,150,"electronics.png");
         category1IconButton.setIcon(eIcon);
 
@@ -51,11 +53,12 @@ public class LPanel {
 
 
 
+
         addProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                AddProductPage addProductPage = new AddProductPage(operation, student);
+                AddProductPage addProductPage = new AddProductPage(operation, student,frame);
                 frame.getContentPane().removeAll();
                 frame.repaint();
                 frame.getContentPane().add(addProductPage.getAddPanel());
