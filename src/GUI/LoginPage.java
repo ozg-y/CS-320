@@ -2,10 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import Model.Student;
 
@@ -33,6 +30,7 @@ public class LoginPage {
         File ozuLogo = new File(path+ "\\src\\Icons\\ozu_logo.jpg");
         iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
 
+        frame.getRootPane().setDefaultButton(loginButton);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -45,13 +43,14 @@ public class LoginPage {
                     JOptionPane.showMessageDialog(null, "Logged in.");
 
                     frame.getContentPane().removeAll();
+                    frame.setLayout(new BorderLayout());
                     frame.repaint();
 
                     Student student = operation.pull_student(email);
                     Garage garage = new Garage(frame,operation, student);
                     LPanel lPanel = new LPanel(frame,operation,garage, student);
-                    frame.getContentPane().add(lPanel.lPanel);
-                    frame.getContentPane().add(garage.productPanel);
+                    frame.getContentPane().add(garage.productPanel, BorderLayout.CENTER);
+                    frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
                     frame.pack();
                     frame.repaint();
                     frame.revalidate();
