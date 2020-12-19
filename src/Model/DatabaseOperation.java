@@ -260,7 +260,7 @@ public class DatabaseOperation {
 
         try {
 
-            String query = "INSERT INTO ProductComments (productID, StudentEmail, productComments) VALUES (" + productID + "," + "\'" + StudentEmail + "\'" + "\'" + comment + "\'" + ");";
+            String query = "INSERT INTO ProductComments (productID, StudentEmail, productComments) VALUES (" + productID + "," + "\'" + StudentEmail + "\'," + "\'" + comment + "\'" + ");";
             statement = con.createStatement();
             statement.execute(query);
 
