@@ -52,92 +52,34 @@ public class Garage {
 
         this.operation = operation;
 
-       filterComboBox.addItem("Most expensive first");
-       filterComboBox.addItem("Cheapest first");
-       filterComboBox.addItem("Oldest first");
-       filterComboBox.addItem("Newest first");
+        filterComboBox.addItem("Most expensive first");
+        filterComboBox.addItem("Cheapest first");
+        filterComboBox.addItem("Oldest first");
+        filterComboBox.addItem("Newest first");
 
-        try {
+        // Adding product button to ArrayList(productButtons)
+        productButtons.add(product1);
+        productButtons.add(product2);
+        productButtons.add(product3);
+        productButtons.add(product4);
+        productButtons.add(product5);
+        productButtons.add(product6);
+        productButtons.add(product7);
+        productButtons.add(product8);
+        productButtons.add(product9);
+        productButtons.add(product10);
+        productButtons.add(product11);
+        productButtons.add(product12);
 
-            // Adding productID's in a ArrayList(productIDs) from database
-            String query = "SELECT productID FROM Product GROUP BY productID ORDER BY productID DESC";
-            Statement statement = operation.con.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+        ImageIcon upIcon = scaleFile(20,20,"Arrow-Up.png");
+        upScrollButton.setIcon(upIcon);
 
-            while (resultSet.next()) {
-                productIds.add(resultSet.getInt("productID"));
-            }
+        ImageIcon downIcon = scaleFile(20,20,"Arrow-Down.png");
+        downScrollButton.setIcon(downIcon);
 
-            // Adding productID's in a ArrayList(productImages) from database
-            query = "SELECT productPhotos FROM ProductPhotos GROUP BY productID ORDER BY productID DESC ;";
-            statement = operation.con.createStatement();
-            resultSet = statement.executeQuery(query);
+       update_garage("ALL");
 
-            while (resultSet.next()) {
-                InputStream x = (resultSet.getBinaryStream("productPhotos"));
-                Image image = ImageIO.read(x);
-                ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
-                productImages.add(icon);
-            }
-
-            // Adding product button to ArrayList(productButtons)
-            productButtons.add(product1);
-            productButtons.add(product2);
-            productButtons.add(product3);
-            productButtons.add(product4);
-            productButtons.add(product5);
-            productButtons.add(product6);
-            productButtons.add(product7);
-            productButtons.add(product8);
-            productButtons.add(product9);
-            productButtons.add(product10);
-            productButtons.add(product11);
-            productButtons.add(product12);
-
-            // Setting Icons to proper product
-            for(int i = 0;i<productImages.size();i++){
-                productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-            }
-
-
-            ImageIcon upIcon = scaleFile(20,20,"Arrow-Up.png");
-            upScrollButton.setIcon(upIcon);
-
-
-            ImageIcon downIcon = scaleFile(20,20,"Arrow-Down.png");
-            downScrollButton.setIcon(downIcon);
-
-
-            // Backup plan
-//            product1.setIcon(images.get(imageArrayIndex++));
-//            product2.setIcon(images.get(imageArrayIndex++));
-//            product3.setIcon(images.get(imageArrayIndex++));
-//            product4.setIcon(images.get(imageArrayIndex++));
-//            product5.setIcon(images.get(imageArrayIndex++));
-//            product6.setIcon(images.get(imageArrayIndex++));
-//            product7.setIcon(images.get(imageArrayIndex++));
-//            product8.setIcon(images.get(imageArrayIndex++));
-//            product9.setIcon(images.get(imageArrayIndex++));
-//            product10.setIcon(images.get(imageArrayIndex++));
-//            product11.setIcon(images.get(imageArrayIndex++));
-//            product12.setIcon(images.get(imageArrayIndex++));
-
-
-
-            for (JButton but : productButtons) {
-                if (but.getIcon() == null) {
-                    but.setEnabled(false);
-                    but.setOpaque(false);
-                }
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ActionListener getProductDetails = e -> {
+       ActionListener getProductDetails = e -> {
 
             int selectedProductIndex = productButtons.indexOf((JButton)e.getSource()) + ((nextProduct)*12);
             int productID = productIds.get(selectedProductIndex);
@@ -183,7 +125,69 @@ public class Garage {
             }
         });
 
+        // filter based on title -> product Name
+        searchBar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String search_request = e.getActionCommand();
+                productIds.removeAll(productIds);
+                productImages.removeAll(productImages);
+                imageArrayIndex = 0;
 
+                try {
+                    String query = "SELECT productID FROM Product WHERE productName = \'" + search_request + "\';";
+
+                    Statement statement = operation.con.createStatement();
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    while (resultSet.next()) {
+                        productIds.add(resultSet.getInt("productID"));
+                    }
+
+
+                    // Adding all of the photos that match the search request
+                    // Finding photos based on previously identified productID
+                    for(int i : productIds) {
+                        query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
+                        statement = operation.con.createStatement();
+                        resultSet = statement.executeQuery(query);
+
+                        while (resultSet.next()) {
+                            InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                            Image image = ImageIO.read(x);
+                            ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
+                            productImages.add(icon);
+                        }
+                    }
+
+                    for(int i = 0; i < productButtons.size(); i++){
+                        productButtons.get(i).setIcon(null);
+                    }
+
+                    System.out.println("image size : " + productImages.size());
+                    for(int i = 0; i < productImages.size(); i++){
+                        productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                    }
+
+                    System.out.println("No errors until this point");
+                    for (JButton but : productButtons) {
+                        if (but.getIcon() == null) {
+                            but.setEnabled(false);
+                            but.setOpaque(false);
+                        }
+                    }
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+            }
+        });
+
+        // TODO FilterComboBox doesn't work -> should be fixed
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String productOrder = (String)filterComboBox.getSelectedItem();
@@ -313,6 +317,7 @@ public class Garage {
                 }
             }
         });
+
         MouseAdapter listener = new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -355,6 +360,53 @@ public class Garage {
             }
         });
     }
+
+
+    public void update_garage(String condition) {
+        if (condition.equals("ALL")) {
+            try {
+
+                // Adding productID's in a ArrayList(productIDs) from database
+                String query = "SELECT productID FROM Product GROUP BY productID ORDER BY productID DESC";
+                Statement statement = operation.con.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    productIds.add(resultSet.getInt("productID"));
+                }
+
+                // Adding productID's in a ArrayList(productImages) from database
+                query = "SELECT productPhotos FROM ProductPhotos GROUP BY productID ORDER BY productID DESC ;";
+                statement = operation.con.createStatement();
+                resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                    Image image = ImageIO.read(x);
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
+                    productImages.add(icon);
+                }
+
+                // Setting Icons to proper product
+                for(int i = 0;i<productImages.size();i++){
+                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                }
+
+                for (JButton but : productButtons) {
+                    if (but.getIcon() == null) {
+                        but.setEnabled(false);
+                        but.setOpaque(false);
+                    }
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     //************************************************************
     public void Refresh(){
         for(int i = 0; i < productImages.size();i++){
