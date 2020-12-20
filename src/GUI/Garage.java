@@ -71,10 +71,10 @@ public class Garage {
         productButtons.add(product11);
         productButtons.add(product12);
 
-        ImageIcon upIcon = scaleFile(20,20,"Arrow-Up.png");
+        ImageIcon upIcon = scaleFile(130,30,"Arrow-Up.png");
         upScrollButton.setIcon(upIcon);
 
-        ImageIcon downIcon = scaleFile(20,20,"Arrow-Down.png");
+        ImageIcon downIcon = scaleFile(130,30,"Arrow-Down.png");
         downScrollButton.setIcon(downIcon);
 
        update_garage("ALL");
