@@ -363,6 +363,10 @@ public class Garage {
 
 
     public void update_garage(String condition) {
+        productIds.removeAll(productIds);
+        productImages.removeAll(productImages);
+        imageArrayIndex = 0;
+
         if (condition.equals("ALL")) {
             try {
 
@@ -403,6 +407,154 @@ public class Garage {
                 throwables.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        } else if (condition.equals("book")) {
+            try {
+                String query = "SELECT productID FROM Product WHERE productCategory = \'book\';";       // selects all the id's of books
+
+                Statement statement = operation.con.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    productIds.add(resultSet.getInt("productID"));
+                }
+
+
+                // Adding all of the photos that match the search request
+                // Finding photos based on previously identified productID
+                for(int i : productIds) {
+                    query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
+                    statement = operation.con.createStatement();
+                    resultSet = statement.executeQuery(query);
+
+                    while (resultSet.next()) {
+                        InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                        Image image = ImageIO.read(x);
+                        ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
+                        productImages.add(icon);
+                    }
+                }
+
+                for(int i = 0; i < productButtons.size(); i++){
+                    productButtons.get(i).setIcon(null);
+                }
+
+                System.out.println("image size : " + productImages.size());
+                for(int i = 0; i < productImages.size(); i++){
+                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                }
+
+                System.out.println("No errors until this point");
+                for (JButton but : productButtons) {
+                    if (but.getIcon() == null) {
+                        but.setEnabled(false);
+                        but.setOpaque(false);
+                    }
+                }
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+        } else if (condition.equals("furniture")) {
+            try {
+                String query = "SELECT productID FROM Product WHERE productCategory = \'furniture\';";       // selects all the id's of furniture
+
+                Statement statement = operation.con.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    productIds.add(resultSet.getInt("productID"));
+                }
+
+                // Adding all of the photos that match the search request
+                // Finding photos based on previously identified productID
+                for(int i : productIds) {
+                    query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
+                    statement = operation.con.createStatement();
+                    resultSet = statement.executeQuery(query);
+
+                    while (resultSet.next()) {
+                        InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                        Image image = ImageIO.read(x);
+                        ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
+                        productImages.add(icon);
+                    }
+                }
+
+                for(int i = 0; i < productButtons.size(); i++){
+                    productButtons.get(i).setIcon(null);
+                }
+
+                System.out.println("image size : " + productImages.size());
+                for(int i = 0; i < productImages.size(); i++){
+                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                }
+
+                System.out.println("No errors until this point");
+                for (JButton but : productButtons) {
+                    if (but.getIcon() == null) {
+                        but.setEnabled(false);
+                        but.setOpaque(false);
+                    }
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+        } else if (condition.equals("ticket")) {
+            try {
+                String query = "SELECT productID FROM Product WHERE productCategory = \'ticket\';";       // selects all the id's of ticket
+
+                Statement statement = operation.con.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    productIds.add(resultSet.getInt("productID"));
+                }
+
+                // Adding all of the photos that match the search request
+                // Finding photos based on previously identified productID
+                for(int i : productIds) {
+                    query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
+                    statement = operation.con.createStatement();
+                    resultSet = statement.executeQuery(query);
+
+                    while (resultSet.next()) {
+                        InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                        Image image = ImageIO.read(x);
+                        ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
+                        productImages.add(icon);
+                    }
+                }
+
+                for(int i = 0; i < productButtons.size(); i++){
+                    productButtons.get(i).setIcon(null);
+                }
+
+                System.out.println("image size : " + productImages.size());
+                for(int i = 0; i < productImages.size(); i++){
+                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                }
+
+                System.out.println("No errors until this point");
+                for (JButton but : productButtons) {
+                    if (but.getIcon() == null) {
+                        but.setEnabled(false);
+                        but.setOpaque(false);
+                    }
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         }
     }

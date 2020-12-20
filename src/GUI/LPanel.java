@@ -92,64 +92,27 @@ public class LPanel {
         category1IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                ResultSet set = operation.book_category();
-                 while(set.next()){
-                    productIds.add(set.getInt("productID"));
-                 }
-                    set = operation.book_photos();
-                 while(set.next()){
-                     ImageIcon icon = new ImageIcon(ImageIO.read(set.getBinaryStream("productPhotos"))) ;
-                     productImages.add(icon);
-                 }
-                 garage.setProductIds(productIds);
-                 garage.setProductImages(productImages);
-                 garage.Refresh();
-                } catch (SQLException | IOException throwables) {
-                    throwables.printStackTrace();
-                }
+                System.out.println("Lpanl started");
+                garage.update_garage("book");
+                System.out.println("Lpanl ended");
             }
         });
+
         category2IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    ResultSet set = operation.ticket_category();
-                    while(set.next()){
-                        productIds.add(set.getInt("productID"));
-                    }
-                    set = operation.ticket_photos();
-                    while(set.next()){
-                        ImageIcon icon = new ImageIcon(ImageIO.read(set.getBinaryStream("productPhotos"))) ;
-                        productImages.add(icon);
-                    }
-                    garage.setProductIds(productIds);
-                    garage.setProductImages(productImages);
-                    garage.Refresh();
-                } catch (SQLException | IOException throwables) {
-                    throwables.printStackTrace();
-                }
+                System.out.println("Lpanl started");
+                garage.update_garage("furniture");
+                System.out.println("Lpanl ended");
             }
         });
+
         category3IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    ResultSet set = operation.furniture_category();
-                    while(set.next()){
-                        productIds.add(set.getInt("productID"));
-                    }
-                    set = operation.furniture_photos();
-                    while(set.next()){
-                        ImageIcon icon = new ImageIcon(ImageIO.read(set.getBinaryStream("productPhotos"))) ;
-                        productImages.add(icon);
-                    }
-                    garage.setProductIds(productIds);
-                    garage.setProductImages(productImages);
-                    garage.Refresh();
-                } catch (SQLException | IOException throwables) {
-                    throwables.printStackTrace();
-                }
+                System.out.println("Lpanl started");
+                garage.update_garage("ticket");
+                System.out.println("Lpanl ended");
             }
         });
     }
