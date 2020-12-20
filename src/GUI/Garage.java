@@ -125,7 +125,69 @@ public class Garage {
             }
         });
 
+        // filter based on title -> product Name
+        searchBar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String search_request = e.getActionCommand();
+                productIds.removeAll(productIds);
+                productImages.removeAll(productImages);
+                imageArrayIndex = 0;
 
+                try {
+                    String query = "SELECT productID FROM Product WHERE productName = \'" + search_request + "\';";
+
+                    Statement statement = operation.con.createStatement();
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    while (resultSet.next()) {
+                        productIds.add(resultSet.getInt("productID"));
+                    }
+
+
+                    // Adding all of the photos that match the search request
+                    // Finding photos based on previously identified productID
+                    for(int i : productIds) {
+                        query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
+                        statement = operation.con.createStatement();
+                        resultSet = statement.executeQuery(query);
+
+                        while (resultSet.next()) {
+                            InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                            Image image = ImageIO.read(x);
+                            ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
+                            productImages.add(icon);
+                        }
+                    }
+
+                    for(int i = 0; i < productButtons.size(); i++){
+                        productButtons.get(i).setIcon(null);
+                    }
+
+                    System.out.println("image size : " + productImages.size());
+                    for(int i = 0; i < productImages.size(); i++){
+                        productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                    }
+
+                    System.out.println("No errors until this point");
+                    for (JButton but : productButtons) {
+                        if (but.getIcon() == null) {
+                            but.setEnabled(false);
+                            but.setOpaque(false);
+                        }
+                    }
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+            }
+        });
+
+        // TODO FilterComboBox doesn't work -> should be fixed
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String productOrder = (String)filterComboBox.getSelectedItem();
