@@ -47,10 +47,19 @@ public class ProfilePage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChangePasswordPage passwordPage = new ChangePasswordPage(frame, operation,student);
+
                 frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
                 frame.repaint();
-                frame.getContentPane().add(passwordPage.getPasswordPanel());
+
+                Garage garage = new Garage(frame, operation, student);
+                LPanel lPanel = new LPanel(frame,operation,garage, student);
+                frame.getContentPane().add(passwordPage.getPasswordPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
                 frame.revalidate();
+                frame.setSize(1400, 900);
             }
         });
 

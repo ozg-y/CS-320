@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 
-
 public class AddProductPage {
     private JButton button1;
     private JTextField textField1;
@@ -33,11 +32,14 @@ public class AddProductPage {
     private DatabaseOperation operation;
     private ArrayList<String> productPhotos =new ArrayList<>();
 
+
+
     public JPanel getAddPanel() {
         return addPanel;
     }
 
     public AddProductPage(DatabaseOperation operation, Student student,JFrame frame) {
+
 
         comboBox1.addItem("Furniture");
         comboBox1.addItem("Ticket");
