@@ -125,14 +125,13 @@ public class LPanel {
 
         if (OS.contains("Mac")) {
             File file = new File(path + "/src/Icons/" + filename);
-            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-            Image transformed = icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon(file.getAbsolutePath());Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
             return icon;
         } else {
             File file = new File(path + "\\src\\Icons\\" + filename);
             ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-            Image transformed = icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH);
+            Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
             return icon;
         }
