@@ -27,8 +27,19 @@ public class LoginPage {
     public LoginPage(JFrame frame, DatabaseOperation operation) {
         this.operation = operation;
         String path = System.getProperty("user.dir");
-        File ozuLogo = new File(path+ "\\src\\Icons\\ozu_logo.jpg");
-        iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
+        String OS = System.getProperty("os.name");
+        System.out.println(OS);
+
+        if (OS.contains("Mac")) {
+            File ozuLogo = new File(path+ "/src/Icons/ozu_logo.jpg");
+            iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
+        } else {
+            File ozuLogo = new File(path+ "\\src\\Icons\\ozu_logo.jpg");
+            iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
+        }
+
+
+
 
         frame.getRootPane().setDefaultButton(loginButton);
 

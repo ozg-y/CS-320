@@ -156,10 +156,22 @@ public class LPanel {
 
     public static ImageIcon scaleFile(int width, int height, String filename) {
         String path = System.getProperty("user.dir");
-        File file = new File(path + "\\src\\Icons\\" + filename);
-        ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-        Image transformed = icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH);
-        icon = new ImageIcon(transformed);
-        return icon;
+
+        String OS = System.getProperty("os.name");
+        System.out.println(OS);
+
+        if (OS.contains("Mac")) {
+            File file = new File(path + "/src/Icons/" + filename);
+            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+            Image transformed = icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH);
+            icon = new ImageIcon(transformed);
+            return icon;
+        } else {
+            File file = new File(path + "\\src\\Icons\\" + filename);
+            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+            Image transformed = icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH);
+            icon = new ImageIcon(transformed);
+            return icon;
+        }
     }
 }
