@@ -2,6 +2,7 @@ package Model;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.xml.transform.Result;
 import java.awt.*;
 import java.io.*;
 import java.sql.*;
@@ -343,6 +344,96 @@ public class DatabaseOperation {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return null;
+    }
+
+    public ResultSet book_id() {
+        try {
+            String query = "SELECT productID FROM Product WHERE productCategory = \'book\';";       // selects all the id's of books
+
+            statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet book_images(int book_id) {
+        try {
+            String query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + book_id + ";";
+            statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ResultSet furniture_id() {
+        try {
+            String query = "SELECT productID FROM Product WHERE productCategory = \'furniture\';";       // selects all the id's of furniture
+
+            statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet furniture_images(int furniture_id) {
+        try {
+            String query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + furniture_id + ";";
+            statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ResultSet ticket_id() {
+        try {
+            String query = "SELECT productID FROM Product WHERE productCategory = \'ticket\';";       // selects all the id's of ticket
+
+            statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet ticket_images(int ticket_id) {
+        try {
+            String query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + ticket_id + ";";
+            statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         return null;
     }
 }

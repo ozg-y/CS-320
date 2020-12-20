@@ -410,10 +410,7 @@ public class Garage {
             }
         } else if (condition.equals("book")) {
             try {
-                String query = "SELECT productID FROM Product WHERE productCategory = \'book\';";       // selects all the id's of books
-
-                Statement statement = operation.con.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
+                ResultSet resultSet = operation.book_id();
 
                 while (resultSet.next()) {
                     productIds.add(resultSet.getInt("productID"));
@@ -423,9 +420,7 @@ public class Garage {
                 // Adding all of the photos that match the search request
                 // Finding photos based on previously identified productID
                 for(int i : productIds) {
-                    query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
-                    statement = operation.con.createStatement();
-                    resultSet = statement.executeQuery(query);
+                    resultSet = operation.book_images(i);
 
                     while (resultSet.next()) {
                         InputStream x = (resultSet.getBinaryStream("productPhotos"));
@@ -461,10 +456,7 @@ public class Garage {
 
         } else if (condition.equals("furniture")) {
             try {
-                String query = "SELECT productID FROM Product WHERE productCategory = \'furniture\';";       // selects all the id's of furniture
-
-                Statement statement = operation.con.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
+                ResultSet resultSet = operation.furniture_id();
 
                 while (resultSet.next()) {
                     productIds.add(resultSet.getInt("productID"));
@@ -473,9 +465,7 @@ public class Garage {
                 // Adding all of the photos that match the search request
                 // Finding photos based on previously identified productID
                 for(int i : productIds) {
-                    query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
-                    statement = operation.con.createStatement();
-                    resultSet = statement.executeQuery(query);
+                    resultSet = operation.furniture_images(i);
 
                     while (resultSet.next()) {
                         InputStream x = (resultSet.getBinaryStream("productPhotos"));
@@ -510,10 +500,7 @@ public class Garage {
 
         } else if (condition.equals("ticket")) {
             try {
-                String query = "SELECT productID FROM Product WHERE productCategory = \'ticket\';";       // selects all the id's of ticket
-
-                Statement statement = operation.con.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
+                ResultSet resultSet = operation.ticket_id();
 
                 while (resultSet.next()) {
                     productIds.add(resultSet.getInt("productID"));
@@ -522,9 +509,7 @@ public class Garage {
                 // Adding all of the photos that match the search request
                 // Finding photos based on previously identified productID
                 for(int i : productIds) {
-                    query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
-                    statement = operation.con.createStatement();
-                    resultSet = statement.executeQuery(query);
+                    resultSet = operation.ticket_images(i);
 
                     while (resultSet.next()) {
                         InputStream x = (resultSet.getBinaryStream("productPhotos"));
