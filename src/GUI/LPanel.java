@@ -37,7 +37,11 @@ public class LPanel {
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
 
 
-    public LPanel(JFrame frame,DatabaseOperation operation, Garage garage, Student student) {
+    public JPanel getlPanel() {
+        return lPanel;
+    }
+
+    public LPanel(JFrame frame, DatabaseOperation operation, Garage garage, Student student) {
 
         profilePhotoButton.setIcon(student.getStudentProfilePhoto());
 
@@ -51,21 +55,38 @@ public class LPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                AddProductPage addProductPage = new AddProductPage(operation, student,frame);
+                AddProductPage addProductPage = new AddProductPage(operation, student, frame);
+
                 frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
                 frame.repaint();
-                frame.getContentPane().add(addProductPage.getAddPanel());
+
+                frame.getContentPane().add(addProductPage.getAddPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
                 frame.revalidate();
+                frame.setSize(1400, 900);
+
             }
         });
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ProfilePage profilep = new ProfilePage(frame, operation, student);
+
                 frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
                 frame.repaint();
-                frame.getContentPane().add(profilep.getProfilePPanel());
+
+
+                frame.getContentPane().add(profilep.getProfilePPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
                 frame.revalidate();
+                frame.setSize(1400, 900);
+
             }
         });
         category1IconButton.addActionListener(new ActionListener() {
