@@ -36,15 +36,15 @@ public class ChangePasswordPage {
                     System.out.println(newPassword1);
                     student.setStudentPassword(newPassword1);
                     operation.change_student_password(student.getStudentEmail(), newPassword1);
-                    JOptionPane.showMessageDialog(null, "Password updated.");
+                    JOptionPane.showMessageDialog(null, "Password updated.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(newPassword1.equals("") || newPassword2.equals("") || newPassword1.trim().isEmpty() || newPassword2.trim().isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Password fields cannot be blank.");
+                    JOptionPane.showMessageDialog(null, "Password fields cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
                     passwordField1.setText("");
                     passwordField2.setText("");
                 }
                 else { //if the passwords do not match each other, error
-                    JOptionPane.showMessageDialog(null, "Passwords do not match each other.");
+                    JOptionPane.showMessageDialog(null, "Passwords do not match each other.", "Error", JOptionPane.ERROR_MESSAGE);
                     passwordField1.setText("");
                     passwordField2.setText("");
                 }
