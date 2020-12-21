@@ -59,6 +59,8 @@ public class SignUpPage {
 
                         frame.getContentPane().add(confirm.getpanelC());
                         frame.revalidate();
+                     }else if(photoButton.isBorderPainted()){
+                         JOptionPane.showMessageDialog(null, "Select a photo");
                      }
                       else if (passwordField1.equals("") || passwordField2.equals("")) {
                         JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
@@ -106,6 +108,7 @@ public class SignUpPage {
                 photoButton.setOpaque(true);
                 photoButton.setBorderPainted(false);
                 photoButton.setIcon(icon);
+
             }
         });
     }
