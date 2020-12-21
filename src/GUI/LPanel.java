@@ -41,10 +41,10 @@ public class LPanel {
         ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(200,220,Image.SCALE_SMOOTH));
         profilePhotoButton.setIcon(PIcon);
 
-        ImageIcon eIcon = scaleFile(150,150,"electronics.png");
+        ImageIcon eIcon = scaleFile(200,210,"electronics.png");
         category1IconButton.setIcon(eIcon);
 
-        ImageIcon fIcon = scaleFile(150,150,"furniture.png");
+        ImageIcon fIcon = scaleFile(200,210,"furniture.png");
         category2IconButton.setIcon(fIcon);
 
         addProduct.addActionListener(new ActionListener() {

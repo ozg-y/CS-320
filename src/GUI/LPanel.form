@@ -102,7 +102,8 @@
           <horizontalTextPosition value="0"/>
           <iconTextGap value="0"/>
           <text value=""/>
-          <verticalAlignment value="1"/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="0"/>
         </properties>
       </component>
       <component id="29706" class="javax.swing.JButton" binding="category2IconButton" default-binding="true">
@@ -117,8 +118,11 @@
           <alignmentY value="0.0"/>
           <background color="-5131855"/>
           <borderPainted value="false"/>
-          <horizontalAlignment value="2"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="0"/>
         </properties>
       </component>
       <component id="fb349" class="javax.swing.JButton" binding="category1IconButton" default-binding="true">
@@ -134,7 +138,10 @@
           <background color="-5131855"/>
           <borderPainted value="false"/>
           <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="0"/>
         </properties>
       </component>
       <component id="877b9" class="javax.swing.JButton" binding="category3IconButton">
@@ -149,7 +156,8 @@
           <alignmentY value="0.0"/>
           <background color="-5131855"/>
           <borderPainted value="false"/>
-          <horizontalAlignment value="2"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
           <iconTextGap value="0"/>
           <text value=""/>
         </properties>
