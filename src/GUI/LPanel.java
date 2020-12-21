@@ -111,6 +111,21 @@ public class LPanel {
                 System.out.println("LPanel ended");
             }
         });
+
+        home.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                garage.update_garage("ALL");
+                frame.getContentPane().removeAll();
+
+                frame.getContentPane().add(garage.productPanel, BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
+            }
+        });
+
         MouseAdapter listener = new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
