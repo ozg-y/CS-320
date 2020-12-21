@@ -56,6 +56,7 @@ public class Garage {
         filterComboBox.addItem("Cheapest first");
         filterComboBox.addItem("Oldest first");
         filterComboBox.addItem("Newest first");
+        filterComboBox.setVisible(true);
 
         // Adding product button to ArrayList(productButtons)
         productButtons.add(product1);
@@ -112,7 +113,6 @@ public class Garage {
             }
         });
 
-
         upScrollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,7 +150,6 @@ public class Garage {
                         productIds.add(resultSet.getInt("productID"));
                     }
 
-
                     // Adding all of the photos that match the search request
                     // Finding photos based on previously identified productID
                     for(int i : productIds) {
@@ -171,12 +170,13 @@ public class Garage {
                         productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
                     }
 
-
                     System.out.println("No errors until this point");
-                    for (JButton but : productButtons) {
-                        if (but.getIcon() == null) {
-                            but.setEnabled(false);
-                            but.setOpaque(false);
+                    for (JButton b : productButtons) {
+                        if (b.getIcon() == null) {
+                            b.setEnabled(false);
+                        }
+                        else{
+                            b.setEnabled(true);
                         }
                     }
 
@@ -189,12 +189,12 @@ public class Garage {
             }
         });
 
-        // TODO FilterComboBox doesn't work -> should be fixed
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String productOrder = (String)filterComboBox.getSelectedItem();
+                imageArrayIndex = 0;
 
-                if(productOrder.equals("Most expensive first")){
+                if(productOrder.equals("Cheapest first")){
                     try {
                         ResultSet myRst = operation.sort_price_increasing();
 
@@ -217,6 +217,12 @@ public class Garage {
                                 productImages.add(icon);
                             }
                         }
+
+                        System.out.println("image size : " + productImages.size());
+                        for(int i = 0; i < productImages.size(); i++){
+                            productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                        }
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (IOException ioException) {
@@ -225,7 +231,7 @@ public class Garage {
 
                 }
 
-                else if(productOrder.equals("Cheapest first")){
+                else if(productOrder.equals("Most expensive first")){
                     try {
                         ResultSet myRst = operation.sort_price_decreasing();
 
@@ -248,6 +254,12 @@ public class Garage {
                                 productImages.add(icon);
                             }
                         }
+
+                        System.out.println("image size : " + productImages.size());
+                        for(int i = 0; i < productImages.size(); i++){
+                            productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                        }
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (IOException ioException) {
@@ -255,7 +267,7 @@ public class Garage {
                     }
                 }
 
-                else if(productOrder.equals("Oldest first")){
+                else if(productOrder.equals("Newest first")){
                     try {
                         ResultSet myRst = operation.sort_date_latest();
 
@@ -279,6 +291,11 @@ public class Garage {
                             }
                         }
 
+                        System.out.println("image size : " + productImages.size());
+                        for(int i = 0; i < productImages.size(); i++){
+                            productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+                        }
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (IOException ioException) {
@@ -286,12 +303,12 @@ public class Garage {
                     }
                 }
 
-                else if(productOrder.equals("Newest first")){
+                else if(productOrder.equals("Oldest first")){
                     try {
                         ResultSet myRst = operation.sort_date_earliest();
 
-                        productIds.clear();
-                        productImages.clear();
+                        productIds.removeAll(productIds);
+                        productImages.removeAll(productImages);
 
                         while (myRst.next()) {
                             productIds.add(myRst.getInt("productID"));
@@ -308,6 +325,11 @@ public class Garage {
                                 ImageIcon icon = new ImageIcon(image);
                                 productImages.add(icon);
                             }
+                        }
+
+                        System.out.println("image size : " + productImages.size());
+                        for(int i = 0; i < productImages.size(); i++){
+                            productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
                         }
 
                     } catch (SQLException throwables) {
