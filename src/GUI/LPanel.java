@@ -38,8 +38,8 @@ public class LPanel {
     }
 
     public LPanel(JFrame frame, DatabaseOperation operation, Garage garage, Student student) {
-
-        profilePhotoButton.setIcon(student.getStudentProfilePhoto());
+        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(200,220,Image.SCALE_SMOOTH));
+        profilePhotoButton.setIcon(PIcon);
 
         ImageIcon eIcon = scaleFile(150,150,"electronics.png");
         category1IconButton.setIcon(eIcon);
@@ -151,9 +151,10 @@ public class LPanel {
         String OS = System.getProperty("os.name");
         System.out.println(OS);
 
-        if (OS.contains("Mac")) {
+        if (OS.contains("Mac") || OS.contains("Linux") ) {
             File file = new File(path + "/src/Icons/" + filename);
-            ImageIcon icon = new ImageIcon(file.getAbsolutePath());Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+            Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
             return icon;
         } else {

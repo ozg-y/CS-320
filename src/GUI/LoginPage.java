@@ -32,7 +32,7 @@ public class LoginPage {
         String OS = System.getProperty("os.name");
         System.out.println(OS);
 
-        if (OS.contains("Mac")) {
+        if (OS.contains("Mac") || OS.contains("Linux")) {
             File ozuLogo = new File(path+ "/src/Icons/ozu_logo.jpg");
             iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
         } else {
