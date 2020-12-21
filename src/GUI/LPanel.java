@@ -3,15 +3,13 @@ package GUI;
 import Model.DatabaseOperation;
 import Model.Student;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LPanel {
@@ -23,15 +21,13 @@ public class LPanel {
     private JButton tickets;
     private JButton furniture;
     private JButton other;
-    private JButton addProduct;
     private JComboBox filter;
-    private JButton refresh;
     private JButton home;
     private JButton category1IconButton;
     private JButton category2IconButton;
     private JButton category3IconButton;
     private JButton profilePhotoButton;
-    private JButton addProductButton;
+    private JButton addProduct;
     public JPanel lPanel;
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
@@ -51,7 +47,7 @@ public class LPanel {
         ImageIcon fIcon = scaleFile(150,150,"furniture.png");
         category2IconButton.setIcon(fIcon);
 
-        addProductButton.addActionListener(new ActionListener() {
+        addProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -92,29 +88,46 @@ public class LPanel {
         category1IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Lpanl started");
+                System.out.println("LPanel started");
                 garage.update_garage("book");
-                System.out.println("Lpanl ended");
+                System.out.println("LPanel ended");
             }
         });
 
         category2IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Lpanl started");
+                System.out.println("LPanel started");
                 garage.update_garage("furniture");
-                System.out.println("Lpanl ended");
+                System.out.println("LPanel ended");
             }
         });
 
         category3IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Lpanl started");
+                System.out.println("LPanel started");
                 garage.update_garage("ticket");
-                System.out.println("Lpanl ended");
+                System.out.println("LPanel ended");
             }
         });
+        MouseAdapter listener = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                ((JButton)e.getSource()).setBackground(Color.white);
+                ((JButton)e.getSource()).setForeground(new Color(163,0,80));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                ((JButton)e.getSource()).setBackground(new Color(163,0,80));
+                ((JButton)e.getSource()).setForeground(Color.white);
+            }
+        };
+        home.addMouseListener(listener);
+        addProduct.addMouseListener(listener);
     }
 
     public static ImageIcon scaleFile(int width, int height, String filename) {
