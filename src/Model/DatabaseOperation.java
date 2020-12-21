@@ -32,6 +32,7 @@ public class DatabaseOperation {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(frame, "Database Connection Fails.Try Again.");
+            System.exit(-1);
         }
     }
 
