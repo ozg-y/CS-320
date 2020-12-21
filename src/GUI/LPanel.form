@@ -121,6 +121,22 @@
           <text value=""/>
         </properties>
       </component>
+      <component id="fb349" class="javax.swing.JButton" binding="category1IconButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="200" height="210"/>
+            <preferred-size width="200" height="210"/>
+            <maximum-size width="200" height="210"/>
+          </grid>
+        </constraints>
+        <properties>
+          <alignmentY value="0.0"/>
+          <background color="-5131855"/>
+          <borderPainted value="false"/>
+          <horizontalAlignment value="0"/>
+          <text value=""/>
+        </properties>
+      </component>
       <component id="877b9" class="javax.swing.JButton" binding="category3IconButton">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
@@ -135,22 +151,6 @@
           <borderPainted value="false"/>
           <horizontalAlignment value="2"/>
           <iconTextGap value="0"/>
-          <text value=""/>
-        </properties>
-      </component>
-      <component id="fb349" class="javax.swing.JButton" binding="category1IconButton" default-binding="true">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
-            <minimum-size width="200" height="210"/>
-            <preferred-size width="200" height="210"/>
-            <maximum-size width="200" height="210"/>
-          </grid>
-        </constraints>
-        <properties>
-          <alignmentY value="0.0"/>
-          <background color="-5131855"/>
-          <borderPainted value="false"/>
-          <horizontalAlignment value="0"/>
           <text value=""/>
         </properties>
       </component>
