@@ -129,9 +129,15 @@ public class Garage {
         searchBar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                for(int i = 0; i < productButtons.size(); i++){
+                    productButtons.get(i).setIcon(null);
+                }
+
+
                 String search_request = e.getActionCommand();
-                productIds.removeAll(productIds);
-                productImages.removeAll(productImages);
+                productIds.clear();
+                productImages.clear();
                 imageArrayIndex = 0;
 
                 try {
@@ -160,14 +166,11 @@ public class Garage {
                         }
                     }
 
-                    for(int i = 0; i < productButtons.size(); i++){
-                        productButtons.get(i).setIcon(null);
-                    }
-
                     System.out.println("image size : " + productImages.size());
                     for(int i = 0; i < productImages.size(); i++){
                         productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
                     }
+
 
                     System.out.println("No errors until this point");
                     for (JButton but : productButtons) {
@@ -176,7 +179,6 @@ public class Garage {
                             but.setOpaque(false);
                         }
                     }
-
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -363,8 +365,8 @@ public class Garage {
 
 
     public void update_garage(String condition) {
-        productIds.removeAll(productIds);
-        productImages.removeAll(productImages);
+        productIds.clear();
+        productImages.clear();
         imageArrayIndex = 0;
 
         // Initializing icons on buttons
@@ -395,6 +397,7 @@ public class Garage {
                     ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
                     productImages.add(icon);
                 }
+
 
                 display_garage();
 
@@ -494,16 +497,17 @@ public class Garage {
     }
 
     public void display_garage() {
-        System.out.println("image size : " + productImages.size());
+
         for(int i = 0; i < productImages.size(); i++){
             productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
         }
 
-        System.out.println("No errors until this point");
-        for (JButton but : productButtons) {
-            if (but.getIcon() == null) {
-                but.setEnabled(false);
-                but.setOpaque(false);
+        for (JButton b : productButtons) {
+            if (b.getIcon() == null) {
+                b.setEnabled(false);
+            }
+            else{
+                b.setEnabled(true);
             }
         }
     }
