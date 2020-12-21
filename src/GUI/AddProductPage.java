@@ -62,7 +62,7 @@ public class AddProductPage {
             public void actionPerformed(ActionEvent e) {
 
                 //if no photo is uploaded, user will not be able to add a new product
-                if(button1.isBorderPainted()){
+                if(button1.getIcon()==null){
                     JOptionPane.showMessageDialog(null, "You must upload a photo to add a product.");
                 }
                 else if(textField1.getText().equals("")) { //if no title is written for the product, user will not be able to add a new product
