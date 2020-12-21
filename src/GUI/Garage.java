@@ -367,6 +367,11 @@ public class Garage {
         productImages.removeAll(productImages);
         imageArrayIndex = 0;
 
+        // Initializing icons on buttons
+        for(int i = 0; i < productButtons.size(); i++){
+            productButtons.get(i).setIcon(null);
+        }
+
         if (condition.equals("ALL")) {
             try {
 
@@ -391,17 +396,7 @@ public class Garage {
                     productImages.add(icon);
                 }
 
-                // Setting Icons to proper product
-                for(int i = 0;i<productImages.size();i++){
-                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-                }
-
-                for (JButton but : productButtons) {
-                    if (but.getIcon() == null) {
-                        but.setEnabled(false);
-                        but.setOpaque(false);
-                    }
-                }
+                display_garage();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -416,7 +411,6 @@ public class Garage {
                     productIds.add(resultSet.getInt("productID"));
                 }
 
-
                 // Adding all of the photos that match the search request
                 // Finding photos based on previously identified productID
                 for(int i : productIds) {
@@ -430,22 +424,7 @@ public class Garage {
                     }
                 }
 
-                for(int i = 0; i < productButtons.size(); i++){
-                    productButtons.get(i).setIcon(null);
-                }
-
-                System.out.println("image size : " + productImages.size());
-                for(int i = 0; i < productImages.size(); i++){
-                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-                }
-
-                System.out.println("No errors until this point");
-                for (JButton but : productButtons) {
-                    if (but.getIcon() == null) {
-                        but.setEnabled(false);
-                        but.setOpaque(false);
-                    }
-                }
+                display_garage();
 
 
             } catch (SQLException throwables) {
@@ -475,22 +454,7 @@ public class Garage {
                     }
                 }
 
-                for(int i = 0; i < productButtons.size(); i++){
-                    productButtons.get(i).setIcon(null);
-                }
-
-                System.out.println("image size : " + productImages.size());
-                for(int i = 0; i < productImages.size(); i++){
-                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-                }
-
-                System.out.println("No errors until this point");
-                for (JButton but : productButtons) {
-                    if (but.getIcon() == null) {
-                        but.setEnabled(false);
-                        but.setOpaque(false);
-                    }
-                }
+                display_garage();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -519,27 +483,27 @@ public class Garage {
                     }
                 }
 
-                for(int i = 0; i < productButtons.size(); i++){
-                    productButtons.get(i).setIcon(null);
-                }
-
-                System.out.println("image size : " + productImages.size());
-                for(int i = 0; i < productImages.size(); i++){
-                    productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-                }
-
-                System.out.println("No errors until this point");
-                for (JButton but : productButtons) {
-                    if (but.getIcon() == null) {
-                        but.setEnabled(false);
-                        but.setOpaque(false);
-                    }
-                }
+                display_garage();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+            }
+        }
+    }
+
+    public void display_garage() {
+        System.out.println("image size : " + productImages.size());
+        for(int i = 0; i < productImages.size(); i++){
+            productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+        }
+
+        System.out.println("No errors until this point");
+        for (JButton but : productButtons) {
+            if (but.getIcon() == null) {
+                but.setEnabled(false);
+                but.setOpaque(false);
             }
         }
     }
