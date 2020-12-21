@@ -115,6 +115,7 @@ public class LPanel {
         home.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                garage.pageNumber = 1;
                 garage.update_garage("ALL");
                 frame.getContentPane().removeAll();
 
