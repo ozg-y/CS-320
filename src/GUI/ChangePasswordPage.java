@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.InputMismatchException;
 
 public class ChangePasswordPage {
     private JPasswordField passwordField1;
@@ -37,7 +38,12 @@ public class ChangePasswordPage {
                     operation.change_student_password(student.getStudentEmail(), newPassword1);
                     JOptionPane.showMessageDialog(null, "Password updated.");
                 }
-                else {
+                else if(newPassword1.equals("") || newPassword2.equals("") || newPassword1.trim().isEmpty() || newPassword2.trim().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Password fields cannot be blank.");
+                    passwordField1.setText("");
+                    passwordField2.setText("");
+                }
+                else { //if the passwords do not match each other, error
                     JOptionPane.showMessageDialog(null, "Passwords do not match each other.");
                     passwordField1.setText("");
                     passwordField2.setText("");
