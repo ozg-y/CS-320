@@ -361,8 +361,10 @@ public class Garage {
         searchBar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 searchBarText = e.getActionCommand();
                 search_bar(e.getActionCommand());
+
             }
         });
 
@@ -382,6 +384,7 @@ public class Garage {
                 else if(productOrder.equals("Newest first")){
                     sort_date_latest();
                 }
+
 
                 else if(productOrder.equals("Oldest first")){
                     sort_date_earliest();

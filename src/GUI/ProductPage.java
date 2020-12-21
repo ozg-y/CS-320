@@ -47,8 +47,13 @@ public class ProductPage {
         commentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                comment = textArea1.getText();
-                operation.push_comment(productID, comment, student.getStudentEmail());
+                if(textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.");
+                }
+                else {
+                    comment = textArea1.getText();
+                    operation.push_comment(productID, comment, student.getStudentEmail());
+                }
             }
         });
 

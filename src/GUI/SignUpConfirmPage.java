@@ -44,8 +44,8 @@ public class SignUpConfirmPage {
                         code.setText("");
                         JOptionPane.showMessageDialog(null, "Incorrect Code","Error",JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
             }
         });

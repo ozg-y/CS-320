@@ -21,20 +21,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
-          <text value=""/>
-        </properties>
-      </component>
-      <component id="a8905" class="javax.swing.JButton" binding="product9">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -47,7 +34,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -87,7 +74,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <contentAreaFilled value="true"/>
           <text value=""/>
         </properties>
@@ -101,7 +88,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -115,7 +102,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -128,7 +115,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -170,19 +157,6 @@
           <text value="Refresh"/>
         </properties>
       </component>
-      <component id="e85c5" class="javax.swing.JButton" binding="product10">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-5131855"/>
-          <borderPainted value="true"/>
-          <text value=""/>
-        </properties>
-      </component>
       <component id="32891" class="javax.swing.JComboBox" binding="filterComboBox">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -195,7 +169,7 @@
           <background color="-6094768"/>
           <doubleBuffered value="false"/>
           <font size="20" style="1"/>
-          <foreground color="-1"/>
+          <foreground color="-16768928"/>
           <inheritsPopupMenu value="false"/>
           <model/>
           <popupVisible value="false"/>
@@ -211,7 +185,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <contentAreaFilled value="true"/>
           <foreground color="-1"/>
           <text value=""/>
@@ -225,7 +199,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -237,7 +211,7 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -250,7 +224,33 @@
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="e85c5" class="javax.swing.JButton" binding="product10">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="350" height="250"/>
+            <preferred-size width="350" height="250"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-5131855"/>
+          <borderPainted value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="a8905" class="javax.swing.JButton" binding="product9">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="350" height="250"/>
+            <preferred-size width="350" height="250"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-5131855"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
