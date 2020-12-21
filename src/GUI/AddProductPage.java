@@ -63,22 +63,22 @@ public class AddProductPage {
 
                 //if no photo is uploaded, user will not be able to add a new product
                 if(button1.getIcon()==null){
-                    JOptionPane.showMessageDialog(null, "You must upload a photo to add a product.");
+                    JOptionPane.showMessageDialog(null, "You must upload a photo to add a product.","Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(textField1.getText().equals("")) { //if no title is written for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "Title field cannot be blank.");
+                    JOptionPane.showMessageDialog(null, "Title field cannot be blank.","Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(textField2.getText().equals("")) {//if no price is written for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "Price field cannot be blank.");
+                    JOptionPane.showMessageDialog(null, "Price field cannot be blank.","Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(isNumeric(textField2.getText())){ //the price is not entered as a numerical value
-                    JOptionPane.showMessageDialog(null, "Price must be a numerical value.");
+                    JOptionPane.showMessageDialog(null, "Price must be a numerical value.","Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!comboBox1.isCursorSet()) {//if no label is chosen for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "You must select a label.");
+                    JOptionPane.showMessageDialog(null, "You must select a label.","Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(textArea1.getText().equals("")) {//if no description is written for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "You must provide a description for the product.");
+                    JOptionPane.showMessageDialog(null, "You must provide a description for the product.","Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else { // else push the product
 

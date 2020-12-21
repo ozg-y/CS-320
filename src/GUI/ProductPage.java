@@ -48,7 +48,7 @@ public class ProductPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()){
-                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.");
+                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else {
                     comment = textArea1.getText();
