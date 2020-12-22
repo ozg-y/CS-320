@@ -26,11 +26,11 @@ public class ProductPage {
     private Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
 
+    String finishedComment="";
+
     public ProductPage(){}
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
-
-        String finishedComment="";
         product=operation.pull_product(productID);
         productPhotoLabel.setIcon(product.getProductPhotos().get(0));
         productName.setText(product.getProductName());
@@ -51,12 +51,21 @@ public class ProductPage {
                     JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else {
+                    finishedComment = "";
                     comment = textArea1.getText();
                     operation.push_comment(productID, comment, student.getStudentEmail());
+                    comments.add(new Comment(student.getStudentName(), comment));       // updates comments
+
+                    comments=operation.pull_comment(productID);
+                    for(Comment c : comments ){
+                        finishedComment+=c.studentName + " : " + c.comment + "\n \n";
+                    }
+                    productComments.setText(finishedComment);
+
+                    productPPanel.repaint();
                 }
             }
         });
-
     }
 
     public JPanel getProductPPanel(){
