@@ -309,7 +309,6 @@ public class Garage {
             frame.pack();
             frame.repaint();
             frame.revalidate();
-            frame.setSize(1400, 900);
         };
 
         // Added all buttons to getProductDetails actionListener
