@@ -80,7 +80,7 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-                frame.setSize(1400, 900);
+
 
             }
         });
