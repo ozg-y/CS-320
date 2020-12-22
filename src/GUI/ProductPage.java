@@ -9,9 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ProductPage {
-    private JButton productPhotoButton;
     private JEditorPane productDetails;
     private String comment;
     private JPanel productPPanel;
@@ -22,16 +24,24 @@ public class ProductPage {
     private JLabel productName;
     private JEditorPane productComments;
     private JLabel productPhotoLabel;
-    private File photo;
     private Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
+    private ArrayList<Comment> pullComments = new ArrayList<>();
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    String finishedComment="";
+    int size = 0;
 
     public ProductPage(){}
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
 
-        String finishedComment="";
+
+
+
+
         product=operation.pull_product(productID);
+
         productPhotoLabel.setIcon(product.getProductPhotos().get(0));
         productName.setText(product.getProductName());
         sellerInfoLabel.setText(product.getProductSeller().getStudentEmail());
@@ -39,6 +49,11 @@ public class ProductPage {
         productDetails.setText(product.getProductDescription());
 
         comments=operation.pull_comment(productID);
+
+        size = comments.size();
+
+
+
         for(Comment c : comments ){
             finishedComment+=c.studentName + " : " + c.comment + "\n \n";
         }
@@ -49,10 +64,39 @@ public class ProductPage {
             public void actionPerformed(ActionEvent e) {
                 comment = textArea1.getText();
                 operation.push_comment(productID, comment, student.getStudentEmail());
+
+                comments = operation.pull_comment(productID);
+
+                for(Comment c : comments ){
+                    finishedComment+=c.studentName + " : " + c.comment + "\n \n";
+                }
+                productComments.setText(finishedComment);
             }
         });
 
+        scheduler.scheduleAtFixedRate(()-> {
+
+            pullComments = operation.pull_comment(productID);
+
+            System.out.println("Pull Comments size : " + pullComments.size());
+            System.out.println(" size : " + size);
+
+            if(!(pullComments.size() == size)){
+                for(int i = size;i<pullComments.size();i++)
+                    finishedComment += pullComments.get(i).studentName + " : " + pullComments.get(i).comment + "\n \n";
+
+                productComments.setText(finishedComment);
+                size++;
+            }
+
+
+
+
+        }, 5, 10, TimeUnit.SECONDS);
+
     }
+
+
 
     public JPanel getProductPPanel(){
         return productPPanel;
