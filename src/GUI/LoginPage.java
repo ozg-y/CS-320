@@ -30,7 +30,6 @@ public class LoginPage {
         this.operation = operation;
         String path = System.getProperty("user.dir");
         String OS = System.getProperty("os.name");
-        System.out.println(OS);
 
         if (OS.contains("Mac") || OS.contains("Linux")) {
             File ozuLogo = new File(path+ "/src/Icons/ozu_logo.jpg");

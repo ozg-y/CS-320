@@ -62,7 +62,6 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-                frame.setSize(1400, 900);
 
             }
         });
@@ -88,27 +87,22 @@ public class LPanel {
         category1IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("LPanel started");
                 garage.update_garage("book");
-                System.out.println("LPanel ended");
             }
         });
 
         category2IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("LPanel started");
                 garage.update_garage("furniture");
-                System.out.println("LPanel ended");
             }
         });
 
         category3IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("LPanel started");
                 garage.update_garage("ticket");
-                System.out.println("LPanel ended");
+
             }
         });
 
@@ -148,9 +142,7 @@ public class LPanel {
 
     public static ImageIcon scaleFile(int width, int height, String filename) {
         String path = System.getProperty("user.dir");
-
         String OS = System.getProperty("os.name");
-        System.out.println(OS);
 
         if (OS.contains("Mac") || OS.contains("Linux") ) {
             File file = new File(path + "/src/Icons/" + filename);

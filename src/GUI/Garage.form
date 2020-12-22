@@ -36,6 +36,7 @@
         <properties>
           <background color="-5131855"/>
           <borderPainted value="false"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>
@@ -77,6 +78,7 @@
           <background color="-5131855"/>
           <borderPainted value="false"/>
           <contentAreaFilled value="true"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>
@@ -90,6 +92,7 @@
         <properties>
           <background color="-5131855"/>
           <borderPainted value="false"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>
@@ -179,7 +182,7 @@
       </component>
       <component id="f97ee" class="javax.swing.JButton" binding="product1">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="350" height="250"/>
             <preferred-size width="350" height="250"/>
             <maximum-size width="350" height="250"/>
@@ -189,7 +192,9 @@
           <background color="-5131855"/>
           <borderPainted value="false"/>
           <contentAreaFilled value="true"/>
+          <enabled value="true"/>
           <foreground color="-1"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>

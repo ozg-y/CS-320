@@ -33,7 +33,6 @@ public class ChangePasswordPage {
                 String newPassword2=passwordField2.getText();
 
                 if(newPassword1.equals(newPassword2)){
-                    System.out.println(newPassword1);
                     student.setStudentPassword(newPassword1);
                     operation.change_student_password(student.getStudentEmail(), newPassword1);
                     JOptionPane.showMessageDialog(null, "Password updated.", "Error", JOptionPane.ERROR_MESSAGE);

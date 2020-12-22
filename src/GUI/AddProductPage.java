@@ -50,7 +50,7 @@ public class AddProductPage {
         return true;
     }
 
-    public AddProductPage(DatabaseOperation operation, Student student,JFrame frame) {
+    public AddProductPage(DatabaseOperation operation, Student student, JFrame frame) {
 
 
         comboBox1.addItem("Furniture");
@@ -108,7 +108,8 @@ public class AddProductPage {
                 JFileChooser j = new JFileChooser();
                 j.showSaveDialog(null);
                 photo = j.getSelectedFile();
-                ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+
+                ImageIcon icon = new ImageIcon(new ImageIcon(photo.getAbsolutePath()).getImage().getScaledInstance(250,250,Image.SCALE_SMOOTH));
                 productPhotos.add(photo.getAbsolutePath());
                 button1.setText(null);
                 button1.setBackground(new java.awt.Color(187,187,187));
