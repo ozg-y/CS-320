@@ -95,6 +95,18 @@ public class LPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 garage.update_garage("furniture");
+                frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
+                frame.repaint();
+
+
+                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
+                frame.setSize(1400, 900);
+
             }
         });
 
@@ -103,6 +115,24 @@ public class LPanel {
             public void actionPerformed(ActionEvent e) {
                 garage.update_garage("ticket");
 
+                category2IconButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        garage.update_garage("furniture");
+                        frame.getContentPane().removeAll();
+                        frame.setLayout(new BorderLayout());
+                        frame.repaint();
+
+
+                        frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                        frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                        frame.pack();
+                        frame.repaint();
+                        frame.revalidate();
+                        frame.setSize(1400, 900);
+
+                    }
+                });
             }
         });
 
