@@ -42,9 +42,9 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-6094769"/>
               <borderPainted value="true"/>
-              <contentAreaFilled value="true"/>
+              <contentAreaFilled value="false"/>
               <defaultCapable value="true"/>
               <doubleBuffered value="false"/>
               <enabled value="true"/>

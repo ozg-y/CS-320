@@ -31,14 +31,20 @@
         <children>
           <component id="51f8b" class="javax.swing.JButton" binding="profilePhotoButton">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="250" height="300"/>
                 <preferred-size width="250" height="300"/>
                 <maximum-size width="250" height="300"/>
               </grid>
             </constraints>
             <properties>
-              <font style="1"/>
+              <background color="-6094769"/>
+              <borderPainted value="true"/>
+              <contentAreaFilled value="false"/>
+              <font size="20" style="1"/>
+              <foreground color="-1"/>
+              <horizontalTextPosition value="0"/>
+              <opaque value="true"/>
               <rolloverEnabled value="false"/>
               <text value="Profile Photo"/>
             </properties>
@@ -71,12 +77,17 @@
             </constraints>
             <properties>
               <background color="-5131855"/>
+              <focusable value="false"/>
             </properties>
             <border type="none"/>
             <children>
               <component id="cd48e" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="95"/>
+                    <preferred-size width="-1" height="95"/>
+                    <maximum-size width="-1" height="95"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <font name="Verdana" size="20" style="1"/>
@@ -84,36 +95,53 @@
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
                   <text value="Email"/>
+                  <verticalAlignment value="0"/>
                 </properties>
               </component>
               <component id="a5581" class="javax.swing.JLabel" binding="name">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="95"/>
+                    <preferred-size width="-1" height="95"/>
+                    <maximum-size width="-1" height="95"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <font name="Verdana" size="20" style="1"/>
-                  <foreground color="-6094769"/>
-                  <text value="Label"/>
+                  <foreground color="-16768928"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="4"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="18ac7" class="javax.swing.JLabel" binding="email">
                 <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="95"/>
+                    <preferred-size width="-1" height="95"/>
+                    <maximum-size width="-1" height="95"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <background color="-12501183"/>
                   <font name="Verdana" size="20" style="1"/>
-                  <foreground color="-6094769"/>
-                  <text value="Label"/>
+                  <foreground color="-16768928"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="68458" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="95"/>
+                    <preferred-size width="-1" height="95"/>
+                    <maximum-size width="-1" height="95"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <font name="Verdana" size="20" style="1"/>
                   <foreground color="-6094769"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
                   <text value="Name - Surname"/>
                 </properties>
               </component>
@@ -137,7 +165,11 @@
         <children>
           <component id="10ea" class="javax.swing.JButton" binding="changePasswordButton" default-binding="true">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="50"/>
+                <preferred-size width="-1" height="50"/>
+                <maximum-size width="-1" height="50"/>
+              </grid>
             </constraints>
             <properties>
               <background color="-6094768"/>

@@ -33,7 +33,7 @@ public class LPanel {
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
 
 
-    public JPanel getlPanel() {
+    public JPanel getLPanel() {
         return lPanel;
     }
 
@@ -41,11 +41,14 @@ public class LPanel {
         ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(200,220,Image.SCALE_SMOOTH));
         profilePhotoButton.setIcon(PIcon);
 
-        ImageIcon eIcon = scaleFile(200,210,"electronics.png");
-        category1IconButton.setIcon(eIcon);
+        ImageIcon bIcon = scaleFile(200,210,"book.png");
+        category1IconButton.setIcon(bIcon);
 
         ImageIcon fIcon = scaleFile(200,210,"furniture.png");
         category2IconButton.setIcon(fIcon);
+
+        ImageIcon tIcon = scaleFile(200,210,"ticket.png");
+        category3IconButton.setIcon(tIcon);
 
         addProduct.addActionListener(new ActionListener() {
             @Override
@@ -68,19 +71,17 @@ public class LPanel {
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProfilePage profilep = new ProfilePage(frame, operation, student);
+                ProfilePage profilePage = new ProfilePage(frame, operation, student);
 
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
                 frame.repaint();
 
-
-                frame.getContentPane().add(profilep.getProfilePPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(profilePage.getProfilePPanel(), BorderLayout.CENTER);
                 frame.getContentPane().add(lPanel, BorderLayout.WEST);
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-
 
             }
         });
