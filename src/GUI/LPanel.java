@@ -44,7 +44,7 @@ public class LPanel {
         ImageIcon bIcon = scaleFile(200,210,"book.png");
         category1IconButton.setIcon(bIcon);
 
-        ImageIcon fIcon = scaleFile(200,210,"furniture.png");
+        ImageIcon fIcon = scaleFile(200,150,"furniture2.png");
         category2IconButton.setIcon(fIcon);
 
         ImageIcon tIcon = scaleFile(200,210,"ticket.png");
