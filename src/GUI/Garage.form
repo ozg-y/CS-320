@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.Garage">
-  <grid id="27dc6" binding="productPanel" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="productPanel" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="3" vgap="3">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="42" y="47" width="1400" height="900"/>
@@ -15,39 +15,29 @@
       <component id="6d593" class="javax.swing.JButton" binding="product4">
         <constraints>
           <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
-          <text value=""/>
-        </properties>
-      </component>
-      <component id="a8905" class="javax.swing.JButton" binding="product9">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
       <component id="46741" class="javax.swing.JButton" binding="product7">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>
@@ -79,56 +69,60 @@
       </component>
       <component id="ee368" class="javax.swing.JButton" binding="product2">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
-            <maximum-size width="350" height="250"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <contentAreaFilled value="true"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>
       <component id="83686" class="javax.swing.JButton" binding="product3">
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>
       <component id="cac45" class="javax.swing.JButton" binding="product5">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
-            <maximum-size width="350" height="250"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
       <component id="a9e3e" class="javax.swing.JButton" binding="product12">
         <constraints>
           <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
@@ -170,19 +164,6 @@
           <text value="Refresh"/>
         </properties>
       </component>
-      <component id="e85c5" class="javax.swing.JButton" binding="product10">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-5131855"/>
-          <borderPainted value="true"/>
-          <text value=""/>
-        </properties>
-      </component>
       <component id="32891" class="javax.swing.JComboBox" binding="filterComboBox">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -195,7 +176,7 @@
           <background color="-6094768"/>
           <doubleBuffered value="false"/>
           <font size="20" style="1"/>
-          <foreground color="-1"/>
+          <foreground color="-16768928"/>
           <inheritsPopupMenu value="false"/>
           <model/>
           <popupVisible value="false"/>
@@ -203,54 +184,89 @@
       </component>
       <component id="f97ee" class="javax.swing.JButton" binding="product1">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="250"/>
-            <preferred-size width="350" height="250"/>
-            <maximum-size width="350" height="250"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <contentAreaFilled value="true"/>
+          <enabled value="true"/>
           <foreground color="-1"/>
+          <horizontalTextPosition value="0"/>
           <text value=""/>
         </properties>
       </component>
       <component id="da1bb" class="javax.swing.JButton" binding="product11">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="-1" height="150"/>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
       <component id="7bc6e" class="javax.swing.JButton" binding="product8">
         <constraints>
           <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="-1" height="150"/>
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>
       <component id="d1739" class="javax.swing.JButton" binding="product6">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="350" height="200"/>
-            <preferred-size width="350" height="250"/>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5131855"/>
-          <borderPainted value="true"/>
+          <borderPainted value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="e85c5" class="javax.swing.JButton" binding="product10">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-5131855"/>
+          <borderPainted value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="a8905" class="javax.swing.JButton" binding="product9">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="345" height="245"/>
+            <preferred-size width="345" height="245"/>
+            <maximum-size width="345" height="245"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-5131855"/>
+          <borderPainted value="false"/>
           <text value=""/>
         </properties>
       </component>

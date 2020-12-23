@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.sql.SQLException;
+
 import Model.Student;
 
 
@@ -28,17 +30,14 @@ public class LoginPage {
         this.operation = operation;
         String path = System.getProperty("user.dir");
         String OS = System.getProperty("os.name");
-        System.out.println(OS);
 
-        if (OS.contains("Mac")) {
+        if (OS.contains("Mac") || OS.contains("Linux")) {
             File ozuLogo = new File(path+ "/src/Icons/ozu_logo.jpg");
             iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
         } else {
             File ozuLogo = new File(path+ "\\src\\Icons\\ozu_logo.jpg");
             iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
         }
-
-
 
 
         frame.getRootPane().setDefaultButton(loginButton);
@@ -50,25 +49,28 @@ public class LoginPage {
                 String email=textField1.getText();
                 String password=passwordField1.getText();
                 Object obj=e.getSource();
-                if(operation.checkForLogin(email,password)){
-                    JOptionPane.showMessageDialog(null, "Logged in.");
 
-                    frame.getContentPane().removeAll();
-                    frame.setLayout(new BorderLayout());
-                    frame.repaint();
+                     if(operation.checkForLogin(email,password)) {
+                         JOptionPane.showMessageDialog(null, "Logged in.");
+                         frame.getContentPane().removeAll();
+                         frame.setLayout(new BorderLayout());
+                         frame.repaint();
 
 
-                    Student student = operation.pull_student(email);
-                    Garage garage = new Garage(frame,operation, student);
-                    LPanel lPanel = new LPanel(frame,operation,garage, student);
-                    frame.getContentPane().add(garage.productPanel, BorderLayout.CENTER);
-                    frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
-                    frame.pack();
-                    frame.repaint();
-                    frame.revalidate();
-                } else{
-                    JOptionPane.showMessageDialog(null, "Wrong data entered.");
-                }
+                         Student student = operation.pull_student(email);
+                         Garage garage = new Garage(frame, operation, student);
+                         LPanel lPanel = new LPanel(frame, operation, garage, student);
+                         frame.getContentPane().add(garage.productPanel, BorderLayout.CENTER);
+                         frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+                         frame.pack();
+                         frame.repaint();
+                         frame.revalidate();
+                     } else if (email.equals("") || password.equals("")) {
+                         JOptionPane.showMessageDialog(null, "Missing data", "Error", JOptionPane.ERROR_MESSAGE);
+                     }else{
+                         JOptionPane.showMessageDialog(null, "Wrong data entered.");
+                     }
+
             }
         });
 

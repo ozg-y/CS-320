@@ -31,19 +31,22 @@ public class LPanel {
     public JPanel lPanel;
 
 
-    public JPanel getlPanel() {
+    public JPanel getLPanel() {
         return lPanel;
     }
 
     public LPanel(JFrame frame, DatabaseOperation operation, Garage garage, Student student) {
+        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(200,220,Image.SCALE_SMOOTH));
+        profilePhotoButton.setIcon(PIcon);
 
-        profilePhotoButton.setIcon(student.getStudentProfilePhoto());
+        ImageIcon bIcon = scaleFile(200,210,"book.png");
+        category1IconButton.setIcon(bIcon);
 
-        ImageIcon eIcon = scaleFile(150,150,"electronics.png");
-        category1IconButton.setIcon(eIcon);
-
-        ImageIcon fIcon = scaleFile(150,150,"furniture.png");
+        ImageIcon fIcon = scaleFile(200,150,"furniture2.png");
         category2IconButton.setIcon(fIcon);
+
+        ImageIcon tIcon = scaleFile(200,210,"ticket.png");
+        category3IconButton.setIcon(tIcon);
 
         addProduct.addActionListener(new ActionListener() {
             @Override
@@ -64,7 +67,6 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-                frame.setSize(1400, 900);
 
             }
         });
@@ -72,18 +74,54 @@ public class LPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
                 category1IconButton.setEnabled(false);
                 category2IconButton.setEnabled(false);
                 category3IconButton.setEnabled(false);
+              
+                ProfilePage profilePage = new ProfilePage(frame, operation, student);
 
-                ProfilePage profilep = new ProfilePage(frame, operation, student);
 
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
                 frame.repaint();
 
+                frame.getContentPane().add(profilePage.getProfilePPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
 
-                frame.getContentPane().add(profilep.getProfilePPanel(), BorderLayout.CENTER);
+            }
+        });
+        category1IconButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                garage.update_garage("book");
+                frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
+                frame.repaint();
+
+
+                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
+                frame.setSize(1400, 900);
+            }
+        });
+
+        category2IconButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                garage.update_garage("furniture");
+                frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
+                frame.repaint();
+
+
+                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
                 frame.getContentPane().add(lPanel, BorderLayout.WEST);
                 frame.pack();
                 frame.repaint();
@@ -92,30 +130,30 @@ public class LPanel {
 
             }
         });
-        category1IconButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("LPanel started");
-                garage.update_garage("book");
-                System.out.println("LPanel ended");
-            }
-        });
-
-        category2IconButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("LPanel started");
-                garage.update_garage("furniture");
-                System.out.println("LPanel ended");
-            }
-        });
 
         category3IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("LPanel started");
                 garage.update_garage("ticket");
-                System.out.println("LPanel ended");
+
+                category2IconButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        garage.update_garage("furniture");
+                        frame.getContentPane().removeAll();
+                        frame.setLayout(new BorderLayout());
+                        frame.repaint();
+
+
+                        frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                        frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                        frame.pack();
+                        frame.repaint();
+                        frame.revalidate();
+                        frame.setSize(1400, 900);
+
+                    }
+                });
             }
         });
 
@@ -160,13 +198,12 @@ public class LPanel {
 
     public static ImageIcon scaleFile(int width, int height, String filename) {
         String path = System.getProperty("user.dir");
-
         String OS = System.getProperty("os.name");
-        System.out.println(OS);
 
-        if (OS.contains("Mac")) {
+        if (OS.contains("Mac") || OS.contains("Linux") ) {
             File file = new File(path + "/src/Icons/" + filename);
-            ImageIcon icon = new ImageIcon(file.getAbsolutePath());Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+            Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
             return icon;
         } else {
