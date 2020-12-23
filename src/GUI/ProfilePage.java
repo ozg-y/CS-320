@@ -28,6 +28,8 @@ public class ProfilePage {
 
         name.setText(student.getStudentName() + " " + student.getStudentSurname());
         email.setText(student.getStudentEmail());
+        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(250,300,Image.SCALE_SMOOTH));
+        profilePhotoButton.setIcon(PIcon);
 
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
@@ -59,7 +61,6 @@ public class ProfilePage {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-                frame.setSize(1400, 900);
             }
         });
 
