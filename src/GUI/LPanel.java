@@ -29,8 +29,6 @@ public class LPanel {
     private JButton profilePhotoButton;
     private JButton addProduct;
     public JPanel lPanel;
-    private ArrayList<Integer> productIds = new ArrayList<>();
-    private ArrayList<ImageIcon> productImages = new ArrayList<>();
 
 
     public JPanel getlPanel() {
@@ -51,6 +49,10 @@ public class LPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                category1IconButton.setEnabled(false);
+                category2IconButton.setEnabled(false);
+                category3IconButton.setEnabled(false);
+
                 AddProductPage addProductPage = new AddProductPage(operation, student, frame);
 
                 frame.getContentPane().removeAll();
@@ -69,6 +71,11 @@ public class LPanel {
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                category1IconButton.setEnabled(false);
+                category2IconButton.setEnabled(false);
+                category3IconButton.setEnabled(false);
+
                 ProfilePage profilep = new ProfilePage(frame, operation, student);
 
                 frame.getContentPane().removeAll();
@@ -115,6 +122,11 @@ public class LPanel {
         home.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                category1IconButton.setEnabled(true);
+                category2IconButton.setEnabled(true);
+                category3IconButton.setEnabled(true);
+
                 garage.pageNumber = 1;
                 garage.update_garage("ALL");
                 frame.getContentPane().removeAll();

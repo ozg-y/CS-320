@@ -291,7 +291,7 @@ public class Garage {
         ImageIcon downIcon = scaleFile(130,30,"Arrow-Down.png");
         downScrollButton.setIcon(downIcon);
 
-       update_garage("ALL");
+        update_garage("ALL");
 
        ActionListener getProductDetails = e -> {
 
