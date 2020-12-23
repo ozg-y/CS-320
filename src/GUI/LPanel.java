@@ -42,10 +42,10 @@ public class LPanel {
         ImageIcon bIcon = scaleFile(200,210,"book.png");
         category1IconButton.setIcon(bIcon);
 
-        ImageIcon fIcon = scaleFile(200,150,"furniture2.png");
+        ImageIcon fIcon = scaleFile(250,150,"furniture2.png");
         category2IconButton.setIcon(fIcon);
 
-        ImageIcon tIcon = scaleFile(200,210,"ticket.png");
+        ImageIcon tIcon = scaleFile(135,135,"ticket.png");
         category3IconButton.setIcon(tIcon);
 
         addProduct.addActionListener(new ActionListener() {
@@ -91,7 +91,6 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-
             }
         });
         category1IconButton.addActionListener(new ActionListener() {
@@ -108,7 +107,6 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-                frame.setSize(1400, 900);
             }
         });
 
@@ -126,8 +124,6 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-                frame.setSize(1400, 900);
-
             }
         });
 

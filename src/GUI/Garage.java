@@ -452,7 +452,6 @@ public class Garage {
                     productImages.add(icon);
                 }
 
-
                 display_garage();
 
             } catch (SQLException throwables) {

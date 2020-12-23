@@ -33,8 +33,6 @@ public class ProductPage {
     String finishedComment="";
     int size = 0;
 
-    String finishedComment="";
-
     public ProductPage(){}
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
@@ -107,12 +105,13 @@ public class ProductPage {
                     productPPanel.repaint();
                 }
             }
-        });
-    }
 
     public JPanel getProductPPanel(){
         return productPPanel;
     }
 
+    }
 
-}
+
+
+
