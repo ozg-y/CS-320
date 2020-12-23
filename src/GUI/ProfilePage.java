@@ -29,7 +29,13 @@ public class ProfilePage {
         name.setText(student.getStudentName() + " " + student.getStudentSurname());
         email.setText(student.getStudentEmail());
         ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(250,300,Image.SCALE_SMOOTH));
-        profilePhotoButton.setIcon(PIcon);
+
+        if(PIcon != null){
+            profilePhotoButton.setIcon(PIcon);
+            profilePhotoButton.setText("");
+        }
+
+
 
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
