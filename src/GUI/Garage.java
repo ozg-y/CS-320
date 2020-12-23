@@ -230,7 +230,7 @@ public class Garage {
                 while (resultSet.next()) {
                     InputStream x = (resultSet.getBinaryStream("productPhotos"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(245,245, Image.SCALE_SMOOTH));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
                     productImages.add(icon);
                 }
             }
@@ -255,6 +255,7 @@ public class Garage {
         }
 
     }
+
 
 
 
@@ -296,18 +297,19 @@ public class Garage {
 
             int selectedProductIndex = productButtons.indexOf((JButton)e.getSource()) + ((pageNumber-1)*12);
             int productID = productIds.get(selectedProductIndex);
-            ProductPage productPage = new ProductPage(productID,operation, student);
+            ProductPage productp = new ProductPage(productID,operation, student);
 
             frame.getContentPane().removeAll();
             frame.setLayout(new BorderLayout());
             frame.repaint();
 
             LPanel lPanel = new LPanel(frame,operation,this, student);
-            frame.getContentPane().add(productPage.getProductPPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(productp.getProductPPanel(), BorderLayout.CENTER);
             frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
             frame.pack();
             frame.repaint();
             frame.revalidate();
+            frame.setSize(1400, 900);
         };
 
         // Added all buttons to getProductDetails actionListener
@@ -416,10 +418,11 @@ public class Garage {
 
 
     public void update_garage(String condition) {
-
         productIds.clear();
         productImages.clear();
         imageArrayIndex = 0;
+
+
 
         // Initializing icons on buttons
         for(int i = 0; i < productButtons.size(); i++){
@@ -448,7 +451,7 @@ public class Garage {
                 while (resultSet.next()) {
                     InputStream x = (resultSet.getBinaryStream("productPhotos"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(245,245, Image.SCALE_SMOOTH));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
                     productImages.add(icon);
                 }
 
@@ -479,7 +482,7 @@ public class Garage {
                     while (resultSet.next()) {
                         InputStream x = (resultSet.getBinaryStream("productPhotos"));
                         Image image = ImageIO.read(x);
-                        ImageIcon icon = new ImageIcon(image.getScaledInstance(245,245, Image.SCALE_SMOOTH));
+                        ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
                         productImages.add(icon);
                     }
                 }
@@ -512,7 +515,7 @@ public class Garage {
                     while (resultSet.next()) {
                         InputStream x = (resultSet.getBinaryStream("productPhotos"));
                         Image image = ImageIO.read(x);
-                        ImageIcon icon = new ImageIcon(image.getScaledInstance(245,245, Image.SCALE_SMOOTH));
+                        ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
                         productImages.add(icon);
                     }
                 }
@@ -544,7 +547,7 @@ public class Garage {
                     while (resultSet.next()) {
                         InputStream x = (resultSet.getBinaryStream("productPhotos"));
                         Image image = ImageIO.read(x);
-                        ImageIcon icon = new ImageIcon(image.getScaledInstance(245,245, Image.SCALE_SMOOTH));
+                        ImageIcon icon = new ImageIcon(image.getScaledInstance(250,250, Image.SCALE_SMOOTH));
                         productImages.add(icon);
                     }
                 }
@@ -575,6 +578,7 @@ public class Garage {
         }
     }
 
+    //************************************************************
     public void refresh(){
         if(functionCode == 0)
             search_bar(searchBarText);
@@ -595,7 +599,7 @@ public class Garage {
         else if (functionCode == 8)
             update_garage("ticket");
     }
-
+    //************************************************************
     public JPanel getProductPanel() {
         return productPanel;
     }

@@ -20,8 +20,8 @@ public class ProductPage {
     private JLabel sellerInfoLabel;
     private JLabel productPrice;
     private JLabel productName;
-    private JLabel productPhotoLabel;
     private JEditorPane productComments;
+    private JLabel productPhotoLabel;
     private File photo;
     private Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
