@@ -6,8 +6,6 @@
       <xy x="332" y="167" width="200" height="900"/>
     </constraints>
     <properties>
-      <alignmentX value="0.0"/>
-      <alignmentY value="0.0"/>
       <background color="-5131855"/>
       <maximumSize width="200" height="900"/>
       <minimumSize width="200" height="900"/>
@@ -18,7 +16,7 @@
       <grid id="1d99" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="true">
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="true">
             <minimum-size width="-1" height="51"/>
             <preferred-size width="-1" height="51"/>
             <maximum-size width="-1" height="51"/>
@@ -110,7 +108,7 @@
       </component>
       <component id="29706" class="javax.swing.JButton" binding="category2IconButton" default-binding="true">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="200" height="210"/>
             <preferred-size width="200" height="210"/>
             <maximum-size width="200" height="210"/>
