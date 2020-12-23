@@ -88,6 +88,17 @@ public class LPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 garage.update_garage("book");
+                frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
+                frame.repaint();
+
+
+                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
+                frame.setSize(1400, 900);
             }
         });
 
