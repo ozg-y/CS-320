@@ -95,6 +95,7 @@ public class LPanel {
         category1IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                garage.filterOption = "book";
                 garage.update_garage("book");
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
@@ -110,6 +111,7 @@ public class LPanel {
         category2IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                garage.filterOption = "furniture";
                 garage.update_garage("furniture");
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
@@ -120,29 +122,13 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
-            }
-        });
-
-        category2IconButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                garage.update_garage("furniture");
-                frame.getContentPane().removeAll();
-                frame.setLayout(new BorderLayout());
-
-
-                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
-                frame.getContentPane().add(lPanel, BorderLayout.WEST);
-                frame.pack();
-                frame.repaint();
-                frame.revalidate();
-
             }
         });
 
         category3IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                garage.filterOption = "ticket";
                 garage.update_garage("ticket");
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
