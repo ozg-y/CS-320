@@ -4,12 +4,17 @@ import Model.DatabaseOperation;
 
 import javax.swing.*;
 
+import static GUI.LPanel.scaleFile;
+
 
 public class HomePage {
 
+    private JPanel homepanel;
     public JFrame frame;
     public LoginPage login;
-    private JPanel homepanel;
+
+    ImageIcon icon = scaleFile(200,200,"OzU.png");
+
     public HomePage(DatabaseOperation operation) {
 
         try {
