@@ -1,4 +1,5 @@
 package GUI;
+
 import Model.Comment;
 import Model.DatabaseOperation;
 import Model.Product;
@@ -14,6 +15,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ProductPage {
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    String finishedComment = "";
+    int size = 0;
     private JEditorPane productDetails;
     private String comment;
     private JPanel productPPanel;
@@ -28,16 +32,11 @@ public class ProductPage {
     private Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Comment> pullComments = new ArrayList<>();
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    String finishedComment="";
-    int size = 0;
-
-    public ProductPage(){}
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
 
-        product=operation.pull_product(productID);
+        product = operation.pull_product(productID);
 
         productPhotoLabel.setIcon(product.getProductPhotos().get(0));
         productName.setText(product.getProductName());
@@ -45,14 +44,13 @@ public class ProductPage {
         productPrice.setText(Double.toString(product.getProductPrice()));
         productDetails.setText(product.getProductDescription());
 
-        comments=operation.pull_comment(productID);
+        comments = operation.pull_comment(productID);
 
         size = comments.size();
 
 
-
-        for(Comment c : comments ){
-            finishedComment+=c.studentName + " : " + c.comment + "\n \n";
+        for (Comment c : comments) {
+            finishedComment += c.studentName + " : " + c.comment + "\n \n";
         }
         productComments.setText(finishedComment);
 
@@ -64,22 +62,37 @@ public class ProductPage {
 
                 comments = operation.pull_comment(productID);
 
-                for(Comment c : comments ){
-                    finishedComment+=c.studentName + " : " + c.comment + "\n \n";
+                for (Comment c : comments) {
+                    finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
-                productComments.setText(finishedComment);
+                if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    finishedComment = "";
+                    comment = textArea1.getText();
+                    operation.push_comment(productID, comment, student.getStudentEmail());
+                    comments.add(new Comment(student.getStudentName(), comment));       // updates comments
+
+                    comments = operation.pull_comment(productID);
+                    for (Comment c : comments) {
+                        finishedComment += c.studentName + " : " + c.comment + "\n \n";
+                    }
+                    productComments.setText(finishedComment);
+
+                    productPPanel.repaint();
+                }
             }
         });
 
-        scheduler.scheduleAtFixedRate(()-> {
+        scheduler.scheduleAtFixedRate(() -> {
 
             pullComments = operation.pull_comment(productID);
 
             System.out.println("Pull Comments size : " + pullComments.size());
             System.out.println(" size : " + size);
 
-            if(!(pullComments.size() == size)){
-                for(int i = size;i<pullComments.size();i++)
+            if (!(pullComments.size() == size)) {
+                for (int i = size; i < pullComments.size(); i++)
                     finishedComment += pullComments.get(i).studentName + " : " + pullComments.get(i).comment + "\n \n";
 
                 productComments.setText(finishedComment);
@@ -87,30 +100,14 @@ public class ProductPage {
             }
         }, 5, 10, TimeUnit.SECONDS);
 
-                if(textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()){
-                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else {
-                    finishedComment = "";
-                    comment = textArea1.getText();
-                    operation.push_comment(productID, comment, student.getStudentEmail());
-                    comments.add(new Comment(student.getStudentName(), comment));       // updates comments
 
-                    comments=operation.pull_comment(productID);
-                    for(Comment c : comments ){
-                        finishedComment+=c.studentName + " : " + c.comment + "\n \n";
-                    }
-                    productComments.setText(finishedComment);
+    }
 
-                    productPPanel.repaint();
-                }
-            }
-
-    public JPanel getProductPPanel(){
+    public JPanel getProductPPanel() {
         return productPPanel;
     }
 
-    }
+}
 
 
 

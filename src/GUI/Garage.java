@@ -204,7 +204,6 @@ public class Garage {
         });
     }
 
-
     public void update_garage(String condition) {
 
         productIds.clear();
