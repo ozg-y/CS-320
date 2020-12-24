@@ -1,26 +1,20 @@
 package GUI;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.concurrent.atomic.AtomicReference;import GUI.LPanel;
 import Model.DatabaseOperation;
+
 import javax.swing.*;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static GUI.LPanel.scaleFile;
 
 
 public class HomePage {
 
     private JPanel homepanel;
-
-    public JPanel getHomepanel() {
-        return homepanel;
-    }
-
-
     public JFrame frame;
     public LoginPage login;
+
+    ImageIcon icon = scaleFile(200,200,"OzU.png");
 
 
 
@@ -50,6 +44,10 @@ public class HomePage {
             frame.add(login.getMainPanel());
         });
 
+    }
+
+    public JPanel getHomepanel() {
+        return homepanel;
     }
 }
 
