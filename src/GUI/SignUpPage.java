@@ -115,7 +115,6 @@ public class SignUpPage {
 
     }
 
-
     public int sendEmail(String to, String from) {
 
         // Creating properties for email that we will send
