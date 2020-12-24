@@ -1,6 +1,8 @@
 package GUI;
 
 
+import Model.DatabaseOperation;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -11,10 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
-import Model.DatabaseOperation;
 
 public class SignUpPage {
     public JPanel signUpPanel;
@@ -32,11 +32,11 @@ public class SignUpPage {
     private String studentEmail;
     private File photo;
 
-    public SignUpPage(JFrame frame,DatabaseOperation operation) {
+    public SignUpPage(JFrame frame, DatabaseOperation operation) {
 
         this.operation = operation;
 
-        signUpButton.addActionListener (new ActionListener() {
+        signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String password1 = passwordField1.getText();
@@ -80,6 +80,7 @@ public class SignUpPage {
                         JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
                       }
                 }
+            }
 
 
         });
@@ -89,13 +90,13 @@ public class SignUpPage {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 signUpButton.setBackground(Color.white);
-                signUpButton.setForeground(new Color(163,0,80));
+                signUpButton.setForeground(new Color(163, 0, 80));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                signUpButton.setBackground(new Color(163,0,80));
+                signUpButton.setBackground(new Color(163, 0, 80));
                 signUpButton.setForeground(Color.white);
             }
         });
@@ -108,7 +109,7 @@ public class SignUpPage {
                 photo = j.getSelectedFile();
                 ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
                 photoButton.setText(null);
-                photoButton.setBackground(new java.awt.Color(187,187,187));
+                photoButton.setBackground(new java.awt.Color(187, 187, 187));
                 photoButton.setOpaque(true);
                 photoButton.setBorderPainted(false);
                 photoButton.setIcon(icon);
@@ -117,7 +118,7 @@ public class SignUpPage {
         });
     }
 
-    public int sendEmail(String to,String from){
+    public int sendEmail(String to, String from) {
 
         // Creating properties for email that we will send
         Properties properties = new Properties();
@@ -158,12 +159,12 @@ public class SignUpPage {
             // Send message
             Transport.send(message);
 
-            JOptionPane.showMessageDialog(null,"Email Sent Correctly");
+            JOptionPane.showMessageDialog(null, "Email Sent Correctly");
 
             return confirmationCode;
 
         } catch (MessagingException mex) { // Email Error
-            JOptionPane.showMessageDialog(null,"Email Couldn't Send It In Properly","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Email Couldn't Send It In Properly", "Error", JOptionPane.ERROR_MESSAGE);
             mex.printStackTrace();
         }
         return 0;

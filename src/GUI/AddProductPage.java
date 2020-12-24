@@ -17,7 +17,7 @@ public class AddProductPage {
     private JTextField textField1;
     private JTextField textField2;
     private JTextArea textArea1;
-   // private JComboBox comboBox1;
+    // private JComboBox comboBox1;
     private JButton addButton;
     private JPanel addPanel;
     private File photo;
@@ -30,25 +30,8 @@ public class AddProductPage {
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
     private DatabaseOperation operation;
-    private ArrayList<String> productPhotos =new ArrayList<>();
+    private ArrayList<String> productPhotos = new ArrayList<>();
 
-
-
-    public JPanel getAddPanel() {
-        return addPanel;
-    }
-
-    public static boolean isNumeric(String str) {
-        if (str == null) {
-            return false;
-        }
-        try {
-            double d = Double.parseDouble(str);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
 
     public AddProductPage(DatabaseOperation operation, Student student, JFrame frame) {
 
@@ -62,25 +45,19 @@ public class AddProductPage {
             public void actionPerformed(ActionEvent e) {
 
                 //if no photo is uploaded, user will not be able to add a new product
-                if(button1.getIcon()==null){
-                    JOptionPane.showMessageDialog(null, "You must upload a photo to add a product.","Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(textField1.getText().equals("")) { //if no title is written for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "Title field cannot be blank.","Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(textField2.getText().equals("")) {//if no price is written for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "Price field cannot be blank.","Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(isNumeric(textField2.getText())){ //the price is not entered as a numerical value
-                    JOptionPane.showMessageDialog(null, "Price must be a numerical value.","Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(!comboBox1.isCursorSet()) {//if no label is chosen for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "You must select a label.","Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(textArea1.getText().equals("")) {//if no description is written for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "You must provide a description for the product.","Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else { // else push the product
+                if (button1.getIcon() == null) {
+                    JOptionPane.showMessageDialog(null, "You must upload a photo to add a product.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (textField1.getText().equals("")) { //if no title is written for the product, user will not be able to add a new product
+                    JOptionPane.showMessageDialog(null, "Title field cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (textField2.getText().equals("")) {//if no price is written for the product, user will not be able to add a new product
+                    JOptionPane.showMessageDialog(null, "Price field cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (isNumeric(textField2.getText())) { //the price is not entered as a numerical value
+                    JOptionPane.showMessageDialog(null, "Price must be a numerical value.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (!comboBox1.isCursorSet()) {//if no label is chosen for the product, user will not be able to add a new product
+                    JOptionPane.showMessageDialog(null, "You must select a label.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (textArea1.getText().equals("")) {//if no description is written for the product, user will not be able to add a new product
+                    JOptionPane.showMessageDialog(null, "You must provide a description for the product.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else { // else push the product
 
                     productCategory = (String) comboBox1.getSelectedItem();
                     if (productCategory.equals("Book")) {
@@ -109,10 +86,10 @@ public class AddProductPage {
                 j.showSaveDialog(null);
                 photo = j.getSelectedFile();
 
-                ImageIcon icon = new ImageIcon(new ImageIcon(photo.getAbsolutePath()).getImage().getScaledInstance(250,250,Image.SCALE_SMOOTH));
+                ImageIcon icon = new ImageIcon(new ImageIcon(photo.getAbsolutePath()).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH));
                 productPhotos.add(photo.getAbsolutePath());
                 button1.setText(null);
-                button1.setBackground(new java.awt.Color(187,187,187));
+                button1.setBackground(new java.awt.Color(187, 187, 187));
                 button1.setOpaque(true);
                 button1.setBorderPainted(false);
                 button1.setIcon(icon);
@@ -125,15 +102,31 @@ public class AddProductPage {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 addButton.setBackground(Color.white);
-                addButton.setForeground(new Color(163,0,80));
+                addButton.setForeground(new Color(163, 0, 80));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                addButton.setBackground(new Color(163,0,80));
+                addButton.setBackground(new Color(163, 0, 80));
                 addButton.setForeground(Color.white);
             }
         });
+    }
+
+    public static boolean isNumeric(String str) {
+        if (str == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(str);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    public JPanel getAddPanel() {
+        return addPanel;
     }
 }
