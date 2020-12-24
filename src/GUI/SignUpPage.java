@@ -1,6 +1,9 @@
 package GUI;
 
 
+import Model.DatabaseOperation;
+import org.apache.commons.validator.routines.EmailValidator;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -11,10 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
-import Model.DatabaseOperation;
 
 public class SignUpPage {
     public JPanel signUpPanel;
@@ -32,52 +33,52 @@ public class SignUpPage {
     private String studentEmail;
     private File photo;
 
-    public SignUpPage(JFrame frame,DatabaseOperation operation) {
+    public SignUpPage(JFrame frame, DatabaseOperation operation) {
 
         this.operation = operation;
 
-        signUpButton.addActionListener (new ActionListener() {
+        signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String password1 = passwordField1.getText();
                 String password2 = passwordField2.getText();
+                boolean b = isValidEmail(textField1.getText());
+                if (!b) {
+                    JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
 
-                     if (password1.equals(password2)) {
-                        studentName = textField2.getText();
-                        studentSurname = textField3.getText();
-                        studentProfilePhoto = photo.getAbsolutePath();
-                        studentEmail = textField1.getText();
+                } else if (password1.equals(password2)) {
+                    studentName = textField2.getText();
+                    studentSurname = textField3.getText();
+                    studentProfilePhoto = photo.getAbsolutePath();
+                    studentEmail = textField1.getText();
 
-                        operation.push_student(studentName, studentSurname, studentProfilePhoto, studentEmail, password1);
-                        int confirmationCode = sendEmail(studentEmail, "ozyegingarage@gmail.com");
-                        operation.push_student_confirmation(studentEmail, confirmationCode);
+                    operation.push_student(studentName, studentSurname, studentProfilePhoto, studentEmail, password1);
+                    int confirmationCode = sendEmail(studentEmail, "ozyegingarage@gmail.com");
+                    operation.push_student_confirmation(studentEmail, confirmationCode);
 
 
-                        SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, studentEmail);
-                        frame.getContentPane().removeAll();
-                        frame.repaint();
+                    SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, studentEmail);
+                    frame.getContentPane().removeAll();
+                    frame.repaint();
 
-                        frame.getContentPane().add(confirm.getpanelC());
-                        frame.revalidate();
-                     }else if(photoButton.isBorderPainted()){
-                         JOptionPane.showMessageDialog(null, "Select a photo");
-                     }
-                      else if (passwordField1.equals("") || passwordField2.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
-                      } else if (textField2.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
-                      }else if (textField3.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
-                      }else if (textField1.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
-                         }else {
-                        passwordField1.setText("");
-                        passwordField2.setText("");
-                        JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
-                      }
+                    frame.getContentPane().add(confirm.getpanelC());
+                    frame.revalidate();
+                } else if (photoButton.isBorderPainted()) {
+                    JOptionPane.showMessageDialog(null, "Select a photo");
+                } else if (password1.equals("") || password2.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (textField2.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (textField3.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (textField1.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    passwordField1.setText("");
+                    passwordField2.setText("");
+                    JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-
+            }
         });
 
         signUpButton.addMouseListener(new MouseAdapter() {
@@ -85,13 +86,13 @@ public class SignUpPage {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 signUpButton.setBackground(Color.white);
-                signUpButton.setForeground(new Color(163,0,80));
+                signUpButton.setForeground(new Color(163, 0, 80));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                signUpButton.setBackground(new Color(163,0,80));
+                signUpButton.setBackground(new Color(163, 0, 80));
                 signUpButton.setForeground(Color.white);
             }
         });
@@ -104,16 +105,17 @@ public class SignUpPage {
                 photo = j.getSelectedFile();
                 ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
                 photoButton.setText(null);
-                photoButton.setBackground(new java.awt.Color(187,187,187));
+                photoButton.setBackground(new java.awt.Color(187, 187, 187));
                 photoButton.setOpaque(true);
                 photoButton.setBorderPainted(false);
                 photoButton.setIcon(icon);
 
             }
         });
+
     }
 
-    public int sendEmail(String to,String from){
+    public int sendEmail(String to, String from) {
 
         // Creating properties for email that we will send
         Properties properties = new Properties();
@@ -154,14 +156,21 @@ public class SignUpPage {
             // Send message
             Transport.send(message);
 
-            JOptionPane.showMessageDialog(null,"Email Sent Correctly");
+            JOptionPane.showMessageDialog(null, "Email Sent Correctly");
 
             return confirmationCode;
 
         } catch (MessagingException mex) { // Email Error
-            JOptionPane.showMessageDialog(null,"Email Couldn't Send It In Properly","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Email Couldn't Send It In Properly", "Error", JOptionPane.ERROR_MESSAGE);
             mex.printStackTrace();
         }
         return 0;
+    }
+    public static boolean isValidEmail(String email) {
+        // create the EmailValidator instance
+        EmailValidator validator = EmailValidator.getInstance();
+
+        // check for valid email addresses using isValid method
+        return validator.isValid(email);
     }
 }

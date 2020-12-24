@@ -20,21 +20,16 @@ public class ProfilePage {
     private JLabel email;
     private File photo;
 
-    public JPanel getProfilePPanel(){
-        return profilePPanel;
-    }
-
     public ProfilePage(JFrame frame, DatabaseOperation operation, Student student) {
 
         name.setText(student.getStudentName() + " " + student.getStudentSurname());
         email.setText(student.getStudentEmail());
-        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(250,300,Image.SCALE_SMOOTH));
+        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(250, 300, Image.SCALE_SMOOTH));
 
-        if(PIcon != null){
+        if (PIcon != null) {
             profilePhotoButton.setIcon(PIcon);
             profilePhotoButton.setText("");
         }
-
 
 
         profilePhotoButton.addActionListener(new ActionListener() {
@@ -45,7 +40,7 @@ public class ProfilePage {
                 photo = j.getSelectedFile();
                 ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
                 profilePhotoButton.setText(null);
-                profilePhotoButton.setBackground(new java.awt.Color(187,187,187));
+                profilePhotoButton.setBackground(new java.awt.Color(187, 187, 187));
                 profilePhotoButton.setOpaque(true);
                 profilePhotoButton.setBorderPainted(false);
                 profilePhotoButton.setIcon(icon);
@@ -54,14 +49,14 @@ public class ProfilePage {
         changePasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangePasswordPage passwordPage = new ChangePasswordPage(frame, operation,student);
+                ChangePasswordPage passwordPage = new ChangePasswordPage(frame, operation, student);
 
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
                 frame.repaint();
 
                 Garage garage = new Garage(frame, operation, student);
-                LPanel lPanel = new LPanel(frame,operation,garage, student);
+                LPanel lPanel = new LPanel(frame, operation, garage, student);
                 frame.getContentPane().add(passwordPage.getPasswordPanel(), BorderLayout.CENTER);
                 frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
                 frame.pack();
@@ -75,7 +70,7 @@ public class ProfilePage {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 changePasswordButton.setBackground(Color.white);
-                changePasswordButton.setForeground(new Color(163,0,80));
+                changePasswordButton.setForeground(new Color(163, 0, 80));
             }
         });
 
@@ -83,12 +78,16 @@ public class ProfilePage {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                changePasswordButton.setBackground(new Color(163,0,80));
+                changePasswordButton.setBackground(new Color(163, 0, 80));
                 changePasswordButton.setForeground(Color.white);
             }
         });
 
 
+    }
+
+    public JPanel getProfilePPanel() {
+        return profilePPanel;
     }
 
 

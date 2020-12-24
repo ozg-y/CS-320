@@ -3,7 +3,6 @@ package GUI;
 import Model.DatabaseOperation;
 
 import javax.swing.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static GUI.LPanel.scaleFile;
 
@@ -15,8 +14,6 @@ public class HomePage {
     public LoginPage login;
 
     ImageIcon icon = scaleFile(200,200,"OzU.png");
-
-
 
     public HomePage(DatabaseOperation operation) {
 

@@ -48,8 +48,6 @@ public class Garage {
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
     private DatabaseOperation operation;
-
-
     PlaceHolder placeHolder;
 
     public void sort_price_increasing() {
@@ -254,8 +252,6 @@ public class Garage {
 
     }
 
-
-
     public Garage(JFrame frame, DatabaseOperation operation, Student student){
 
 
@@ -415,7 +411,6 @@ public class Garage {
             }
         });
     }
-
 
     public void update_garage(String condition) {
 
