@@ -42,37 +42,43 @@ public class SignUpPage {
                 String password1 = passwordField1.getText();
                 String password2 = passwordField2.getText();
 
-                if (password1.equals(password2)) {
-                    studentName = textField2.getText();
-                    studentSurname = textField3.getText();
-                    studentProfilePhoto = photo.getAbsolutePath();
-                    studentEmail = textField1.getText();
+                if (!textField1.getText().contains("@ozu.edu.tr")){
+                    JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
 
-                    operation.push_student(studentName, studentSurname, studentProfilePhoto, studentEmail, password1);
-                    int confirmationCode = sendEmail(studentEmail, "ozyegingarage@gmail.com");
-                    operation.push_student_confirmation(studentEmail, confirmationCode);
+                }
+                    else if (password1.equals(password2)) {
+                        studentName = textField2.getText();
+                        studentSurname = textField3.getText();
+                        studentProfilePhoto = photo.getAbsolutePath();
+                        studentEmail = textField1.getText();
+
+                        operation.push_student(studentName, studentSurname, studentProfilePhoto, studentEmail, password1);
+                        int confirmationCode = sendEmail(studentEmail, "ozyegingarage@gmail.com");
+                        operation.push_student_confirmation(studentEmail, confirmationCode);
 
 
-                    SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, studentEmail);
-                    frame.getContentPane().removeAll();
-                    frame.repaint();
+                        SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, studentEmail);
+                        frame.getContentPane().removeAll();
+                        frame.repaint();
 
-                    frame.getContentPane().add(confirm.getpanelC());
-                    frame.revalidate();
-                } else if (photoButton.isBorderPainted()) {
-                    JOptionPane.showMessageDialog(null, "Select a photo");
-                } else if (passwordField1.equals("") || passwordField2.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (textField2.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (textField3.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (textField1.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    passwordField1.setText("");
-                    passwordField2.setText("");
-                    JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
+                        frame.getContentPane().add(confirm.getpanelC());
+                        frame.revalidate();
+                     }else if(photoButton.isBorderPainted()){
+                         JOptionPane.showMessageDialog(null, "Select a photo");
+                     }
+                      else if (passwordField1.equals("") || passwordField2.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
+                      } else if (textField2.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
+                      }else if (textField3.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
+                      }else if (textField1.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
+                         }else {
+                        passwordField1.setText("");
+                        passwordField2.setText("");
+                        JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
+                      }
                 }
             }
 
