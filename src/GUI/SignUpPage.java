@@ -45,7 +45,22 @@ public class SignUpPage {
                 boolean b = isValidEmail(textField1.getText());
                 if (!b) {
                     JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
-
+                    return;
+                } else if (photoButton.isBorderPainted()) {
+                    JOptionPane.showMessageDialog(null, "Select a photo");
+                    return;
+                } else if (password1.equals("") || password2.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (textField2.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (textField3.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (textField1.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 } else if (password1.equals(password2)) {
                     studentName = textField2.getText();
                     studentSurname = textField3.getText();
@@ -63,16 +78,7 @@ public class SignUpPage {
 
                     frame.getContentPane().add(confirm.getpanelC());
                     frame.revalidate();
-                } else if (photoButton.isBorderPainted()) {
-                    JOptionPane.showMessageDialog(null, "Select a photo");
-                } else if (password1.equals("") || password2.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (textField2.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (textField3.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (textField1.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 } else {
                     passwordField1.setText("");
                     passwordField2.setText("");
@@ -113,6 +119,14 @@ public class SignUpPage {
             }
         });
 
+    }
+
+    public static boolean isValidEmail(String email) {
+        // create the EmailValidator instance
+        EmailValidator validator = EmailValidator.getInstance();
+
+        // check for valid email addresses using isValid method
+        return validator.isValid(email);
     }
 
     public int sendEmail(String to, String from) {
@@ -165,12 +179,5 @@ public class SignUpPage {
             mex.printStackTrace();
         }
         return 0;
-    }
-    public static boolean isValidEmail(String email) {
-        // create the EmailValidator instance
-        EmailValidator validator = EmailValidator.getInstance();
-
-        // check for valid email addresses using isValid method
-        return validator.isValid(email);
     }
 }
