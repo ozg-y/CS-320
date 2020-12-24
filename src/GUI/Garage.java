@@ -22,11 +22,13 @@ import static GUI.LPanel.scaleFile;
 
 public class Garage {
 
+    private final DatabaseOperation operation;
     public JPanel productPanel;
     int imageArrayIndex = 0;
     int pageNumber = 1;
     int functionCode = -1;
     String searchBarText = "";
+    PlaceHolder placeHolder;
     private JButton product1;
     private JButton product4;
     private JButton product2;
@@ -47,8 +49,158 @@ public class Garage {
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
-    private DatabaseOperation operation;
-    PlaceHolder placeHolder;
+
+    public Garage(JFrame frame, DatabaseOperation operation, Student student) {
+
+
+        placeHolder = new PlaceHolder(searchBar, "Search in OzU-Garage");
+
+        this.operation = operation;
+
+        upScrollButton.setEnabled(false);
+
+        filterComboBox.addItem("Most expensive first");
+        filterComboBox.addItem("Cheapest first");
+        filterComboBox.addItem("Oldest first");
+        filterComboBox.addItem("Newest first");
+        filterComboBox.setVisible(true);
+
+        // Adding product button to ArrayList(productButtons)
+        productButtons.add(product1);
+        productButtons.add(product2);
+        productButtons.add(product3);
+        productButtons.add(product4);
+        productButtons.add(product5);
+        productButtons.add(product6);
+        productButtons.add(product7);
+        productButtons.add(product8);
+        productButtons.add(product9);
+        productButtons.add(product10);
+        productButtons.add(product11);
+        productButtons.add(product12);
+
+        ImageIcon upIcon = scaleFile(130, 30, "Arrow-Up.png");
+        upScrollButton.setIcon(upIcon);
+
+        ImageIcon downIcon = scaleFile(130, 30, "Arrow-Down.png");
+        downScrollButton.setIcon(downIcon);
+
+        update_garage("ALL");
+
+        ActionListener getProductDetails = e -> {
+
+            int selectedProductIndex = productButtons.indexOf(e.getSource()) + ((pageNumber - 1) * 12);
+            int productID = productIds.get(selectedProductIndex);
+            ProductPage productPage = new ProductPage(productID, operation, student);
+
+            frame.getContentPane().removeAll();
+            frame.setLayout(new BorderLayout());
+            frame.repaint();
+
+            LPanel lPanel = new LPanel(frame, operation, this, student);
+            frame.getContentPane().add(productPage.getProductPPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+            frame.pack();
+            frame.repaint();
+            frame.revalidate();
+        };
+
+        // Added all buttons to getProductDetails actionListener
+        for (JButton but : productButtons) {
+            but.addActionListener(getProductDetails);
+        }
+
+        downScrollButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean isEnabled = false;
+                upScrollButton.setEnabled(true);
+                if (productIds.size() > (pageNumber * 12)) {
+                    pageNumber++;
+                    for (JButton but : productButtons) {
+                        if (imageArrayIndex < productImages.size())
+                            but.setIcon(productImages.get(imageArrayIndex++));
+                        else {
+                            isEnabled = true;
+                            but.setIcon(null);
+                        }
+                    }
+                }
+                if (isEnabled)
+                    downScrollButton.setEnabled(false);
+            }
+        });
+
+        upScrollButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                downScrollButton.setEnabled(true);
+                if (pageNumber > 1) {
+                    pageNumber--;
+                    imageArrayIndex -= 13;
+                    for (JButton but : productButtons) {
+                        if (imageArrayIndex < productImages.size())
+                            but.setIcon(productImages.get(imageArrayIndex++));
+                        else
+                            but.setIcon(null);
+                    }
+                }
+                if (pageNumber == 1)
+                    upScrollButton.setEnabled(false);
+            }
+        });
+
+        // filter based on title -> product Name
+        searchBar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                searchBarText = e.getActionCommand();
+                search_bar(e.getActionCommand());
+
+            }
+        });
+
+        filterComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String productOrder = (String) filterComboBox.getSelectedItem();
+                imageArrayIndex = 0;
+
+                if (productOrder.equals("Cheapest first")) {
+                    sort_price_increasing();
+                } else if (productOrder.equals("Most expensive first")) {
+                    sort_price_decreasing();
+                } else if (productOrder.equals("Newest first")) {
+                    sort_date_latest();
+                } else if (productOrder.equals("Oldest first")) {
+                    sort_date_earliest();
+                }
+            }
+        });
+
+
+        refreshButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                refreshButton.setBackground(Color.white);
+                refreshButton.setForeground(new Color(163, 0, 80));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                refreshButton.setBackground(new Color(163, 0, 80));
+                refreshButton.setForeground(Color.white);
+            }
+        });
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refresh();
+            }
+        });
+    }
 
     public void sort_price_increasing() {
         try {
@@ -208,7 +360,7 @@ public class Garage {
         imageArrayIndex = 0;
 
         try {
-            String query = "SELECT productID FROM Product WHERE productName = \'" + search_request + "\';";
+            String query = "SELECT productID FROM Product WHERE productName = '" + search_request + "';";
 
             Statement statement = operation.con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -237,11 +389,7 @@ public class Garage {
             }
 
             for (JButton b : productButtons) {
-                if (b.getIcon() == null) {
-                    b.setEnabled(false);
-                } else {
-                    b.setEnabled(true);
-                }
+                b.setEnabled(b.getIcon() != null);
             }
 
         } catch (SQLException throwables) {
@@ -250,166 +398,6 @@ public class Garage {
             ioException.printStackTrace();
         }
 
-    }
-
-    public Garage(JFrame frame, DatabaseOperation operation, Student student){
-
-
-
-        placeHolder = new PlaceHolder(searchBar,"Search in OzU-Garage");
-
-        this.operation = operation;
-
-        upScrollButton.setEnabled(false);
-
-        filterComboBox.addItem("Most expensive first");
-        filterComboBox.addItem("Cheapest first");
-        filterComboBox.addItem("Oldest first");
-        filterComboBox.addItem("Newest first");
-        filterComboBox.setVisible(true);
-
-        // Adding product button to ArrayList(productButtons)
-        productButtons.add(product1);
-        productButtons.add(product2);
-        productButtons.add(product3);
-        productButtons.add(product4);
-        productButtons.add(product5);
-        productButtons.add(product6);
-        productButtons.add(product7);
-        productButtons.add(product8);
-        productButtons.add(product9);
-        productButtons.add(product10);
-        productButtons.add(product11);
-        productButtons.add(product12);
-
-        ImageIcon upIcon = scaleFile(130,30,"Arrow-Up.png");
-        upScrollButton.setIcon(upIcon);
-
-        ImageIcon downIcon = scaleFile(130,30,"Arrow-Down.png");
-        downScrollButton.setIcon(downIcon);
-
-        update_garage("ALL");
-
-       ActionListener getProductDetails = e -> {
-
-            int selectedProductIndex = productButtons.indexOf((JButton)e.getSource()) + ((pageNumber-1)*12);
-            int productID = productIds.get(selectedProductIndex);
-            ProductPage productPage = new ProductPage(productID,operation, student);
-
-            frame.getContentPane().removeAll();
-            frame.setLayout(new BorderLayout());
-            frame.repaint();
-
-            LPanel lPanel = new LPanel(frame,operation,this, student);
-            frame.getContentPane().add(productPage.getProductPPanel(), BorderLayout.CENTER);
-            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
-            frame.pack();
-            frame.repaint();
-            frame.revalidate();
-        };
-
-        // Added all buttons to getProductDetails actionListener
-        for(JButton but : productButtons){
-            but.addActionListener(getProductDetails);
-        }
-
-        downScrollButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean isEnabled = false;
-                upScrollButton.setEnabled(true);
-                if(productIds.size()>(pageNumber*12)) {
-                    pageNumber++;
-                    for (JButton but : productButtons) {
-                        if(imageArrayIndex < productImages.size())
-                            but.setIcon(productImages.get(imageArrayIndex++));
-                        else {
-                            isEnabled = true;
-                            but.setIcon(null);
-                        }
-                    }
-                }
-                if(isEnabled)
-                    downScrollButton.setEnabled(false);
-            }
-        });
-
-        upScrollButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                downScrollButton.setEnabled(true);
-                if(pageNumber>1){
-                    pageNumber--;
-                    imageArrayIndex -= 13;
-                    for (JButton but : productButtons) {
-                        if(imageArrayIndex < productImages.size())
-                            but.setIcon(productImages.get(imageArrayIndex++));
-                        else
-                            but.setIcon(null);
-                    }
-                }
-                if(pageNumber == 1)
-                    upScrollButton.setEnabled(false);
-            }
-        });
-
-        // filter based on title -> product Name
-        searchBar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                searchBarText = e.getActionCommand();
-                search_bar(e.getActionCommand());
-
-            }
-        });
-
-        filterComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String productOrder = (String)filterComboBox.getSelectedItem();
-                imageArrayIndex = 0;
-
-                if(productOrder.equals("Cheapest first")){
-                    sort_price_increasing();
-                }
-
-                else if(productOrder.equals("Most expensive first")){
-                   sort_price_decreasing();
-                }
-
-                else if(productOrder.equals("Newest first")){
-                    sort_date_latest();
-                }
-
-
-                else if(productOrder.equals("Oldest first")){
-                    sort_date_earliest();
-                }
-            }
-        });
-
-
-        refreshButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                refreshButton.setBackground(Color.white);
-                refreshButton.setForeground(new Color(163,0,80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                refreshButton.setBackground(new Color(163,0,80));
-                refreshButton.setForeground(Color.white);
-            }
-        });
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refresh();
-            }
-        });
     }
 
     public void update_garage(String condition) {
@@ -562,11 +550,7 @@ public class Garage {
         }
 
         for (JButton b : productButtons) {
-            if (b.getIcon() == null) {
-                b.setEnabled(false);
-            } else {
-                b.setEnabled(true);
-            }
+            b.setEnabled(b.getIcon() != null);
         }
     }
 

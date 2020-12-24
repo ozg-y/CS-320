@@ -22,9 +22,9 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-5131855"/>
+          <background color="-6094769"/>
         </properties>
-        <border type="line">
+        <border type="none">
           <color color="-14605013"/>
         </border>
         <children>
@@ -37,10 +37,10 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-6094768"/>
+              <background color="-16768928"/>
               <doubleBuffered value="false"/>
               <font size="20" style="1"/>
-              <foreground color="-16768928"/>
+              <foreground color="-1"/>
               <inheritsPopupMenu value="false"/>
               <model/>
               <popupVisible value="false"/>
@@ -48,15 +48,16 @@
           </component>
           <component id="dbc39" class="javax.swing.JButton" binding="refreshButton">
             <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="300" height="50"/>
-                <preferred-size width="300" height="50"/>
-                <maximum-size width="300" height="50"/>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="300" height="40"/>
+                <preferred-size width="300" height="40"/>
+                <maximum-size width="300" height="40"/>
               </grid>
             </constraints>
             <properties>
               <actionCommand value="refreshButton"/>
-              <background color="-6094768"/>
+              <autoscrolls value="false"/>
+              <background color="-16768928"/>
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <defaultCapable value="false"/>
@@ -68,7 +69,7 @@
           </component>
           <component id="4df3" class="javax.swing.JTextField" binding="searchBar">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="800" height="50"/>
                 <preferred-size width="800" height="50"/>
                 <maximum-size width="800" height="50"/>
@@ -88,15 +89,18 @@
           </component>
           <component id="98fd4" class="javax.swing.JButton" binding="upScrollButton">
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="1" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="1" hsize-policy="2" anchor="2" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="800" height="35"/>
                 <preferred-size width="800" height="35"/>
                 <maximum-size width="800" height="35"/>
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
-              <borderPainted value="true"/>
+              <background color="-16768928"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <foreground color="-1"/>
+              <opaque value="true"/>
               <text value=""/>
             </properties>
           </component>
@@ -489,20 +493,21 @@
       <grid id="5dcb9" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
-            <minimum-size width="1400" height="50"/>
-            <preferred-size width="1400" height="50"/>
-            <maximum-size width="1400" height="50"/>
+          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="1400" height="-1"/>
+            <preferred-size width="1400" height="-1"/>
+            <maximum-size width="1400" height="-1"/>
           </grid>
         </constraints>
         <properties>
-          <background color="-5131855"/>
+          <background color="-6094769"/>
+          <focusTraversalPolicyProvider value="false"/>
         </properties>
-        <border type="none"/>
+        <border type="none" title=""/>
         <children>
           <component id="822a9" class="javax.swing.JButton" binding="downScrollButton">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="800" height="35"/>
                 <preferred-size width="800" height="35"/>
                 <maximum-size width="800" height="35"/>
@@ -510,10 +515,12 @@
             </constraints>
             <properties>
               <actionCommand value=""/>
-              <background color="-5131855"/>
-              <borderPainted value="true"/>
-              <foreground color="-6248524"/>
+              <background color="-16768928"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <foreground color="-1"/>
               <horizontalTextPosition value="0"/>
+              <opaque value="true"/>
               <text value=""/>
             </properties>
           </component>
