@@ -42,7 +42,11 @@ public class SignUpPage {
                 String password1 = passwordField1.getText();
                 String password2 = passwordField2.getText();
 
-                     if (password1.equals(password2)) {
+                if (!textField1.getText().contains("@ozu.edu.tr")){
+                    JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
+
+                }
+                    else if (password1.equals(password2)) {
                         studentName = textField2.getText();
                         studentSurname = textField3.getText();
                         studentProfilePhoto = photo.getAbsolutePath();
