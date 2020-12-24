@@ -36,7 +36,8 @@ public class LPanel {
     }
 
     public LPanel(JFrame frame, DatabaseOperation operation, Garage garage, Student student) {
-        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(200,220,Image.SCALE_SMOOTH));
+
+        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(195,220,Image.SCALE_SMOOTH));
         profilePhotoButton.setIcon(PIcon);
 
         ImageIcon bIcon = scaleFile(200,210,"book.png");
@@ -60,7 +61,6 @@ public class LPanel {
 
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
-                frame.repaint();
 
                 frame.getContentPane().add(addProductPage.getAddPanel(), BorderLayout.CENTER);
                 frame.getContentPane().add(lPanel, BorderLayout.WEST);
@@ -84,7 +84,6 @@ public class LPanel {
 
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
-                frame.repaint();
 
                 frame.getContentPane().add(profilePage.getProfilePPanel(), BorderLayout.CENTER);
                 frame.getContentPane().add(lPanel, BorderLayout.WEST);
@@ -99,7 +98,21 @@ public class LPanel {
                 garage.update_garage("book");
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
+
+                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
                 frame.repaint();
+                frame.revalidate();
+            }
+        });
+
+        category2IconButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                garage.update_garage("furniture");
+                frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
 
 
                 frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
@@ -116,7 +129,6 @@ public class LPanel {
                 garage.update_garage("furniture");
                 frame.getContentPane().removeAll();
                 frame.setLayout(new BorderLayout());
-                frame.repaint();
 
 
                 frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
@@ -124,6 +136,7 @@ public class LPanel {
                 frame.pack();
                 frame.repaint();
                 frame.revalidate();
+
             }
         });
 
@@ -131,25 +144,16 @@ public class LPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 garage.update_garage("ticket");
-
-                category2IconButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        garage.update_garage("furniture");
-                        frame.getContentPane().removeAll();
-                        frame.setLayout(new BorderLayout());
-                        frame.repaint();
+                frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
 
 
-                        frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
-                        frame.getContentPane().add(lPanel, BorderLayout.WEST);
-                        frame.pack();
-                        frame.repaint();
-                        frame.revalidate();
-                        frame.setSize(1400, 900);
+                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
 
-                    }
-                });
             }
         });
 
