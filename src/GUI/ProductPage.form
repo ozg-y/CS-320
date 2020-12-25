@@ -210,7 +210,7 @@
               <requestFocusEnabled value="true"/>
               <rolloverEnabled value="true"/>
               <selected value="true"/>
-              <text value="Button"/>
+              <text value="Submit Comment"/>
             </properties>
           </component>
           <grid id="d1ac9" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
