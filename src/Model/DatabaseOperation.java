@@ -290,56 +290,81 @@ public class DatabaseOperation {
         return null;
     }
 
-    public ResultSet sort_price_decreasing() {
+    public ResultSet sort_price_decreasing(String filterOption) {
         try {
             statement = con.createStatement();
-            ResultSet set = statement.executeQuery("SELECT * \n" +
-                    "FROM Product\n" +
-                    "ORDER BY productPrice desc;");
+
+            String query = "SELECT * " + "FROM Product " + "ORDER BY productPrice DESC;";
+
+            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+                query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productPrice DESC;";
+            }
+
+            ResultSet set = statement.executeQuery(query);
 
             return set;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
     }
 
-    public ResultSet sort_price_increasing() {
+    public ResultSet sort_price_increasing(String filterOption) {
         try {
+
             statement = con.createStatement();
-            ResultSet set = statement.executeQuery("SELECT * \n" +
-                    "FROM Product\n" +
-                    "ORDER BY productPrice ASC;");
+
+            String query = "SELECT * " + "FROM Product " + "ORDER BY productPrice ASC;";
+
+            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+                query = ("SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productPrice ASC;");
+            }
+
+            ResultSet set = statement.executeQuery(query);
 
             return set;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
     }
 
-    public ResultSet sort_date_latest() {
+    public ResultSet sort_date_latest(String filterOption) {
         try {
             statement = con.createStatement();
-            ResultSet set = statement.executeQuery("SELECT * \n" +
-                    "FROM Product\n" +
-                    "ORDER BY productID DESC;");
+
+            String query = "SELECT * " + "FROM Product " + "ORDER BY productID DESC;";
+
+            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+                query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productID DESC;";
+            }
+
+            ResultSet set = statement.executeQuery(query);
 
             return set;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
     }
 
-    public ResultSet sort_date_earliest() {
+    public ResultSet sort_date_earliest(String filterOption) {
         try {
             statement = con.createStatement();
-            ResultSet set = statement.executeQuery("SELECT * \n" +
-                    "FROM Product\n" +
-                    "ORDER BY productID ASC;");
+
+            String query = "SELECT * " + "FROM Product " + "ORDER BY productID ASC;";
+
+            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+                query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productID ASC;";
+            }
+
+            ResultSet set = statement.executeQuery(query);
 
             return set;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

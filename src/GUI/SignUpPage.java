@@ -43,6 +43,7 @@ public class SignUpPage {
                 String password1 = passwordField1.getText();
                 String password2 = passwordField2.getText();
                 boolean b = isValidEmail(textField1.getText());
+
                 if (!b) {
                     JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
                     return;
@@ -61,7 +62,8 @@ public class SignUpPage {
                 } else if (textField1.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
-                } else if (password1.equals(password2)) {
+                }
+                else if (password1.equals(password2)) {
                     studentName = textField2.getText();
                     studentSurname = textField3.getText();
                     studentProfilePhoto = photo.getAbsolutePath();

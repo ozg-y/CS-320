@@ -22,12 +22,12 @@ import static GUI.LPanel.scaleFile;
 
 public class Garage {
 
-    private final DatabaseOperation operation;
     public JPanel productPanel;
     int imageArrayIndex = 0;
     int pageNumber = 1;
     int functionCode = -1;
     String searchBarText = "";
+    String filterOption = "";
     PlaceHolder placeHolder;
     private JButton product1;
     private JButton product4;
@@ -49,6 +49,7 @@ public class Garage {
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
+    private final DatabaseOperation operation;
 
     public Garage(JFrame frame, DatabaseOperation operation, Student student) {
 
@@ -63,10 +64,7 @@ public class Garage {
         filterComboBox.addItem("Cheapest first");
         filterComboBox.addItem("Oldest first");
         filterComboBox.addItem("Newest first");
-        filterComboBox.setEditable(true);
-        filterComboBox.setEditable(false);
         filterComboBox.setVisible(true);
-
 
         // Adding product button to ArrayList(productButtons)
         productButtons.add(product1);
@@ -157,7 +155,6 @@ public class Garage {
         searchBar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 searchBarText = e.getActionCommand();
                 search_bar(e.getActionCommand());
 
@@ -167,6 +164,8 @@ public class Garage {
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String productOrder = (String) filterComboBox.getSelectedItem();
+
+
                 imageArrayIndex = 0;
 
                 if (productOrder.equals("Cheapest first")) {
@@ -203,204 +202,6 @@ public class Garage {
                 refresh();
             }
         });
-    }
-
-    public void sort_price_increasing() {
-        try {
-
-            functionCode = 1;
-
-            ResultSet myRst = operation.sort_price_increasing();
-
-            productIds.clear();
-            productImages.clear();
-
-            while (myRst.next()) {
-                productIds.add(myRst.getInt("productID"));
-            }
-
-            for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
-                operation.statement = operation.con.createStatement();
-                myRst = operation.statement.executeQuery(sql);
-
-                while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
-                    Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
-                    productImages.add(icon);
-                }
-            }
-
-            for (int i = 0; i < productImages.size(); i++) {
-                productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
-
-    public void sort_price_decreasing() {
-        try {
-
-            functionCode = 2;
-
-            ResultSet myRst = operation.sort_price_decreasing();
-
-            productIds.clear();
-            productImages.clear();
-
-            while (myRst.next()) {
-                productIds.add(myRst.getInt("productID"));
-            }
-
-            for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
-                operation.statement = operation.con.createStatement();
-                myRst = operation.statement.executeQuery(sql);
-
-                while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
-                    Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
-                    productImages.add(icon);
-                }
-            }
-
-            for (int i = 0; i < productImages.size(); i++) {
-                productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
-
-    public void sort_date_latest() {
-        try {
-
-            functionCode = 3;
-
-            ResultSet myRst = operation.sort_date_latest();
-
-            productIds.clear();
-            productImages.clear();
-
-            while (myRst.next()) {
-                productIds.add(myRst.getInt("productID"));
-            }
-
-            for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
-                operation.statement = operation.con.createStatement();
-                myRst = operation.statement.executeQuery(sql);
-
-                while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
-                    Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
-                    productImages.add(icon);
-                }
-            }
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
-
-    public void sort_date_earliest() {
-        try {
-
-            functionCode = 4;
-
-            ResultSet myRst = operation.sort_date_earliest();
-
-            productIds.clear();
-            productImages.clear();
-
-            while (myRst.next()) {
-                productIds.add(myRst.getInt("productID"));
-            }
-
-            for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
-                operation.statement = operation.con.createStatement();
-                myRst = operation.statement.executeQuery(sql);
-
-                while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
-                    Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
-                    productImages.add(icon);
-                }
-            }
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
-
-    public void search_bar(String search_request) {
-        functionCode = 0;
-
-        for (int i = 0; i < productButtons.size(); i++) {
-            productButtons.get(i).setIcon(null);
-        }
-
-        productIds.clear();
-        productImages.clear();
-        imageArrayIndex = 0;
-
-        try {
-            String query = "SELECT productID FROM Product WHERE productName = '" + search_request + "';";
-
-            Statement statement = operation.con.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                productIds.add(resultSet.getInt("productID"));
-            }
-
-            // Adding all of the photos that match the search request
-            // Finding photos based on previously identified productID
-            for (int i : productIds) {
-                query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
-                statement = operation.con.createStatement();
-                resultSet = statement.executeQuery(query);
-
-                while (resultSet.next()) {
-                    InputStream x = (resultSet.getBinaryStream("productPhotos"));
-                    Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
-                    productImages.add(icon);
-                }
-            }
-
-            for (int i = 0; i < productImages.size(); i++) {
-                productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
-            }
-
-            for (JButton b : productButtons) {
-                b.setEnabled(b.getIcon() != null);
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-
     }
 
     public void update_garage(String condition) {
@@ -549,7 +350,8 @@ public class Garage {
     public void display_garage() {
 
         for (int i = 0; i < productButtons.size(); i++) {
-            productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+            if (i + 1 < productImages.size())
+                productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
         }
 
         for (JButton b : productButtons) {
@@ -605,4 +407,206 @@ public class Garage {
     public void setProductImages(ArrayList<ImageIcon> productImages) {
         this.productImages = productImages;
     }
+
+    public void sort_price_increasing() {
+        try {
+
+            functionCode = 1;
+            imageArrayIndex = 0;
+
+            ResultSet myRst = operation.sort_price_increasing(filterOption);
+
+            productIds.clear();
+            productImages.clear();
+
+            while (myRst.next()) {
+                productIds.add(myRst.getInt("productID"));
+            }
+
+            for (int id : productIds) {
+                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID;";
+                operation.statement = operation.con.createStatement();
+                myRst = operation.statement.executeQuery(sql);
+
+                while (myRst.next()) {
+                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    Image image = ImageIO.read(x);
+                    ImageIcon icon = new ImageIcon(image);
+                    productImages.add(icon);
+                }
+            }
+
+            display_garage();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    public void sort_price_decreasing() {
+        try {
+
+            functionCode = 2;
+            imageArrayIndex = 0;
+
+            ResultSet myRst = operation.sort_price_decreasing(filterOption);
+
+            productIds.clear();
+            productImages.clear();
+
+            while (myRst.next()) {
+                productIds.add(myRst.getInt("productID"));
+            }
+
+            for (int id : productIds) {
+                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                operation.statement = operation.con.createStatement();
+                myRst = operation.statement.executeQuery(sql);
+
+                while (myRst.next()) {
+                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    Image image = ImageIO.read(x);
+                    ImageIcon icon = new ImageIcon(image);
+                    productImages.add(icon);
+                }
+            }
+
+            display_garage();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    public void sort_date_latest() {
+        try {
+
+            functionCode = 3;
+            imageArrayIndex = 0;
+
+            ResultSet myRst = operation.sort_date_latest(filterOption);
+
+            productIds.clear();
+            productImages.clear();
+
+            while (myRst.next()) {
+                productIds.add(myRst.getInt("productID"));
+            }
+
+            for (int id : productIds) {
+                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                operation.statement = operation.con.createStatement();
+                myRst = operation.statement.executeQuery(sql);
+
+                while (myRst.next()) {
+                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    Image image = ImageIO.read(x);
+                    ImageIcon icon = new ImageIcon(image);
+                    productImages.add(icon);
+                }
+            }
+
+            display_garage();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    public void sort_date_earliest() {
+        try {
+
+            functionCode = 4;
+            imageArrayIndex = 0;
+
+            ResultSet myRst = operation.sort_date_earliest(filterOption);
+
+            productIds.clear();
+            productImages.clear();
+
+            while (myRst.next()) {
+                productIds.add(myRst.getInt("productID"));
+            }
+
+            for (int id : productIds) {
+                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                operation.statement = operation.con.createStatement();
+                myRst = operation.statement.executeQuery(sql);
+
+                while (myRst.next()) {
+                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    Image image = ImageIO.read(x);
+                    ImageIcon icon = new ImageIcon(image);
+                    productImages.add(icon);
+                }
+            }
+
+            display_garage();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    public void search_bar(String search_request) {
+        functionCode = 0;
+
+        for (int i = 0; i < productButtons.size(); i++) {
+            productButtons.get(i).setIcon(null);
+        }
+
+        productIds.clear();
+        productImages.clear();
+        imageArrayIndex = 0;
+
+        try {
+            String query = "SELECT productID FROM Product WHERE productName = '" + search_request + "';";
+
+            Statement statement = operation.con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                productIds.add(resultSet.getInt("productID"));
+            }
+
+            // Adding all of the photos that match the search request
+            // Finding photos based on previously identified productID
+            for (int i : productIds) {
+                query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
+                statement = operation.con.createStatement();
+                resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                    Image image = ImageIO.read(x);
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
+                    productImages.add(icon);
+                }
+            }
+
+            for (int i = 0; i < productImages.size(); i++) {
+                productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
+            }
+
+            for (JButton b : productButtons) {
+                b.setEnabled(b.getIcon() != null);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
 }
+
