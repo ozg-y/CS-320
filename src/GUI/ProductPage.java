@@ -66,6 +66,12 @@ public class ProductPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 comment = textArea1.getText();
+
+                if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 operation.push_comment(productID, comment, student.getStudentEmail());
 
                 sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
@@ -75,22 +81,20 @@ public class ProductPage {
                 for (Comment c : comments) {
                     finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
-                if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    finishedComment = "";
-                    comment = textArea1.getText();
-                    operation.push_comment(productID, comment, student.getStudentEmail());
-                    comments.add(new Comment(student.getStudentName(), comment));       // updates comments
 
-                    comments = operation.pull_comment(productID);
-                    for (Comment c : comments) {
-                        finishedComment += c.studentName + " : " + c.comment + "\n \n";
-                    }
-                    productComments.setText(finishedComment);
+                finishedComment = "";
+                comment = textArea1.getText();
+                operation.push_comment(productID, comment, student.getStudentEmail());
+                comments.add(new Comment(student.getStudentName(), comment));       // updates comments
 
-                    productPPanel.repaint();
+                comments = operation.pull_comment(productID);
+                for (Comment c : comments) {
+                    finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
+                productComments.setText(finishedComment);
+
+                productPPanel.repaint();
+
             }
         });
 
@@ -146,7 +150,7 @@ public class ProductPage {
             message.setSubject("OzU-Garage Product Notification");
 
             // Now set the actual message
-            message.setText("Your " + productName + " is gathering attention :)\n" + student.getStudentName() + " " + student.getStudentSurname() + " commented on your product\nOzU-Garage Team");
+            message.setText("Your " + productName.getText() + " is gathering attention :)\n" + student.getStudentName() + " " + student.getStudentSurname() + " commented on your product\nOzU-Garage Team");
 
             // Send message
             Transport.send(message);
