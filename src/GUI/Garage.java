@@ -63,7 +63,10 @@ public class Garage {
         filterComboBox.addItem("Cheapest first");
         filterComboBox.addItem("Oldest first");
         filterComboBox.addItem("Newest first");
+        filterComboBox.setEditable(true);
+        filterComboBox.setEditable(false);
         filterComboBox.setVisible(true);
+
 
         // Adding product button to ArrayList(productButtons)
         productButtons.add(product1);

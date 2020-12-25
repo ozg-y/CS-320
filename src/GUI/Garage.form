@@ -6,7 +6,8 @@
       <xy x="42" y="47" width="1404" height="925"/>
     </constraints>
     <properties>
-      <background color="-5131855"/>
+      <background color="-1579033"/>
+      <foreground color="-1"/>
       <maximumSize width="1400" height="900"/>
       <minimumSize width="1400" height="900"/>
     </properties>
@@ -22,7 +23,8 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-6094769"/>
+          <background color="-3815995"/>
+          <foreground color="-1"/>
         </properties>
         <border type="none">
           <color color="-14605013"/>
@@ -30,34 +32,38 @@
         <children>
           <component id="32891" class="javax.swing.JComboBox" binding="filterComboBox">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="9" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="300" height="50"/>
-                <preferred-size width="300" height="50"/>
+                <preferred-size width="300" height="43"/>
                 <maximum-size width="300" height="50"/>
               </grid>
             </constraints>
             <properties>
-              <background color="-16768928"/>
+              <background color="-6094769"/>
               <doubleBuffered value="false"/>
+              <editable value="true"/>
               <font size="20" style="1"/>
               <foreground color="-1"/>
               <inheritsPopupMenu value="false"/>
+              <lightWeightPopupEnabled value="true"/>
+              <maximumRowCount value="5"/>
               <model/>
+              <opaque value="true"/>
               <popupVisible value="false"/>
             </properties>
           </component>
           <component id="dbc39" class="javax.swing.JButton" binding="refreshButton">
             <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="300" height="40"/>
-                <preferred-size width="300" height="40"/>
-                <maximum-size width="300" height="40"/>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="300" height="50"/>
+                <preferred-size width="300" height="43"/>
+                <maximum-size width="300" height="50"/>
               </grid>
             </constraints>
             <properties>
               <actionCommand value="refreshButton"/>
               <autoscrolls value="false"/>
-              <background color="-16768928"/>
+              <background color="-6094769"/>
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <defaultCapable value="false"/>
@@ -69,9 +75,9 @@
           </component>
           <component id="4df3" class="javax.swing.JTextField" binding="searchBar">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="800" height="50"/>
-                <preferred-size width="800" height="50"/>
+                <preferred-size width="800" height="43"/>
                 <maximum-size width="800" height="50"/>
               </grid>
             </constraints>
@@ -89,14 +95,14 @@
           </component>
           <component id="98fd4" class="javax.swing.JButton" binding="upScrollButton">
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="1" hsize-policy="2" anchor="2" fill="0" indent="0" use-parent-layout="false">
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="4" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="800" height="35"/>
                 <preferred-size width="800" height="35"/>
                 <maximum-size width="800" height="35"/>
               </grid>
             </constraints>
             <properties>
-              <background color="-16768928"/>
+              <background color="-6094769"/>
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <foreground color="-1"/>
@@ -118,10 +124,11 @@
         <properties>
           <alignmentX value="0.0"/>
           <alignmentY value="0.0"/>
+          <background color="-6094769"/>
         </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="f97ee" class="javax.swing.JButton" binding="product1">
@@ -134,12 +141,13 @@
             </constraints>
             <properties>
               <alignmentY value="0.0"/>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <contentAreaFilled value="true"/>
               <enabled value="true"/>
               <foreground color="-1"/>
               <horizontalTextPosition value="0"/>
+              <inheritsPopupMenu value="false"/>
               <text value=""/>
             </properties>
           </component>
@@ -154,10 +162,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="ee368" class="javax.swing.JButton" binding="product2">
@@ -169,7 +179,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <contentAreaFilled value="true"/>
               <horizontalTextPosition value="0"/>
@@ -187,10 +197,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="83686" class="javax.swing.JButton" binding="product3">
@@ -202,7 +214,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <horizontalTextPosition value="0"/>
               <text value=""/>
@@ -219,10 +231,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="6d593" class="javax.swing.JButton" binding="product4">
@@ -234,7 +248,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -250,22 +264,24 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="cac45" class="javax.swing.JButton" binding="product5">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="337" height="242"/>
                 <preferred-size width="337" height="242"/>
                 <maximum-size width="337" height="242"/>
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -281,22 +297,24 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="d1739" class="javax.swing.JButton" binding="product6">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="337" height="242"/>
                 <preferred-size width="337" height="242"/>
                 <maximum-size width="337" height="242"/>
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -312,10 +330,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="46741" class="javax.swing.JButton" binding="product7">
@@ -327,7 +347,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <horizontalTextPosition value="0"/>
               <text value=""/>
@@ -344,10 +364,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="7bc6e" class="javax.swing.JButton" binding="product8">
@@ -359,7 +381,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -375,10 +397,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="a8905" class="javax.swing.JButton" binding="product9">
@@ -390,7 +414,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -406,10 +430,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="e85c5" class="javax.swing.JButton" binding="product10">
@@ -421,7 +447,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -437,10 +463,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="da1bb" class="javax.swing.JButton" binding="product11">
@@ -452,7 +480,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -468,10 +496,12 @@
             <maximum-size width="340" height="245"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6094769"/>
+        </properties>
         <border type="line">
           <title-color color="-5524801"/>
-          <color color="-14605013"/>
+          <color color="-6094769"/>
         </border>
         <children>
           <component id="a9e3e" class="javax.swing.JButton" binding="product12">
@@ -483,7 +513,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-5131855"/>
+              <background color="-658707"/>
               <borderPainted value="false"/>
               <text value=""/>
             </properties>
@@ -493,21 +523,22 @@
       <grid id="5dcb9" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <minimum-size width="1400" height="-1"/>
-            <preferred-size width="1400" height="-1"/>
+          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="2" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="1400" height="60"/>
+            <preferred-size width="-1" height="60"/>
             <maximum-size width="1400" height="-1"/>
           </grid>
         </constraints>
         <properties>
-          <background color="-6094769"/>
+          <background color="-3815995"/>
           <focusTraversalPolicyProvider value="false"/>
+          <foreground color="-1"/>
         </properties>
         <border type="none" title=""/>
         <children>
           <component id="822a9" class="javax.swing.JButton" binding="downScrollButton">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="800" height="35"/>
                 <preferred-size width="800" height="35"/>
                 <maximum-size width="800" height="35"/>
@@ -515,7 +546,7 @@
             </constraints>
             <properties>
               <actionCommand value=""/>
-              <background color="-16768928"/>
+              <background color="-6094769"/>
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <foreground color="-1"/>
