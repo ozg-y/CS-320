@@ -43,7 +43,7 @@
             </constraints>
             <properties>
               <background color="-6094769"/>
-              <borderPainted value="true"/>
+              <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <defaultCapable value="true"/>
               <doubleBuffered value="false"/>
@@ -135,7 +135,7 @@
               <foreground color="-6094768"/>
               <horizontalAlignment value="4"/>
               <horizontalTextPosition value="4"/>
-              <text value="Description"/>
+              <text value="Features"/>
             </properties>
           </component>
           <component id="c5d73" class="javax.swing.JLabel">
@@ -158,7 +158,7 @@
             <properties>
               <font size="22" style="1"/>
               <foreground color="-6094768"/>
-              <text value="Label"/>
+              <text value="Category"/>
             </properties>
           </component>
           <component id="bda62" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">

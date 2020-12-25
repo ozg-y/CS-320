@@ -9,7 +9,7 @@ import static GUI.LPanel.scaleFile;
 
 public class HomePage {
 
-    private JPanel homepanel;
+    private JPanel homePanel;
     public JFrame frame;
     public LoginPage login;
 
@@ -43,8 +43,8 @@ public class HomePage {
 
     }
 
-    public JPanel getHomepanel() {
-        return homepanel;
+    public JPanel getHomePanel() {
+        return homePanel;
     }
 }
 
