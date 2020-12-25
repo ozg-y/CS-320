@@ -41,11 +41,11 @@
             <properties>
               <background color="-6094769"/>
               <doubleBuffered value="false"/>
-              <editable value="true"/>
+              <editable value="false"/>
               <font size="20" style="1"/>
               <foreground color="-1"/>
               <inheritsPopupMenu value="false"/>
-              <lightWeightPopupEnabled value="true"/>
+              <lightWeightPopupEnabled value="false"/>
               <maximumRowCount value="5"/>
               <model/>
               <opaque value="true"/>
@@ -89,6 +89,7 @@
               <disabledTextColor color="-1"/>
               <font size="20" style="1"/>
               <foreground color="-1"/>
+              <horizontalAlignment value="0"/>
               <inheritsPopupMenu value="false"/>
               <text value=""/>
             </properties>
@@ -112,7 +113,7 @@
           </component>
         </children>
       </grid>
-      <grid id="edb6a" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+      <grid id="edb6a" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
@@ -151,6 +152,11 @@
               <text value=""/>
             </properties>
           </component>
+          <hspacer id="ae0d6">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
         </children>
       </grid>
       <grid id="b818e" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
