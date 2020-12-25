@@ -178,9 +178,11 @@ public class DatabaseOperation {
                              String productSeller, String productDescription, ArrayList<String> productPhotos) {
 
         try {
-            String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription) VALUES (" +
+            String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription,productPermit) VALUES (" +
                     "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + ",\'" +
-                    productSeller + "\',\'" + productDescription + "\');";
+                    productSeller + "\',\'" + productDescription + "\',0);";
+
+            System.out.println(query);
 
             statement = con.createStatement();
             statement.executeUpdate(query);
@@ -232,6 +234,48 @@ public class DatabaseOperation {
                 return new Product(set.getInt(1), set.getString(2), set.getString(3), photos,
                         set.getDouble(4), comment, pull_student(set.getString(5)), set.getString(6));
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ArrayList<Integer> pull_product_permitted(){
+        try {
+
+            ArrayList<Integer> abdü = new ArrayList<>();
+
+            String query = "SELECT * FROM Product WHERE productPermit = 0;";
+            statement = con.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+            while(set.next()){
+                abdü.add(set.getInt("productID"));
+            }
+
+            return abdü;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<InputStream> pull_product_permitted_photos(int productID) throws SQLException {
+
+        ArrayList<InputStream> photos = new ArrayList<>();
+
+        try {
+            statement = con.createStatement();
+            ResultSet photo_set = statement.executeQuery("SELECT productPhotos FROM ProductPhotos WHERE productID = " + productID + ";");
+
+            while (photo_set.next()) {
+                photos.add(photo_set.getBinaryStream("productPhotos"));
+            }
+
+            return photos;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -296,7 +340,7 @@ public class DatabaseOperation {
         try {
             statement = con.createStatement();
 
-            String query = "SELECT * " + "FROM Product " + "ORDER BY productPrice DESC;";
+            String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productPrice DESC;";
 
             if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
                 query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productPrice DESC;";
@@ -317,7 +361,7 @@ public class DatabaseOperation {
 
             statement = con.createStatement();
 
-            String query = "SELECT * " + "FROM Product " + "ORDER BY productPrice ASC;";
+            String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productPrice ASC;";
 
             if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
                 query = ("SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productPrice ASC;");
@@ -337,7 +381,7 @@ public class DatabaseOperation {
         try {
             statement = con.createStatement();
 
-            String query = "SELECT * " + "FROM Product " + "ORDER BY productID DESC;";
+            String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productID DESC;";
 
             if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
                 query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productID DESC;";
@@ -357,7 +401,7 @@ public class DatabaseOperation {
         try {
             statement = con.createStatement();
 
-            String query = "SELECT * " + "FROM Product " + "ORDER BY productID ASC;";
+            String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productID ASC;";
 
             if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
                 query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productID ASC;";

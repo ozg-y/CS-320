@@ -42,6 +42,30 @@ public class LoginPage {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                /*if(true){
+                    permitProduct permit = new permitProduct(frame,operation);
+
+                    JOptionPane.showMessageDialog(null, "Logged in.");
+                    frame.getContentPane().removeAll();
+                    frame.setLayout(new BorderLayout());
+                    frame.repaint();
+
+
+                    frame.getContentPane().add(permit.permitPanel);
+
+                    frame.pack();
+                    frame.repaint();
+                    frame.revalidate();
+
+                    return;
+                }
+
+                 */
+
+
+
+
+
                 String email = textField1.getText();
                 String password = passwordField1.getText();
                 Object obj = e.getSource();
