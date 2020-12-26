@@ -27,7 +27,7 @@ public class SignUpConfirmPage {
 
                 try {
                     if (confirmation_code == operation.pull_student_confirmation_code(studentEmail)) {
-                        operation.confirmed_new_stundet(studentEmail);
+                        operation.confirmed_new_student(studentEmail);
 
                         LoginPage reLogin = new LoginPage(frame, operation);
                         frame.getContentPane().removeAll();
