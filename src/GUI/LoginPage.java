@@ -11,6 +11,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
+import static GUI.LPanel.scaleFile;
+
 public class LoginPage {
     private JTextField textField1;
     private JPasswordField passwordField1;
@@ -28,11 +30,11 @@ public class LoginPage {
         String OS = System.getProperty("os.name");
 
         if (OS.contains("Mac") || OS.contains("Linux")) {
-            File ozuLogo = new File(path + "/src/Icons/ozu_logo.jpg");
+            File ozuLogo = new File(path + "/src/Icons/OzU_logo.png");
             iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
         } else {
-            File ozuLogo = new File(path + "\\src\\Icons\\ozu_logo.jpg");
-            iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
+            ImageIcon ozuLogo = scaleFile(400,200,"OzU_logo.png");
+            iconLabel.setIcon(ozuLogo);
         }
 
 

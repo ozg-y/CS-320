@@ -114,6 +114,22 @@ public class AddProductPage {
                 addButton.setForeground(Color.white);
             }
         });
+
+        button1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                button1.setBackground(Color.white);
+                button1.setForeground(new Color(163, 0, 80));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                button1.setBackground(new Color(163, 0, 80));
+                button1.setForeground(Color.white);
+            }
+        });
     }
 
     public static boolean isNumeric(String str) {

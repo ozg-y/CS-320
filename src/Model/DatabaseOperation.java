@@ -2,8 +2,6 @@ package Model;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.xml.transform.Result;
-import java.awt.*;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -69,7 +67,7 @@ public class DatabaseOperation {
             InputStream sqlPhoto = new FileInputStream(studentPhoto);
 
             // Writing SQL query for push
-            String query = "INSERT INTO Student VALUES (\'" + studentName + "\',\'" + studentSurname + "\',?,\'" + studentEmail + "\',\'" + studentPassword + "\',0);";
+            String query = "INSERT INTO Student VALUES ('" + studentName + "','" + studentSurname + "',?,'" + studentEmail + "','" + studentPassword + "',0);";
             preparedStatement = con.prepareStatement(query);
 
             // Pushing the studentPhoto in binary format
@@ -88,7 +86,7 @@ public class DatabaseOperation {
         try {
 
             // Writing SQL query for push
-            String query = "SELECT * FROM Student WHERE studentEmail = \'" + studentEmail + "\'";
+            String query = "SELECT * FROM Student WHERE studentEmail = '" + studentEmail + "'";
             statement = con.createStatement();
 
             // Creating ResultSet type to pull data from database
@@ -108,7 +106,7 @@ public class DatabaseOperation {
         try {
 
             //Writing SQL query for update
-            String query = "UPDATE Student set studentPassword = \'" + newPassword + "\' where studentEmail = \'" + studentEmail + "\'";
+            String query = "UPDATE Student set studentPassword = '" + newPassword + "' where studentEmail = '" + studentEmail + "'";
 
             //Creating statemnt for our database query
             statement = con.createStatement();
@@ -125,7 +123,7 @@ public class DatabaseOperation {
     public void push_student_confirmation(String email, int confirmation_code) {
         try {
             String query = "INSERT INTO StudentConfirmation VALUES (";
-            query += "\'" + email + "\'" + "," + confirmation_code + ");";
+            query += "'" + email + "'" + "," + confirmation_code + ");";
 
             statement = con.createStatement();
             statement.executeUpdate(query);
@@ -163,7 +161,7 @@ public class DatabaseOperation {
     public void confirmed_new_stundet(String studentEmail) {
 
         try {
-            String query = "UPDATE Student set studentConfirmationCheck = 1 where studentEmail = \'" + studentEmail + "\'";
+            String query = "UPDATE Student set studentConfirmationCheck = 1 where studentEmail = '" + studentEmail + "'";
 
             statement = con.createStatement();
             statement.executeUpdate(query);
@@ -178,11 +176,12 @@ public class DatabaseOperation {
                              String productSeller, String productDescription, ArrayList<String> productPhotos) {
 
         try {
+
             String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription,productPermit) VALUES (" +
                     "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + ",\'" +
                     productSeller + "\',\'" + productDescription + "\',0);";
 
-            System.out.println(query);
+
 
             statement = con.createStatement();
             statement.executeUpdate(query);
@@ -223,7 +222,7 @@ public class DatabaseOperation {
             ArrayList<ImageIcon> photos = pull_product_photos(productID);       // product_photos
             ArrayList<String> comment = new ArrayList<>();
 
-            for(Comment c : comments){
+            for (Comment c : comments) {
                 comment.add(c.comment);
             }
             String query = "SELECT * FROM Product WHERE productID = " + productID + ";";
@@ -306,7 +305,7 @@ public class DatabaseOperation {
 
         try {
 
-            String query = "INSERT INTO ProductComments (productID, StudentEmail, productComments) VALUES (" + productID + "," + "\'" + StudentEmail + "\'," + "\'" + comment + "\'" + ");";
+            String query = "INSERT INTO ProductComments (productID, StudentEmail, productComments) VALUES (" + productID + "," + "'" + StudentEmail + "'," + "'" + comment + "'" + ");";
             statement = con.createStatement();
             statement.execute(query);
 
@@ -324,7 +323,7 @@ public class DatabaseOperation {
             ArrayList<Comment> comments = new ArrayList<>();
 
             while (set.next()) {
-                Comment comment=new Comment(set.getString("StudentEmail"),set.getString("productComments"));
+                Comment comment = new Comment(set.getString("StudentEmail"), set.getString("productComments"));
                 comments.add(comment);
             }
 
@@ -419,7 +418,7 @@ public class DatabaseOperation {
 
     public ResultSet book_id() {
         try {
-            String query = "SELECT productID FROM Product WHERE productCategory = \'book\';";       // selects all the id's of books
+            String query = "SELECT productID FROM Product WHERE productCategory = 'book';";       // selects all the id's of books
 
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -449,7 +448,7 @@ public class DatabaseOperation {
 
     public ResultSet furniture_id() {
         try {
-            String query = "SELECT productID FROM Product WHERE productCategory = \'furniture\';";       // selects all the id's of furniture
+            String query = "SELECT productID FROM Product WHERE productCategory = 'furniture';";       // selects all the id's of furniture
 
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -479,7 +478,7 @@ public class DatabaseOperation {
 
     public ResultSet ticket_id() {
         try {
-            String query = "SELECT productID FROM Product WHERE productCategory = \'ticket\';";       // selects all the id's of ticket
+            String query = "SELECT productID FROM Product WHERE productCategory = 'ticket';";       // selects all the id's of ticket
 
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
