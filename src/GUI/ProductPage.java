@@ -5,13 +5,18 @@ import Model.DatabaseOperation;
 import Model.Product;
 import Model.Student;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class ProductPage {
@@ -32,9 +37,12 @@ public class ProductPage {
     private Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Comment> pullComments = new ArrayList<>();
+    private Student student;
 
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
+
+        this.student = student;
 
         product = operation.pull_product(productID);
 
@@ -58,29 +66,35 @@ public class ProductPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 comment = textArea1.getText();
+
+                if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 operation.push_comment(productID, comment, student.getStudentEmail());
+
+                sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
 
                 comments = operation.pull_comment(productID);
 
                 for (Comment c : comments) {
                     finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
-                if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    finishedComment = "";
-                    comment = textArea1.getText();
-                    operation.push_comment(productID, comment, student.getStudentEmail());
-                    comments.add(new Comment(student.getStudentName(), comment));       // updates comments
 
-                    comments = operation.pull_comment(productID);
-                    for (Comment c : comments) {
-                        finishedComment += c.studentName + " : " + c.comment + "\n \n";
-                    }
-                    productComments.setText(finishedComment);
+                finishedComment = "";
+                comment = textArea1.getText();
+                operation.push_comment(productID, comment, student.getStudentEmail());
+                comments.add(new Comment(student.getStudentName(), comment));       // updates comments
 
-                    productPPanel.repaint();
+                comments = operation.pull_comment(productID);
+                for (Comment c : comments) {
+                    finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
+                productComments.setText(finishedComment);
+
+                productPPanel.repaint();
+
             }
         });
 
@@ -101,6 +115,52 @@ public class ProductPage {
         }, 5, 10, TimeUnit.SECONDS);
 
 
+    }
+
+    public void sendNotification(String to, String from) {
+
+        // Creating properties for email that we will send
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.port", "465");
+
+        // Get the Session object.
+        Session session = Session.getInstance(properties,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(from, "5TjTNSE3TQ32Pds");
+                    }
+                });
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("OzU-Garage Product Notification");
+
+            // Now set the actual message
+            message.setText("Your " + productName.getText() + " is gathering attention :)\n" + student.getStudentName() + " " + student.getStudentSurname() + " commented on your product\nOzU-Garage Team");
+
+            // Send message
+            Transport.send(message);
+
+            JOptionPane.showMessageDialog(null, "Email Sent Correctly");
+
+        } catch (MessagingException mex) { // Email Error
+            JOptionPane.showMessageDialog(null, "Email Couldn't Send It In Properly", "Error", JOptionPane.ERROR_MESSAGE);
+            mex.printStackTrace();
+        }
     }
 
     public JPanel getProductPPanel() {

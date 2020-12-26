@@ -221,7 +221,7 @@ public class Garage {
                 functionCode = 5;
 
                 // Adding productID's in a ArrayList(productIDs) from database
-                String query = "SELECT productID FROM Product GROUP BY productID ORDER BY productID DESC";
+                String query = "SELECT productID FROM Product where productPermit = 1 GROUP BY productID ORDER BY productID DESC";
                 Statement statement = operation.con.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
 
@@ -230,7 +230,9 @@ public class Garage {
                 }
 
                 // Adding productID's in a ArrayList(productImages) from database
-                query = "SELECT productPhotos FROM ProductPhotos GROUP BY productID ORDER BY productID DESC ;";
+                query = "SELECT productPhotos FROM ProductPhotos GROUP BY productID ORDER BY productID DESC;";
+
+
                 statement = operation.con.createStatement();
                 resultSet = statement.executeQuery(query);
 
@@ -240,6 +242,8 @@ public class Garage {
                     ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
                     productImages.add(icon);
                 }
+
+
 
                 display_garage();
 
@@ -350,7 +354,7 @@ public class Garage {
     public void display_garage() {
 
         for (int i = 0; i < productButtons.size(); i++) {
-            if (i + 1 < productImages.size())
+            if (i < productImages.size())
                 productButtons.get(i).setIcon(productImages.get(imageArrayIndex++));
         }
 
