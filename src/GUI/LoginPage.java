@@ -22,6 +22,7 @@ public class LoginPage {
     private JPanel topPanel;
     private JLabel iconLabel;
     private DatabaseOperation operation;
+    private LoginPage loginPage = this;
 
 
     public LoginPage(JFrame frame, DatabaseOperation operation) {
@@ -44,40 +45,26 @@ public class LoginPage {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                /*if(true){
-                    permitProduct permit = new permitProduct(frame,operation);
-
-                    JOptionPane.showMessageDialog(null, "Logged in.");
-                    frame.getContentPane().removeAll();
-                    frame.setLayout(new BorderLayout());
-                    frame.repaint();
-
-
-                    frame.getContentPane().add(permit.permitPanel);
-
-                    frame.pack();
-                    frame.repaint();
-                    frame.revalidate();
-
-                    return;
-                }
-
-                 */
-
-
-
-
-
                 String email = textField1.getText();
                 String password = passwordField1.getText();
-                Object obj = e.getSource();
+                boolean loginCheck = operation.checkForLogin(email,password);
 
-                if (operation.checkForLogin(email, password)) {
+                if(email.equals("ozyegingarage@gmail.com") && loginCheck){
+                    permitProduct permit = new permitProduct(frame,operation,loginPage);
+
+                    if (permit.isOK) {
+                        frame.getContentPane().removeAll();
+                        frame.add(permit.permitPanel);
+
+                        frame.pack();
+                        frame.repaint();
+                        frame.revalidate();
+                    }
+                }
+                if (loginCheck && !email.equals("ozyegingarage@gmail.com")) {
                     JOptionPane.showMessageDialog(null, "Logged in.");
                     frame.getContentPane().removeAll();
                     frame.setLayout(new BorderLayout());
-                    frame.repaint();
-
 
                     Student student = operation.pull_student(email);
                     Garage garage = new Garage(frame, operation, student);
@@ -87,9 +74,10 @@ public class LoginPage {
                     frame.pack();
                     frame.repaint();
                     frame.revalidate();
+
                 } else if (email.equals("") || password.equals("")) {
                     JOptionPane.showMessageDialog(null, "Missing data", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
+                } else if (!loginCheck){
                     JOptionPane.showMessageDialog(null, "Wrong data entered.");
                 }
 

@@ -243,17 +243,17 @@ public class DatabaseOperation {
     public ArrayList<Integer> pull_product_permitted(){
         try {
 
-            ArrayList<Integer> abdü = new ArrayList<>();
+            ArrayList<Integer> esad = new ArrayList<>();
 
             String query = "SELECT * FROM Product WHERE productPermit = 0;";
             statement = con.createStatement();
             ResultSet set = statement.executeQuery(query);
 
             while(set.next()){
-                abdü.add(set.getInt("productID"));
+                esad.add(set.getInt("productID"));
             }
 
-            return abdü;
+            return esad;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
