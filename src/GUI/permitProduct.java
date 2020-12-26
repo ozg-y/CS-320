@@ -21,13 +21,15 @@ public class permitProduct {
     public JPanel permitPanel;
     public boolean isOK = false;
     private JTextArea productDescription;
-    private JButton Next;
+    private JButton nextButton;
     private JLabel productPhoto;
     private JLabel productName;
     private JLabel productCategory;
     private JLabel productPrice;
     private JLabel productSeller;
     private JButton permitButton;
+    private JButton declineButton;
+    private JButton goToLogin;
     private ArrayList<InputStream> productPhotos = new ArrayList<>();
     private ArrayList<Integer> productIDs = new ArrayList<>();
     private int productID;
@@ -51,7 +53,6 @@ public class permitProduct {
 
             productPhoto.setIcon(icon2);
             productName.setText(product.getProductName());
-            productCategory.setText(product.getProductCategory());
             productSeller.setText(product.getProductSeller().getStudentEmail());
             productPrice.setText(Double.toString(product.getProductPrice()));
             productDescription.setText(product.getProductDescription());
@@ -93,13 +94,12 @@ public class permitProduct {
                 }
             }
         });
-        Next.addActionListener(new ActionListener() {
+        nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 try {
                     if (index == size) {
-                        Next.setEnabled(false);
+                        nextButton.setEnabled(false);
                     } else {
                         Product product = operation.pull_product(productIDs.get(index));
                         Image icon = ImageIO.read(productPhotos.get(index));
@@ -116,46 +116,69 @@ public class permitProduct {
                         index++;
                     }
                 } catch (IOException ioException) {
-                    Next.setEnabled(false);
+                    nextButton.setEnabled(false);
                     ioException.printStackTrace();
                 }
             }
         });
 
-        Next.addMouseListener(new MouseAdapter() {
+        nextButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Next.setEnabled(false);
+                nextButton.setForeground(new Color(0, 32, 96));
+                nextButton.setBackground(Color.WHITE);
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                Next.setEnabled(false);
+                nextButton.setForeground(Color.WHITE);
+                nextButton.setBackground(new Color(0, 32, 96));
+            }
+        });
+        permitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                permitButton.setForeground(new Color(65, 163, 81));
+                permitButton.setBackground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                permitButton.setForeground(Color.WHITE);
+                permitButton.setBackground(new Color(65, 163, 81));
+            }
+        });
+        declineButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                operation.delete_product(productIDs.get(index));
+            }
+        });
+        goToLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getContentPane().removeAll();
+                frame.add(loginPage.getMainPanel());
+
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
+            }
+        });
+        goToLogin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                permitButton.setForeground(new Color(60, 163, 209));
+                permitButton.setBackground(Color.WHITE);
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                permitButton.setForeground(Color.WHITE);
+                permitButton.setBackground(new Color(60, 163, 209));
             }
         });
     }
 
-    public void second() {
-        try {
-
-            productPhotos = operation.pull_product_permitted_photos(productIDs.get(index));
-            productID = productIDs.get(index);
-            Product product = operation.pull_product(productIDs.get(index));
-
-            Image icon = ImageIO.read(productPhotos.get(index));
-            ImageIcon icon2 = new ImageIcon(icon);
-            productPhoto.setIcon(icon2);
-            productName.setText(product.getProductName());
-            productCategory.setText(product.getProductCategory());
-            productSeller.setText(product.getProductSeller().getStudentEmail());
-            productPrice.setText(Double.toString(product.getProductPrice()));
-            productDescription.setText(product.getProductDescription());
-
-            index++;
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
