@@ -44,8 +44,8 @@ public class AddProductPage {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //if no photo is uploaded, user will not be able to add a new product
-                /*if (button1.getIcon() == null) {
+
+                if (button1.getIcon() == null) {
                     JOptionPane.showMessageDialog(null, "You must upload a photo to add a product.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (textField1.getText().equals("")) { //if no title is written for the product, user will not be able to add a new product
                     JOptionPane.showMessageDialog(null, "Title field cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -57,26 +57,28 @@ public class AddProductPage {
                     JOptionPane.showMessageDialog(null, "You must select a label.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (textArea1.getText().equals("")) {//if no description is written for the product, user will not be able to add a new product
                     JOptionPane.showMessageDialog(null, "You must provide a description for the product.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else { // else push the product
+                } else {
 
-                 */
 
                     productCategory = (String) comboBox1.getSelectedItem();
                     if (productCategory.equals("Book")) {
                         operation.push_product(textField1.getText(), "book", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhotos);
                     } else if (productCategory.equals("Ticket")) {
-
                         operation.push_product(textField1.getText(), "ticket", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhotos);
-
                     } else if (productCategory.equals("Furniture")) {
-
                         operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhotos);
-
                     }
 
                     frame.getContentPane().removeAll();
-
+                    Garage garage = new Garage(frame, operation, student);
+                    LPanel lPanel = new LPanel(frame, operation, garage, student);
+                    frame.getContentPane().add(garage.productPanel, BorderLayout.CENTER);
+                    frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+                    frame.pack();
+                    frame.repaint();
+                    frame.revalidate();
                 }
+            }
 
 
         });

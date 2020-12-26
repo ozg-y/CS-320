@@ -158,7 +158,7 @@ public class DatabaseOperation {
         return -1;
     }
 
-    public void confirmed_new_stundet(String studentEmail) {
+    public void confirmed_new_student(String studentEmail) {
 
         try {
             String query = "UPDATE Student set studentConfirmationCheck = 1 where studentEmail = '" + studentEmail + "'";
@@ -240,20 +240,36 @@ public class DatabaseOperation {
         return null;
     }
 
+    public void delete_product(int productID) {
+
+        try {
+            String query = "UPDATE Product set productSeller = null where productID = " + productID + ";";
+            statement = con.createStatement();
+            statement.executeQuery(query);
+
+            query = "DELETE FROM Product WHERE productID = " + productID + ";";
+            statement.executeQuery(query);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
     public ArrayList<Integer> pull_product_permitted(){
         try {
 
-            ArrayList<Integer> abdü = new ArrayList<>();
+            ArrayList<Integer> esad = new ArrayList<>();
 
             String query = "SELECT * FROM Product WHERE productPermit = 0;";
             statement = con.createStatement();
             ResultSet set = statement.executeQuery(query);
 
             while(set.next()){
-                abdü.add(set.getInt("productID"));
+                esad.add(set.getInt("productID"));
             }
 
-            return abdü;
+            return esad;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
