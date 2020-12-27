@@ -173,15 +173,13 @@ public class DatabaseOperation {
     }
 
     public void push_product(String productName, String productCategory, double productPrice,
-                             String productSeller, String productDescription, ArrayList<String> productPhotos) {
+                             String productSeller, String productDescription, String productPhoto) {
 
         try {
 
-            String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription,productPermit) VALUES (" +
-                    "\'" + productName + "\',\'" + productCategory + "\'," + productPrice + ",\'" +
-                    productSeller + "\',\'" + productDescription + "\',0);";
-
-
+            String query = "INSERT INTO Product (productName, productCategory, productPrice, productSeller, productDescription,productPermit, productPhoto) VALUES (" +
+                    "'" + productName + "','" + productCategory + "'," + productPrice + ",'" +
+                    productSeller + "','" + productDescription + "',0, null);";
 
             statement = con.createStatement();
             statement.executeUpdate(query);
@@ -196,18 +194,14 @@ public class DatabaseOperation {
                 productID = set.getInt(1);
             }
 
-            // Push photo
-            for (int i = 0; i < productPhotos.size(); i++) {
-                String photo_query = "INSERT INTO ProductPhotos VALUES (" + productID + ",?);";
+            String photo_query = "UPDATE Product SET productPhoto = ? where productID = " + productID + ";";
 
-                preparedStatement = con.prepareStatement(photo_query);
+            preparedStatement = con.prepareStatement(photo_query);
 
-                File file = new File(productPhotos.get(i));
-
-                InputStream sqlPhoto = new FileInputStream(file);
-                preparedStatement.setBinaryStream(1, sqlPhoto);
-                preparedStatement.executeUpdate();
-            }
+            File file = new File(productPhoto);
+            InputStream sqlPhoto = new FileInputStream(file);
+            preparedStatement.setBinaryStream(1, sqlPhoto);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -219,7 +213,8 @@ public class DatabaseOperation {
     public Product pull_product(int productID) {
         try {
             ArrayList<Comment> comments = pull_comment(productID);       // comments
-            ArrayList<ImageIcon> photos = pull_product_photos(productID);       // product_photos
+            // ArrayList<ImageIcon> photos = pull_product_photos(productID);       // product_photos
+            ImageIcon photo = pull_product_photo(productID);
             ArrayList<String> comment = new ArrayList<>();
 
             for (Comment c : comments) {
@@ -228,11 +223,10 @@ public class DatabaseOperation {
             String query = "SELECT * FROM Product WHERE productID = " + productID + ";";
             statement = con.createStatement();
             ResultSet set = statement.executeQuery(query);
+            set.next();
+            return new Product(set.getInt(1), set.getString(2), set.getString(3), photo,
+                    set.getDouble(4), comment, pull_student(set.getString(5)), set.getString(6));
 
-            while (set.next()) {
-                return new Product(set.getInt(1), set.getString(2), set.getString(3), photos,
-                        set.getDouble(4), comment, pull_student(set.getString(5)), set.getString(6));
-            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -253,10 +247,9 @@ public class DatabaseOperation {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
-    public ArrayList<Integer> pull_product_permitted(){
+    public ArrayList<Integer> pull_product_not_permitted() {
         try {
 
             ArrayList<Integer> esad = new ArrayList<>();
@@ -265,7 +258,7 @@ public class DatabaseOperation {
             statement = con.createStatement();
             ResultSet set = statement.executeQuery(query);
 
-            while(set.next()){
+            while (set.next()) {
                 esad.add(set.getInt("productID"));
             }
 
@@ -277,39 +270,16 @@ public class DatabaseOperation {
         return null;
     }
 
-    public ArrayList<InputStream> pull_product_permitted_photos(int productID) throws SQLException {
-
-        ArrayList<InputStream> photos = new ArrayList<>();
-
+    public ImageIcon pull_product_photo(int productID) throws SQLException {
         try {
+            ImageIcon photo = new ImageIcon();
             statement = con.createStatement();
-            ResultSet photo_set = statement.executeQuery("SELECT productPhotos FROM ProductPhotos WHERE productID = " + productID + ";");
+            ResultSet photo_set = statement.executeQuery("SELECT productPhoto FROM Product WHERE productID = " + productID + ";");
 
             while (photo_set.next()) {
-                photos.add(photo_set.getBinaryStream("productPhotos"));
+                photo = new ImageIcon(ImageIO.read(photo_set.getBinaryStream("productPhoto")));
             }
-
-            return photos;
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public ArrayList<ImageIcon> pull_product_photos(int productID) throws SQLException {
-        try {
-            statement = con.createStatement();
-            ResultSet photo_set = statement.executeQuery("SELECT productPhotos FROM ProductPhotos WHERE productID = " + productID + ";");
-            ArrayList<ImageIcon> photos = new ArrayList<>();
-
-            while (photo_set.next()) {
-                ImageIcon icon = new ImageIcon(ImageIO.read(photo_set.getBinaryStream("productPhotos")));
-                photos.add(icon);
-            }
-
-            return photos;
+            return photo;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -357,7 +327,7 @@ public class DatabaseOperation {
 
             String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productPrice DESC;";
 
-            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+            if (filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book")) {
                 query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productPrice DESC;";
             }
 
@@ -378,7 +348,7 @@ public class DatabaseOperation {
 
             String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productPrice ASC;";
 
-            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+            if (filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book")) {
                 query = ("SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productPrice ASC;");
             }
 
@@ -398,7 +368,7 @@ public class DatabaseOperation {
 
             String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productID DESC;";
 
-            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+            if (filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book")) {
                 query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productID DESC;";
             }
 
@@ -418,7 +388,7 @@ public class DatabaseOperation {
 
             String query = "SELECT * " + "FROM Product " + " WHERE productPermit = 1 ORDER BY productID ASC;";
 
-            if(filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book") ){
+            if (filterOption.equals("ticket") || filterOption.equals("furniture") || filterOption.equals("book")) {
                 query = "SELECT * " + "FROM Product WHERE productCategory = \"" + filterOption + "\" ORDER BY productID ASC;";
             }
 
@@ -434,7 +404,7 @@ public class DatabaseOperation {
 
     public ResultSet book_id() {
         try {
-            String query = "SELECT productID FROM Product WHERE productCategory = 'book';";       // selects all the id's of books
+            String query = "SELECT productID FROM Product WHERE productCategory = 'book' AND productPermit = 1;";       // selects all the id's of books
 
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -449,7 +419,7 @@ public class DatabaseOperation {
 
     public ResultSet book_images(int book_id) {
         try {
-            String query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + book_id + ";";
+            String query = "SELECT productPhoto FROM Product WHERE productID = " + book_id + ";";
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -464,7 +434,7 @@ public class DatabaseOperation {
 
     public ResultSet furniture_id() {
         try {
-            String query = "SELECT productID FROM Product WHERE productCategory = 'furniture';";       // selects all the id's of furniture
+            String query = "SELECT productID FROM Product WHERE productCategory = 'furniture' AND productPermit = 1;";       // selects all the id's of furniture
 
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -479,7 +449,7 @@ public class DatabaseOperation {
 
     public ResultSet furniture_images(int furniture_id) {
         try {
-            String query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + furniture_id + ";";
+            String query = "SELECT productPhoto FROM Product WHERE productID = " + furniture_id + ";";
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -494,7 +464,7 @@ public class DatabaseOperation {
 
     public ResultSet ticket_id() {
         try {
-            String query = "SELECT productID FROM Product WHERE productCategory = 'ticket';";       // selects all the id's of ticket
+            String query = "SELECT productID FROM Product WHERE productCategory = 'ticket' AND productPermit = 1;";       // selects all the id's of ticket
 
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -509,7 +479,7 @@ public class DatabaseOperation {
 
     public ResultSet ticket_images(int ticket_id) {
         try {
-            String query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + ticket_id + ";";
+            String query = "SELECT productPhoto FROM Product WHERE productID = " + ticket_id + ";";
             statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 

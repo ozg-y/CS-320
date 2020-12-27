@@ -8,30 +8,30 @@ public class Product {
     private int productID;
     private String productName;
     private String productCategory;
-    private ArrayList<ImageIcon> productPhotos;
+    private ImageIcon productPhoto;
     private double productPrice;
     private ArrayList<String> productComments;
     private Student productSeller;
     private String productDescription;
 
     public Product(String productName, String productCategory,
-                   ArrayList<ImageIcon> productPhotos, double productPrice, ArrayList<String> productComments,
+                   ImageIcon productPhoto, double productPrice, ArrayList<String> productComments,
                    Student productSeller, String productDescription) {
         this.productName = productName;
         this.productCategory = productCategory;
-        this.productPhotos = productPhotos;
+        this.productPhoto = productPhoto;
         this.productPrice = productPrice;
         this.productComments = productComments;
         this.productSeller = productSeller;
         this.productDescription = productDescription;
     }
 
-    public Product(int productID, String productName, String productCategory, ArrayList<ImageIcon> productPhotos,
+    public Product(int productID, String productName, String productCategory, ImageIcon productPhoto,
                    double productPrice, ArrayList<String> productComments, Student productSeller, String productDescription) {
         this.productID = productID;
         this.productName = productName;
         this.productCategory = productCategory;
-        this.productPhotos = productPhotos;
+        this.productPhoto = productPhoto;
         this.productPrice = productPrice;
         this.productComments = productComments;
         this.productSeller = productSeller;
@@ -58,12 +58,12 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public ArrayList<ImageIcon> getProductPhotos() {
-        return productPhotos;
+    public ImageIcon getProductPhoto() {
+        return productPhoto;
     }
 
-    public void setProductPhotos(ArrayList<ImageIcon> productPhotos) {
-        this.productPhotos = productPhotos;
+    public void setProductPhotos(ImageIcon productPhoto) {
+        this.productPhoto = productPhoto;
     }
 
     public double getProductPrice() {
@@ -97,5 +97,6 @@ public class Product {
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
+
 
 }
