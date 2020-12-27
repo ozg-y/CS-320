@@ -3,12 +3,13 @@
   <grid id="27dc6" binding="permitPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="600" height="700"/>
+      <xy x="20" y="20" width="700" height="700"/>
     </constraints>
     <properties>
-      <background color="-723724"/>
-      <minimumSize width="600" height="700"/>
-      <preferredSize width="600" height="700"/>
+      <background color="-5131855"/>
+      <maximumSize width="700" height="700"/>
+      <minimumSize width="700" height="700"/>
+      <preferredSize width="700" height="700"/>
     </properties>
     <border type="none"/>
     <children>
@@ -29,17 +30,17 @@
       <grid id="926b8" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="325" height="-1"/>
-            <preferred-size width="325" height="-1"/>
           </grid>
         </constraints>
         <properties>
-          <background color="-3815995"/>
+          <background color="-5131855"/>
+          <foreground color="-1"/>
         </properties>
         <border type="none"/>
         <children>
-          <component id="90c0b" class="javax.swing.JLabel" binding="productPhoto">
+          <component id="90c0b" class="javax.swing.JLabel" binding="productPhotoLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="250" height="250"/>
@@ -55,6 +56,11 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-1"/>
+              <font size="20" style="1"/>
+              <foreground color="-1"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
               <text value=""/>
             </properties>
           </component>
@@ -63,6 +69,11 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-5131855"/>
+              <font size="20" style="1"/>
+              <foreground color="-6094769"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
               <text value=""/>
             </properties>
           </component>
@@ -71,6 +82,11 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-5131855"/>
+              <font size="20" style="1"/>
+              <foreground color="-6094769"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
               <text value=""/>
             </properties>
           </component>
@@ -78,7 +94,18 @@
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-5131855"/>
+              <caretColor color="-1"/>
+              <disabledTextColor color="-1"/>
+              <editable value="false"/>
+              <font size="16" style="1"/>
+              <foreground color="-1"/>
+              <lineWrap value="false"/>
+              <opaque value="false"/>
+              <rows value="10"/>
+              <wrapStyleWord value="false"/>
+            </properties>
           </component>
         </children>
       </grid>

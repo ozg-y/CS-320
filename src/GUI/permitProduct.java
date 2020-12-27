@@ -17,20 +17,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class permitProduct {
-    private final DatabaseOperation operation;
+    private DatabaseOperation operation;
     public JPanel permitPanel;
     public boolean isOK = false;
     private JTextArea productDescription;
     private JButton nextButton;
-    private JLabel productPhoto;
+    private JLabel productPhotoLabel;
     private JLabel productName;
-    private JLabel productCategory;
     private JLabel productPrice;
     private JLabel productSeller;
     private JButton permitButton;
     private JButton declineButton;
     private JButton goToLogin;
-    private ArrayList<InputStream> productPhotos = new ArrayList<>();
+    private ImageIcon productPhoto;
     private ArrayList<Integer> productIDs = new ArrayList<>();
     private int productID;
     private int index = 0;
@@ -42,23 +41,30 @@ public class permitProduct {
         this.operation = operation;
 
         try {
-            productIDs = operation.pull_product_permitted();
-            productPhotos = operation.pull_product_permitted_photos(productIDs.get(index));
+            productIDs = operation.pull_product_not_permitted();
+            System.out.println(productIDs);
+            productPhoto = operation.pull_product_photo(productIDs.get(index));
             productID = productIDs.get(index);
 
             size = productIDs.size();
+            System.out.println(index);
             Product product = operation.pull_product(productIDs.get(index));
-            Image icon = ImageIO.read(productPhotos.get(index));
-            ImageIcon icon2 = new ImageIcon(icon);
 
-            productPhoto.setIcon(icon2);
+            Image image = productPhoto.getImage().getScaledInstance(240, 240,  Image.SCALE_FAST);
+            productPhoto = new ImageIcon(image);
+            productPhotoLabel.setIcon(productPhoto);
+
             productName.setText(product.getProductName());
             productSeller.setText(product.getProductSeller().getStudentEmail());
             productPrice.setText(Double.toString(product.getProductPrice()));
+
+            productDescription.setEnabled(true);
             productDescription.setText(product.getProductDescription());
+            productDescription.setEnabled(false);
 
             index++;
             isOK = true;
+
         } catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "There are no products waiting to be permitted");
             isOK = false;
@@ -97,40 +103,44 @@ public class permitProduct {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (index == size) {
-                        nextButton.setEnabled(false);
-                    } else {
-                        Product product = operation.pull_product(productIDs.get(index));
-                        Image icon = ImageIO.read(productPhotos.get(index));
-                        ImageIcon icon2 = new ImageIcon(icon);
-
-                        productID = productIDs.get(index);
-                        productPhoto.setIcon(icon2);
-                        productName.setText(product.getProductName());
-                        productCategory.setText(product.getProductCategory());
-                        productSeller.setText(product.getProductSeller().getStudentEmail());
-                        productPrice.setText(Double.toString(product.getProductPrice()));
-                        productDescription.setText(product.getProductDescription());
-
-                        index++;
-                    }
-                } catch (IOException ioException) {
+                if (index == size) {
                     nextButton.setEnabled(false);
-                    ioException.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"No more products");
+                } else {
+                    Product product = operation.pull_product(productIDs.get(index));
+                    try {
+                        productPhoto = operation.pull_product_photo(productIDs.get(index));
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    productID = productIDs.get(index);
+
+                    Image image = productPhoto.getImage().getScaledInstance(240, 240,  Image.SCALE_FAST);
+                    productPhoto = new ImageIcon(image);
+                    productPhotoLabel.setIcon(productPhoto);
+
+                    productName.setText(product.getProductName());
+                    productSeller.setText(product.getProductSeller().getStudentEmail());
+                    productPrice.setText(Double.toString(product.getProductPrice()));
+
+                    productDescription.setEnabled(true);
+                    productDescription.setText(product.getProductDescription());
+                    productDescription.setEnabled(false);
+
+                    index++;
                 }
             }
         });
 
         nextButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseEntered(MouseEvent e) {
                 nextButton.setForeground(new Color(0, 32, 96));
                 nextButton.setBackground(Color.WHITE);
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseExited(MouseEvent e) {
                 nextButton.setForeground(Color.WHITE);
                 nextButton.setBackground(new Color(0, 32, 96));
             }
@@ -168,15 +178,29 @@ public class permitProduct {
         goToLogin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                permitButton.setForeground(new Color(60, 163, 209));
-                permitButton.setBackground(Color.WHITE);
+                goToLogin.setForeground(new Color(60, 163, 209));
+                goToLogin.setBackground(Color.WHITE);
 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                permitButton.setForeground(Color.WHITE);
-                permitButton.setBackground(new Color(60, 163, 209));
+                goToLogin.setForeground(Color.WHITE);
+                goToLogin.setBackground(new Color(60, 163, 209));
+            }
+        });
+        declineButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                declineButton.setForeground(new Color(209, 60, 62));
+                declineButton.setBackground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                declineButton.setForeground(Color.WHITE);
+                declineButton.setBackground(new Color(209, 60, 62));
+
             }
         });
     }
