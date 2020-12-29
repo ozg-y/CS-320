@@ -9,6 +9,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -40,13 +41,14 @@ public class ProductPage {
     private Student student;
 
 
+
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
 
         this.student = student;
 
         product = operation.pull_product(productID);
 
-        productPhotoLabel.setIcon(product.getProductPhoto());
+        productPhotoLabel.setIcon(new ImageIcon(product.getProductPhoto().getImage().getScaledInstance(240,240, Image.SCALE_DEFAULT)));
         productName.setText(product.getProductName());
         sellerInfoLabel.setText(product.getProductSeller().getStudentEmail());
         productPrice.setText(Double.toString(product.getProductPrice()));
@@ -56,7 +58,6 @@ public class ProductPage {
 
         size = comments.size();
 
-
         for (Comment c : comments) {
             finishedComment += c.studentName + " : " + c.comment + "\n \n";
         }
@@ -65,6 +66,7 @@ public class ProductPage {
         commentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 comment = textArea1.getText();
 
                 if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
@@ -74,36 +76,27 @@ public class ProductPage {
 
                 operation.push_comment(productID, comment, student.getStudentEmail());
 
+                textArea1.setText("");
+
                 sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
 
                 comments = operation.pull_comment(productID);
 
-                for (Comment c : comments) {
-                    finishedComment += c.studentName + " : " + c.comment + "\n \n";
-                }
-
                 finishedComment = "";
-                comment = textArea1.getText();
-                operation.push_comment(productID, comment, student.getStudentEmail());
-                comments.add(new Comment(student.getStudentName(), comment));       // updates comments
 
-                comments = operation.pull_comment(productID);
                 for (Comment c : comments) {
                     finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
-                productComments.setText(finishedComment);
-
-                productPPanel.repaint();
-
             }
         });
+
 
         scheduler.scheduleAtFixedRate(() -> {
 
             pullComments = operation.pull_comment(productID);
 
             System.out.println("Pull Comments size : " + pullComments.size());
-            System.out.println(" size : " + size);
+            System.out.println("Size : " + size);
 
             if (!(pullComments.size() == size)) {
                 for (int i = size; i < pullComments.size(); i++)
@@ -113,7 +106,6 @@ public class ProductPage {
                 size++;
             }
         }, 5, 10, TimeUnit.SECONDS);
-
 
     }
 
