@@ -16,6 +16,8 @@ public class SignUpConfirmPage {
     private JPanel panelC;
     private JButton submitButton;
     private JTextField code;
+
+    int errorCounter = 0;
     public SignUpConfirmPage(JFrame frame, DatabaseOperation operation, String studentEmail) {
         this.operation = operation;
 
@@ -23,6 +25,7 @@ public class SignUpConfirmPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = code.getText();
+
                 int confirmation_code = Integer.parseInt(text);
 
                 try {
@@ -37,7 +40,20 @@ public class SignUpConfirmPage {
                         frame.revalidate();
                     } else {
                         code.setText("");
+                        errorCounter++;
+
                         JOptionPane.showMessageDialog(null, "Incorrect Code", "Error", JOptionPane.ERROR_MESSAGE);
+
+                        if(errorCounter == 3) {
+                            JOptionPane.showMessageDialog(null, "Wrong confirmation code", "Error", JOptionPane.ERROR_MESSAGE);
+
+                            LoginPage reLogin = new LoginPage(frame, operation);
+                            frame.getContentPane().removeAll();
+                            frame.repaint();
+
+                            frame.getContentPane().add(reLogin.getMainPanel());
+                            frame.revalidate();
+                        }
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
