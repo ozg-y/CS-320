@@ -46,7 +46,7 @@ public class ProductPage {
 
         product = operation.pull_product(productID);
 
-        productPhotoLabel.setIcon(product.getProductPhotos().get(0));
+        productPhotoLabel.setIcon(product.getProductPhoto());
         productName.setText(product.getProductName());
         sellerInfoLabel.setText(product.getProductSeller().getStudentEmail());
         productPrice.setText(Double.toString(product.getProductPrice()));

@@ -22,6 +22,7 @@ import static GUI.LPanel.scaleFile;
 
 public class Garage {
 
+    private final DatabaseOperation operation;
     public JPanel productPanel;
     int imageArrayIndex = 0;
     int pageNumber = 1;
@@ -49,7 +50,6 @@ public class Garage {
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
-    private final DatabaseOperation operation;
 
     public Garage(JFrame frame, DatabaseOperation operation, Student student) {
 
@@ -230,20 +230,17 @@ public class Garage {
                 }
 
                 // Adding productID's in a ArrayList(productImages) from database
-                query = "SELECT productPhotos FROM ProductPhotos GROUP BY productID ORDER BY productID DESC;";
-
+                query = "SELECT productPhoto FROM Product where productPermit = 1 ORDER BY productID DESC;";
 
                 statement = operation.con.createStatement();
                 resultSet = statement.executeQuery(query);
 
                 while (resultSet.next()) {
-                    InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                    InputStream x = resultSet.getBinaryStream("productPhoto");
                     Image image = ImageIO.read(x);
                     ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
                     productImages.add(icon);
                 }
-
-
 
                 display_garage();
 
@@ -269,7 +266,7 @@ public class Garage {
                     resultSet = operation.book_images(i);
 
                     while (resultSet.next()) {
-                        InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                        InputStream x = (resultSet.getBinaryStream("productPhoto"));
                         Image image = ImageIO.read(x);
                         ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
                         productImages.add(icon);
@@ -302,7 +299,7 @@ public class Garage {
                     resultSet = operation.furniture_images(i);
 
                     while (resultSet.next()) {
-                        InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                        InputStream x = (resultSet.getBinaryStream("productPhoto"));
                         Image image = ImageIO.read(x);
                         ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
                         productImages.add(icon);
@@ -334,7 +331,7 @@ public class Garage {
                     resultSet = operation.ticket_images(i);
 
                     while (resultSet.next()) {
-                        InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                        InputStream x = (resultSet.getBinaryStream("productPhoto"));
                         Image image = ImageIO.read(x);
                         ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
                         productImages.add(icon);
@@ -428,12 +425,12 @@ public class Garage {
             }
 
             for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID;";
+                String sql = "SELECT productPhoto FROM Product WHERE productID = " + id + " AND productPermit = 1 GROUP BY productID;";
                 operation.statement = operation.con.createStatement();
                 myRst = operation.statement.executeQuery(sql);
 
                 while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
                     ImageIcon icon = new ImageIcon(image);
                     productImages.add(icon);
@@ -465,12 +462,12 @@ public class Garage {
             }
 
             for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                String sql = "SELECT productPhoto FROM Product WHERE productID = " + id + " AND productPermit = 1 GROUP BY productID ;";
                 operation.statement = operation.con.createStatement();
                 myRst = operation.statement.executeQuery(sql);
 
                 while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
                     ImageIcon icon = new ImageIcon(image);
                     productImages.add(icon);
@@ -502,12 +499,12 @@ public class Garage {
             }
 
             for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                String sql = "SELECT productPhoto FROM Product WHERE productID = " + id + " AND productPermit = 1 GROUP BY productID ;";
                 operation.statement = operation.con.createStatement();
                 myRst = operation.statement.executeQuery(sql);
 
                 while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
                     ImageIcon icon = new ImageIcon(image);
                     productImages.add(icon);
@@ -540,12 +537,12 @@ public class Garage {
             }
 
             for (int id : productIds) {
-                String sql = "SELECT * FROM ProductPhotos WHERE productID = " + id + " GROUP BY productID ;";
+                String sql = "SELECT productPhoto FROM Product WHERE productID = " + id + " AND productPermit = 1 GROUP BY productID ;";
                 operation.statement = operation.con.createStatement();
                 myRst = operation.statement.executeQuery(sql);
 
                 while (myRst.next()) {
-                    InputStream x = (myRst.getBinaryStream("productPhotos"));
+                    InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
                     ImageIcon icon = new ImageIcon(image);
                     productImages.add(icon);
@@ -573,7 +570,7 @@ public class Garage {
         imageArrayIndex = 0;
 
         try {
-            String query = "SELECT productID FROM Product WHERE productName = '" + search_request + "';";
+            String query = "SELECT productID FROM Product WHERE productName = '" + search_request + "' AND productPermit = 1;";
 
             Statement statement = operation.con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -585,12 +582,12 @@ public class Garage {
             // Adding all of the photos that match the search request
             // Finding photos based on previously identified productID
             for (int i : productIds) {
-                query = "SELECT productPhotos FROM ProductPhotos WHERE productID = " + i + ";";
+                query = "SELECT productPhoto FROM Product WHERE productID = " + i + ";";
                 statement = operation.con.createStatement();
                 resultSet = statement.executeQuery(query);
 
                 while (resultSet.next()) {
-                    InputStream x = (resultSet.getBinaryStream("productPhotos"));
+                    InputStream x = (resultSet.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
                     ImageIcon icon = new ImageIcon(image.getScaledInstance(245, 245, Image.SCALE_SMOOTH));
                     productImages.add(icon);

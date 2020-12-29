@@ -30,7 +30,6 @@ public class AddProductPage {
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
     private DatabaseOperation operation;
-    private ArrayList<String> productPhotos = new ArrayList<>();
 
 
     public AddProductPage(DatabaseOperation operation, Student student, JFrame frame) {
@@ -53,20 +52,19 @@ public class AddProductPage {
                     JOptionPane.showMessageDialog(null, "Price field cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (!isNumeric(textField2.getText())) { //the price is not entered as a numerical value
                     JOptionPane.showMessageDialog(null, "Price must be a numerical value.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!comboBox1.isCursorSet()) {//if no label is chosen for the product, user will not be able to add a new product
-                    JOptionPane.showMessageDialog(null, "You must select a label.", "Error", JOptionPane.ERROR_MESSAGE);
+//                } else if (!comboBox1.isCursorSet()) {//if no label is chosen for the product, user will not be able to add a new product
+//                    JOptionPane.showMessageDialog(null, "You must select a label.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (textArea1.getText().equals("")) {//if no description is written for the product, user will not be able to add a new product
                     JOptionPane.showMessageDialog(null, "You must provide a description for the product.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
 
-
                     productCategory = (String) comboBox1.getSelectedItem();
                     if (productCategory.equals("Book")) {
-                        operation.push_product(textField1.getText(), "book", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhotos);
+                        operation.push_product(textField1.getText(), "book", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhoto);
                     } else if (productCategory.equals("Ticket")) {
-                        operation.push_product(textField1.getText(), "ticket", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhotos);
+                        operation.push_product(textField1.getText(), "ticket", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhoto);
                     } else if (productCategory.equals("Furniture")) {
-                        operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhotos);
+                        operation.push_product(textField1.getText(), "furniture", Double.parseDouble(textField2.getText()), student.getStudentEmail(), textArea1.getText(), productPhoto);
                     }
 
                     frame.getContentPane().removeAll();
@@ -80,7 +78,6 @@ public class AddProductPage {
                 }
             }
 
-
         });
 
         button1.addActionListener(new ActionListener() {
@@ -91,7 +88,7 @@ public class AddProductPage {
                 photo = j.getSelectedFile();
 
                 ImageIcon icon = new ImageIcon(new ImageIcon(photo.getAbsolutePath()).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH));
-                productPhotos.add(photo.getAbsolutePath());
+                productPhoto = photo.getAbsolutePath();
                 button1.setText(null);
                 button1.setBackground(new java.awt.Color(187, 187, 187));
                 button1.setOpaque(true);
