@@ -102,6 +102,29 @@ public class DatabaseOperation {
         return null;
     }
 
+    public void change_student_photo(String studentEmail,String filePath){
+
+        try {
+
+            // Changing type of the studentPhoto
+            InputStream sqlPhoto = new FileInputStream(filePath);
+
+            // Writing SQL query for push
+            String query = "UPDATE Student set studentPhoto = ? where studentEmail = \"" + studentEmail + "\";";
+            preparedStatement = con.prepareStatement(query);
+
+            // Pushing the studentPhoto in binary format
+            preparedStatement.setBinaryStream(1, sqlPhoto);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void change_student_password(String studentEmail, String newPassword) {
         try {
 
