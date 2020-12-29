@@ -35,6 +35,8 @@ public class LPanel {
         return lPanel;
     }
 
+
+
     public LPanel(JFrame frame, DatabaseOperation operation, Garage garage, Student student) {
 
         ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(195,220,Image.SCALE_SMOOTH));
