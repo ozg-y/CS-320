@@ -2,7 +2,7 @@ package GUI;
 
 import Model.DatabaseOperation;
 import Model.Student;
-
+import GUI.LPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -39,11 +39,23 @@ public class ProfilePage {
                 j.showSaveDialog(null);
                 photo = j.getSelectedFile();
                 ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+                student.setStudentProfilePhoto(icon);
+                operation.change_student_photo(student.getStudentEmail(),photo.getAbsolutePath());
                 profilePhotoButton.setText(null);
                 profilePhotoButton.setBackground(new java.awt.Color(187, 187, 187));
                 profilePhotoButton.setOpaque(true);
                 profilePhotoButton.setBorderPainted(false);
                 profilePhotoButton.setIcon(icon);
+                frame.getContentPane().removeAll();
+                frame.setLayout(new BorderLayout());
+
+                Garage garage = new Garage(frame, operation, student);
+                LPanel lPanel = new LPanel(frame, operation, garage, student);
+                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+                frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
             }
         });
         changePasswordButton.addActionListener(new ActionListener() {

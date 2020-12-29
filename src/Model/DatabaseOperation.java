@@ -110,7 +110,7 @@ public class DatabaseOperation {
             InputStream sqlPhoto = new FileInputStream(filePath);
 
             // Writing SQL query for push
-            String query = "UPDATE Student set studentPhoto = ? where studentEmail = \"" + studentEmail + "\";";
+            String query = "UPDATE Student set studentProfilePhoto = ? where studentEmail = \"" + studentEmail + "\";";
             preparedStatement = con.prepareStatement(query);
 
             // Pushing the studentPhoto in binary format
