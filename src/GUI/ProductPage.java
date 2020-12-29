@@ -98,8 +98,6 @@ public class ProductPage {
 
             if (!(pullComments.size() == size)) {
 
-                finishedComment = "";
-
                 for (int i = size; i < pullComments.size(); i++) {
                     finishedComment += pullComments.get(i).studentName + " : " + pullComments.get(i).comment + "\n \n";
                     size++;
@@ -149,10 +147,8 @@ public class ProductPage {
             // Send message
             Transport.send(message);
 
-            JOptionPane.showMessageDialog(null, "Email Sent Correctly");
-
         } catch (MessagingException mex) { // Email Error
-            JOptionPane.showMessageDialog(null, "Email Couldn't Send It In Properly", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Email Notification Couldn't Send It In Properly", "Error", JOptionPane.ERROR_MESSAGE);
             mex.printStackTrace();
         }
     }
