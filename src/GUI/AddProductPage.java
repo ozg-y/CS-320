@@ -3,33 +3,30 @@ package GUI;
 import Model.DatabaseOperation;
 import Model.Student;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AddProductPage {
-    private JButton button1;
+    private JButton productPhotoButton;
     private JTextField textField1;
     private JTextField textField2;
     private JTextArea textArea1;
-    // private JComboBox comboBox1;
     private JButton addButton;
     private JPanel addPanel;
     private File photo;
     private JComboBox<String> comboBox1;
-    private String productPhoto;
-    private String productTitle;
-    private double productPrice;
+    private File productPhoto;
     private String productCategory;
-    private String productDescription;
-    private ArrayList<Integer> productIds = new ArrayList<>();
-    private ArrayList<ImageIcon> productImages = new ArrayList<>();
-    private DatabaseOperation operation;
+
 
 
     public AddProductPage(DatabaseOperation operation, Student student, JFrame frame) {
@@ -44,7 +41,7 @@ public class AddProductPage {
             public void actionPerformed(ActionEvent e) {
 
 
-                if (button1.getIcon() == null) {
+                if (productPhotoButton.getIcon() == null) {
                     JOptionPane.showMessageDialog(null, "You must upload a photo to add a product.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (textField1.getText().equals("")) { //if no title is written for the product, user will not be able to add a new product
                     JOptionPane.showMessageDialog(null, "Title field cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -80,7 +77,7 @@ public class AddProductPage {
 
         });
 
-        button1.addActionListener(new ActionListener() {
+        productPhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser j = new JFileChooser();
@@ -88,12 +85,18 @@ public class AddProductPage {
                 photo = j.getSelectedFile();
 
                 ImageIcon icon = new ImageIcon(new ImageIcon(photo.getAbsolutePath()).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH));
-                productPhoto = photo.getAbsolutePath();
-                button1.setText(null);
-                button1.setBackground(new java.awt.Color(187, 187, 187));
-                button1.setOpaque(true);
-                button1.setBorderPainted(false);
-                button1.setIcon(icon);
+
+                try {
+                    ImageIO.write((RenderedImage) productPhoto,"png",j.getSelectedFile());
+                } catch (IOException ioException) {
+                    JOptionPane.showMessageDialog(null,"Error Occured When Loading Photo.Please Try Again","Error",JOptionPane.ERROR_MESSAGE);
+                }
+
+                productPhotoButton.setText(null);
+                productPhotoButton.setBackground(new java.awt.Color(187, 187, 187));
+                productPhotoButton.setOpaque(true);
+                productPhotoButton.setBorderPainted(false);
+                productPhotoButton.setIcon(icon);
 
             }
         });
@@ -114,19 +117,19 @@ public class AddProductPage {
             }
         });
 
-        button1.addMouseListener(new MouseAdapter() {
+        productPhotoButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                button1.setBackground(Color.white);
-                button1.setForeground(new Color(163, 0, 80));
+                productPhotoButton.setBackground(Color.white);
+                productPhotoButton.setForeground(new Color(163, 0, 80));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                button1.setBackground(new Color(163, 0, 80));
-                button1.setForeground(Color.white);
+                productPhotoButton.setBackground(new Color(163, 0, 80));
+                productPhotoButton.setForeground(Color.white);
             }
         });
     }

@@ -196,7 +196,7 @@ public class DatabaseOperation {
     }
 
     public void push_product(String productName, String productCategory, double productPrice,
-                             String productSeller, String productDescription, String productPhoto) {
+                             String productSeller, String productDescription, File productPhoto) {
 
         try {
 
@@ -221,8 +221,7 @@ public class DatabaseOperation {
 
             preparedStatement = con.prepareStatement(photo_query);
 
-            File file = new File(productPhoto);
-            InputStream sqlPhoto = new FileInputStream(file);
+            InputStream sqlPhoto = new FileInputStream(productPhoto);
             preparedStatement.setBinaryStream(1, sqlPhoto);
             preparedStatement.executeUpdate();
 
