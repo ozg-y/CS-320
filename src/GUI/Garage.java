@@ -432,7 +432,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
@@ -469,7 +469,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
@@ -506,7 +506,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
@@ -544,7 +544,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image);
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
