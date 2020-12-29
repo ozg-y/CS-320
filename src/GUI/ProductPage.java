@@ -41,6 +41,7 @@ public class ProductPage {
     private Student student;
 
 
+
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
 
         this.student = student;
@@ -57,7 +58,6 @@ public class ProductPage {
 
         size = comments.size();
 
-
         for (Comment c : comments) {
             finishedComment += c.studentName + " : " + c.comment + "\n \n";
         }
@@ -66,6 +66,7 @@ public class ProductPage {
         commentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 comment = textArea1.getText();
 
                 if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
@@ -75,36 +76,27 @@ public class ProductPage {
 
                 operation.push_comment(productID, comment, student.getStudentEmail());
 
+                textArea1.setText("");
+
                 sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
 
                 comments = operation.pull_comment(productID);
 
-                for (Comment c : comments) {
-                    finishedComment += c.studentName + " : " + c.comment + "\n \n";
-                }
-
                 finishedComment = "";
-                comment = textArea1.getText();
-                operation.push_comment(productID, comment, student.getStudentEmail());
-                comments.add(new Comment(student.getStudentName(), comment));       // updates comments
 
-                comments = operation.pull_comment(productID);
                 for (Comment c : comments) {
                     finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
-                productComments.setText(finishedComment);
-
-                productPPanel.repaint();
-
             }
         });
+
 
         scheduler.scheduleAtFixedRate(() -> {
 
             pullComments = operation.pull_comment(productID);
 
             System.out.println("Pull Comments size : " + pullComments.size());
-            System.out.println(" size : " + size);
+            System.out.println("Size : " + size);
 
             if (!(pullComments.size() == size)) {
                 for (int i = size; i < pullComments.size(); i++)
@@ -114,7 +106,6 @@ public class ProductPage {
                 size++;
             }
         }, 5, 10, TimeUnit.SECONDS);
-
 
     }
 
