@@ -9,6 +9,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -46,7 +47,7 @@ public class ProductPage {
 
         product = operation.pull_product(productID);
 
-        productPhotoLabel.setIcon(product.getProductPhoto());
+        productPhotoLabel.setIcon(new ImageIcon(product.getProductPhoto().getImage().getScaledInstance(240,240, Image.SCALE_DEFAULT)));
         productName.setText(product.getProductName());
         sellerInfoLabel.setText(product.getProductSeller().getStudentEmail());
         productPrice.setText(Double.toString(product.getProductPrice()));
