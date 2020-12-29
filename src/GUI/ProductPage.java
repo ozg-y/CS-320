@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.Executors;
@@ -75,37 +77,37 @@ public class ProductPage {
                 }
 
                 operation.push_comment(productID, comment, student.getStudentEmail());
-
+                size++;
                 textArea1.setText("");
-
                 sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
-
                 comments = operation.pull_comment(productID);
-
                 finishedComment = "";
 
                 for (Comment c : comments) {
                     finishedComment += c.studentName + " : " + c.comment + "\n \n";
                 }
+
+                productComments.setText(finishedComment);
+
             }
         });
-
 
         scheduler.scheduleAtFixedRate(() -> {
 
             pullComments = operation.pull_comment(productID);
 
-            System.out.println("Pull Comments size : " + pullComments.size());
-            System.out.println("Size : " + size);
-
             if (!(pullComments.size() == size)) {
-                for (int i = size; i < pullComments.size(); i++)
-                    finishedComment += pullComments.get(i).studentName + " : " + pullComments.get(i).comment + "\n \n";
 
+                finishedComment = "";
+
+                for (int i = size; i < pullComments.size(); i++) {
+                    finishedComment += pullComments.get(i).studentName + " : " + pullComments.get(i).comment + "\n \n";
+                    size++;
+                }
                 productComments.setText(finishedComment);
-                size++;
             }
-        }, 5, 10, TimeUnit.SECONDS);
+
+        }, 10, 10, TimeUnit.SECONDS);
 
     }
 
