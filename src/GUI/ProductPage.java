@@ -69,25 +69,7 @@ public class ProductPage {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                comment = textArea1.getText();
-
-                if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                operation.push_comment(productID, comment, student.getStudentEmail());
-                size++;
-                textArea1.setText("");
-                sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
-                comments = operation.pull_comment(productID);
-                finishedComment = "";
-
-                for (Comment c : comments) {
-                    finishedComment += c.studentName + " : " + c.comment + "\n \n";
-                }
-
-                productComments.setText(finishedComment);
+                checkForComment(textArea1.getText(),operation,student,textArea1,productID,size,sellerInfoLabel,comments,finishedComment,productComments);
 
             }
         });
@@ -106,6 +88,30 @@ public class ProductPage {
             }
 
         }, 10, 10, TimeUnit.SECONDS);
+
+    }
+
+    public boolean checkForComment(String comment,DatabaseOperation operation,Student student,JTextArea textArea1,int productID,int size,JLabel sellerInfoLabel,ArrayList<Comment> comments,String finishedComment,JEditorPane productComments){
+
+        if (comment.equals("") || comment.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        operation.push_comment(productID, comment, student.getStudentEmail());
+        size++;
+        textArea1.setText("");
+        sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
+        comments = operation.pull_comment(productID);
+        finishedComment = "";
+
+        for (Comment c : comments) {
+            finishedComment += c.studentName + " : " + c.comment + "\n \n";
+        }
+
+        productComments.setText(finishedComment);
+
+        return true;
 
     }
 

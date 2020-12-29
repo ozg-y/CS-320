@@ -23,9 +23,9 @@ public class LPanel {
     private JButton other;
     private JComboBox filter;
     private JButton home;
-    private JButton category1IconButton;
-    private JButton category2IconButton;
-    private JButton category3IconButton;
+    public JButton category1IconButton;
+    public JButton category2IconButton;
+    public JButton category3IconButton;
     private JButton profilePhotoButton;
     private JButton addProduct;
     public JPanel lPanel;
@@ -76,22 +76,8 @@ public class LPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                checkForLoginPage(category1IconButton,category2IconButton,category3IconButton,frame,operation,student,lPanel);
 
-                category1IconButton.setEnabled(false);
-                category2IconButton.setEnabled(false);
-                category3IconButton.setEnabled(false);
-              
-                ProfilePage profilePage = new ProfilePage(frame, operation, student);
-
-
-                frame.getContentPane().removeAll();
-                frame.setLayout(new BorderLayout());
-
-                frame.getContentPane().add(profilePage.getProfilePPanel(), BorderLayout.CENTER);
-                frame.getContentPane().add(lPanel, BorderLayout.WEST);
-                frame.pack();
-                frame.repaint();
-                frame.revalidate();
             }
         });
         category1IconButton.addActionListener(new ActionListener() {
@@ -182,6 +168,34 @@ public class LPanel {
         };
         home.addMouseListener(listener);
         addProduct.addMouseListener(listener);
+    }
+
+    public boolean checkForLoginPage(JButton category1IconButton,JButton category2IconButton,JButton category3IconButton,JFrame frame,DatabaseOperation operation,Student student,JPanel lPanel){
+
+        try {
+            category1IconButton.setEnabled(false);
+            category2IconButton.setEnabled(false);
+            category3IconButton.setEnabled(false);
+
+            ProfilePage profilePage = new ProfilePage(frame, operation, student);
+
+            frame.getContentPane().removeAll();
+            frame.setLayout(new BorderLayout());
+
+            frame.getContentPane().add(profilePage.getProfilePPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(lPanel, BorderLayout.WEST);
+            frame.pack();
+            frame.repaint();
+            frame.revalidate();
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
     }
 
     public static ImageIcon scaleFile(int width, int height, String filename) {

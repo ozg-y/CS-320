@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -31,6 +33,13 @@ public class Student {
             e.printStackTrace();
         }
 
+    }
+
+    public Student(String _studentName, String _studentSurname, String _studentEmail, String _studentPassword){
+        studentName = _studentName;
+        studentSurname = _studentSurname;
+        studentEmail = _studentEmail;
+        studentPassword = _studentPassword;
     }
 
     public String getStudentName() {
@@ -77,6 +86,19 @@ public class Student {
 
     public void manageProduct(Product p){
 
+    }
+
+    public void changeStudentProfilePhoto(String studentPhotoPath){
+        try{
+            File file = new File(studentPhotoPath);
+            InputStream x = new FileInputStream(file);
+            Image image = ImageIO.read(x);
+            ImageIcon icon = new ImageIcon(image);
+            studentProfilePhoto = icon;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

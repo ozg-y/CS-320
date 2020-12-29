@@ -12,6 +12,8 @@ public class DatabaseOperation {
     public Statement statement;
     public PreparedStatement preparedStatement;
 
+    boolean isConnected = false;
+
     public DatabaseOperation() {
 
         JFrame frame = new JFrame();
@@ -27,11 +29,16 @@ public class DatabaseOperation {
         try {
             con = DriverManager.getConnection(url, Database.DBusername, Database.DBpassword);
             System.out.println("Database Connection Successful");
+            isConnected = true;
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(frame, "Database Connection Fails.Try Again.");
             System.exit(-1);
         }
+    }
+
+    public boolean checkForConnection(){
+        return isConnected;
     }
 
     public boolean checkForLogin(String studentEmail, String studentPassword) {

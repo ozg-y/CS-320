@@ -33,61 +33,24 @@ public class SignUpPage {
     private String studentEmail;
     private File photo;
 
+    JFrame frame;
+
     public SignUpPage(JFrame frame, DatabaseOperation operation) {
 
         this.operation = operation;
 
+
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String password1 = passwordField1.getText();
-                String password2 = passwordField2.getText();
-                boolean b = isValidEmail(textField1.getText());
 
-                if (!b) {
-                    JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
-                    return;
-                } else if (photoButton.isBorderPainted()) {
-                    JOptionPane.showMessageDialog(null, "Select a photo");
-                    return;
-                } else if (password1.equals("") || password2.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else if (textField2.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else if (textField3.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else if (textField1.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                else if (password1.equals(password2)) {
-                    studentName = textField2.getText();
-                    studentSurname = textField3.getText();
-                    studentProfilePhoto = photo.getAbsolutePath();
-                    studentEmail = textField1.getText();
+                boolean isPhotoUploaded = photoButton.isBorderPainted();
+                String photoPath = photo.getAbsolutePath();
+                login(passwordField1.getText(),passwordField2.getText(),textField1.getText(),textField1.getText(),textField2.getText(),textField3.getText(),isPhotoUploaded,photoPath,frame,operation);
 
-                    operation.push_student(studentName, studentSurname, studentProfilePhoto, studentEmail, password1);
-                    int confirmationCode = sendEmail(studentEmail, "ozyegingarage@gmail.com");
-                    operation.push_student_confirmation(studentEmail, confirmationCode);
-
-
-                    SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, studentEmail);
-                    frame.getContentPane().removeAll();
-                    frame.repaint();
-
-                    frame.getContentPane().add(confirm.getpanelC());
-                    frame.revalidate();
-                    return;
-                } else {
-                    passwordField1.setText("");
-                    passwordField2.setText("");
-                    JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
-                }
             }
         });
+
 
         signUpButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -121,6 +84,52 @@ public class SignUpPage {
             }
         });
 
+    }
+
+    public boolean login(String password1,String password2,String validEmail,String email,String name,String surname,boolean isPhotoUploaded,String photoPath,JFrame frame,DatabaseOperation operation){
+
+
+        boolean b = isValidEmail(validEmail);
+
+        if (!b) {
+            JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
+            return false;
+        } else if (isPhotoUploaded) {
+            JOptionPane.showMessageDialog(null, "Select a photo");
+            return false;
+        } else if (password1.equals("") || password2.equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter your password", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (name.equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter your name", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (surname.equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (email.equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else if (password1.equals(password2)) {
+
+            operation.push_student(name, surname, photoPath, email, password1);
+            int confirmationCode = sendEmail(email, "ozyegingarage@gmail.com");
+            operation.push_student_confirmation(email, confirmationCode);
+
+
+            SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, email);
+            frame.getContentPane().removeAll();
+            frame.repaint();
+
+            frame.getContentPane().add(confirm.getpanelC());
+            frame.revalidate();
+            return true;
+        } else {
+            passwordField1.setText("");
+            passwordField2.setText("");
+            JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public static boolean isValidEmail(String email) {

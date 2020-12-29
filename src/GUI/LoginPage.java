@@ -45,41 +45,7 @@ public class LoginPage {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String email = textField1.getText();
-                String password = passwordField1.getText();
-                boolean loginCheck = operation.checkForLogin(email,password);
-
-                if(email.equals("ozyegingarage@gmail.com") && loginCheck){
-                    permitProduct permit = new permitProduct(frame,operation,loginPage);
-
-                    if (permit.isOK) {
-                        frame.getContentPane().removeAll();
-                        frame.add(permit.permitPanel);
-
-                        frame.pack();
-                        frame.repaint();
-                        frame.revalidate();
-                    }
-                }
-                if (loginCheck && !email.equals("ozyegingarage@gmail.com")) {
-                    JOptionPane.showMessageDialog(null, "Logged in.");
-                    frame.getContentPane().removeAll();
-                    frame.setLayout(new BorderLayout());
-
-                    Student student = operation.pull_student(email);
-                    Garage garage = new Garage(frame, operation, student);
-                    LPanel lPanel = new LPanel(frame, operation, garage, student);
-                    frame.getContentPane().add(garage.productPanel, BorderLayout.CENTER);
-                    frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
-                    frame.pack();
-                    frame.repaint();
-                    frame.revalidate();
-
-                } else if (email.equals("") || password.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Missing data", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!loginCheck){
-                    JOptionPane.showMessageDialog(null, "Wrong data entered.");
-                }
+              checkLogin(frame,operation,loginPage,textField1.getText(),passwordField1.getText());
 
             }
         });
@@ -126,6 +92,51 @@ public class LoginPage {
                 signUpButton.setForeground(Color.white);
             }
         });
+    }
+
+    public boolean checkLogin(JFrame frame,DatabaseOperation operation,LoginPage loginPage,String email,String password){
+
+        boolean loginCheck = operation.checkForLogin(email,password);
+
+        if(email.equals("ozyegingarage@gmail.com") && loginCheck){
+            permitProduct permit = new permitProduct(frame,operation,loginPage);
+
+            if (permit.isOK) {
+                frame.getContentPane().removeAll();
+                frame.add(permit.permitPanel);
+
+                frame.pack();
+                frame.repaint();
+                frame.revalidate();
+
+                return true;
+            }
+        }
+        if (loginCheck && !email.equals("ozyegingarage@gmail.com")) {
+            JOptionPane.showMessageDialog(null, "Logged in.");
+            frame.getContentPane().removeAll();
+            frame.setLayout(new BorderLayout());
+
+            Student student = operation.pull_student(email);
+            Garage garage = new Garage(frame, operation, student);
+            LPanel lPanel = new LPanel(frame, operation, garage, student);
+            frame.getContentPane().add(garage.productPanel, BorderLayout.CENTER);
+            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+            frame.pack();
+            frame.repaint();
+            frame.revalidate();
+
+            return true;
+
+        } else if (email.equals("") || password.equals("")) {
+            JOptionPane.showMessageDialog(null, "Missing data", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (!loginCheck){
+            JOptionPane.showMessageDialog(null, "Wrong data entered.");
+            return false;
+        }
+
+        return false;
     }
 
     public JPanel getMainPanel() {
