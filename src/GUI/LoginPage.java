@@ -14,6 +14,7 @@ import java.io.File;
 import static GUI.LPanel.scaleFile;
 
 public class LoginPage {
+    JFrame frame;
     private JTextField textField1;
     private JPasswordField passwordField1;
     private JButton loginButton;
@@ -27,6 +28,8 @@ public class LoginPage {
 
     public LoginPage(JFrame frame, DatabaseOperation operation) {
         this.operation = operation;
+        this.frame = frame;
+
         String path = System.getProperty("user.dir");
         String OS = System.getProperty("os.name");
 
@@ -34,21 +37,14 @@ public class LoginPage {
             File ozuLogo = new File(path + "/src/Icons/OzU_logo.png");
             iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
         } else {
-            ImageIcon ozuLogo = scaleFile(400,200,"OzU_logo.png");
+            ImageIcon ozuLogo = scaleFile(400, 200, "OzU_logo.png");
             iconLabel.setIcon(ozuLogo);
         }
 
 
         frame.getRootPane().setDefaultButton(loginButton);
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-              checkLogin(frame,operation,loginPage,textField1.getText(),passwordField1.getText());
-
-            }
-        });
+        loginButton.addActionListener(new LoginListener());
 
         signUpButton.addActionListener(new ActionListener() {
             @Override
@@ -61,6 +57,7 @@ public class LoginPage {
                 frame.revalidate();
             }
         });
+
         loginButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -69,6 +66,7 @@ public class LoginPage {
                 loginButton.setForeground(new Color(163, 0, 80));
             }
         });
+
         loginButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -94,12 +92,12 @@ public class LoginPage {
         });
     }
 
-    public boolean checkLogin(JFrame frame,DatabaseOperation operation,LoginPage loginPage,String email,String password){
+    public boolean checkLogin(String email, String password) {
 
-        boolean loginCheck = operation.checkForLogin(email,password);
+        boolean loginCheck = operation.checkForLogin(email, password);
 
-        if(email.equals("ozyegingarage@gmail.com") && loginCheck){
-            permitProduct permit = new permitProduct(frame,operation,loginPage);
+        if (email.equals("ozyegingarage@gmail.com") && loginCheck) {
+            permitProduct permit = new permitProduct(frame, operation, loginPage);
 
             if (permit.isOK) {
                 frame.getContentPane().removeAll();
@@ -131,7 +129,7 @@ public class LoginPage {
         } else if (email.equals("") || password.equals("")) {
             JOptionPane.showMessageDialog(null, "Missing data", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if (!loginCheck){
+        } else if (!loginCheck) {
             JOptionPane.showMessageDialog(null, "Wrong data entered.");
             return false;
         }
@@ -141,6 +139,15 @@ public class LoginPage {
 
     public JPanel getMainPanel() {
         return MainPanel;
+    }
+
+    public class LoginListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            checkLogin(textField1.getText(), passwordField1.getText());
+
+        }
     }
 
 

@@ -32,25 +32,15 @@ public class SignUpPage {
     private String studentProfilePhoto;
     private String studentEmail;
     private File photo;
-
-    JFrame frame;
+    private String photoPath;
+    private JFrame frame;
 
     public SignUpPage(JFrame frame, DatabaseOperation operation) {
 
         this.operation = operation;
+        this.frame = frame;
 
-
-        signUpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                boolean isPhotoUploaded = photoButton.isBorderPainted();
-                String photoPath = photo.getAbsolutePath();
-                login(passwordField1.getText(),passwordField2.getText(),textField1.getText(),textField1.getText(),textField2.getText(),textField3.getText(),isPhotoUploaded,photoPath,frame,operation);
-
-            }
-        });
-
+        signUpButton.addActionListener(new SignUpListener());
 
         signUpButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -74,6 +64,7 @@ public class SignUpPage {
                 JFileChooser j = new JFileChooser();
                 j.showSaveDialog(null);
                 photo = j.getSelectedFile();
+                photoPath = photo.getAbsolutePath();
                 ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
                 photoButton.setText(null);
                 photoButton.setBackground(new java.awt.Color(187, 187, 187));
@@ -86,15 +77,14 @@ public class SignUpPage {
 
     }
 
-    public boolean login(String password1,String password2,String validEmail,String email,String name,String surname,boolean isPhotoUploaded,String photoPath,JFrame frame,DatabaseOperation operation){
+    public boolean signUp(String password1,String password2,String email,String name,String surname,String photoPath){
 
-
-        boolean b = isValidEmail(validEmail);
+        boolean b = isValidEmail(email);
 
         if (!b) {
             JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
             return false;
-        } else if (isPhotoUploaded) {
+        } else if (photoPath == null || photoPath.equals("")) {
             JOptionPane.showMessageDialog(null, "Select a photo");
             return false;
         } else if (password1.equals("") || password2.equals("")) {
@@ -138,6 +128,14 @@ public class SignUpPage {
 
         // check for valid email addresses using isValid method
         return validator.isValid(email);
+    }
+
+
+    public class SignUpListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            signUp(passwordField1.getText(),passwordField2.getText(),textField1.getText(),textField2.getText(),textField3.getText(),photoPath);
+        }
     }
 
     public int sendEmail(String to, String from) {
