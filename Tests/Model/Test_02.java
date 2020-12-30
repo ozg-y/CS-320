@@ -1,13 +1,9 @@
 import GUI.*;
 import Model.DatabaseOperation;
 import Model.Student;
-import javafx.scene.image.Image;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -178,7 +174,7 @@ public class Test_02 {
 
         assertTrue(productPage.postComment(comment));
 
-        comment = "Dollar is 10 you want 30 lira. C\'mooooon";
+        comment = "Dollar is 10 you want 30 lira. Cmooooon";
 
         assertTrue(productPage.postComment(comment));
     }
