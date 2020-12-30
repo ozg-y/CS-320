@@ -29,6 +29,10 @@ public class LPanel {
     private JButton profilePhotoButton;
     private JButton addProduct;
     public JPanel lPanel;
+    private JFrame frame;
+    private DatabaseOperation operation;
+    private Garage garage;
+    private Student student;
 
 
     public JPanel getLPanel() {
@@ -72,14 +76,9 @@ public class LPanel {
 
             }
         });
-        profilePhotoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                checkForLoginPage(category1IconButton,category2IconButton,category3IconButton,frame,operation,student,lPanel);
+        profilePhotoButton.addActionListener(new profilePageListener());
 
-            }
-        });
         category1IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,7 +169,7 @@ public class LPanel {
         addProduct.addMouseListener(listener);
     }
 
-    public boolean checkForLoginPage(JButton category1IconButton,JButton category2IconButton,JButton category3IconButton,JFrame frame,DatabaseOperation operation,Student student,JPanel lPanel){
+    public boolean goToProfilePage(){
 
         try {
             category1IconButton.setEnabled(false);
@@ -214,6 +213,16 @@ public class LPanel {
             Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
             return icon;
+        }
+    }
+
+    public class profilePageListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            goToProfilePage();
+
         }
     }
 }

@@ -106,7 +106,6 @@ public class SignUpPage {
             int confirmationCode = sendEmail(email, "ozyegingarage@gmail.com");
             operation.push_student_confirmation(email, confirmationCode);
 
-
             SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, email);
             frame.getContentPane().removeAll();
             frame.repaint();

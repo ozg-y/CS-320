@@ -16,10 +16,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class permitProduct {
+public class PermitProduct {
     private DatabaseOperation operation;
     public JPanel permitPanel;
-    public boolean isOK = false;
+    public int isOK = 0;
     private JTextArea productDescription;
     private JButton nextButton;
     private JLabel productPhotoLabel;
@@ -36,7 +36,7 @@ public class permitProduct {
     private int size = 0;
 
 
-    public permitProduct(JFrame frame, DatabaseOperation operation, LoginPage loginPage) {
+    public PermitProduct(JFrame frame, DatabaseOperation operation, LoginPage loginPage) {
 
         this.operation = operation;
 
@@ -63,15 +63,15 @@ public class permitProduct {
             productDescription.setEnabled(false);
 
             index++;
-            isOK = true;
+            isOK = 1;
 
         } catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "There are no products waiting to be permitted");
-            isOK = false;
+            isOK = -1;
 
         } catch (Exception e) {
             e.printStackTrace();
-            isOK = false;
+            isOK = 0;
         }
 
         permitButton.addActionListener(new ActionListener() {

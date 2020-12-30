@@ -19,8 +19,14 @@ public class ProfilePage {
     private JLabel name;
     private JLabel email;
     private File photo;
+    private JFrame frame;
+    private DatabaseOperation operation;
+    private Student student;
 
     public ProfilePage(JFrame frame, DatabaseOperation operation, Student student) {
+        this.frame = frame;
+        this.operation = operation;
+        this.student = student;
 
         name.setText(student.getStudentName() + " " + student.getStudentSurname());
         email.setText(student.getStudentEmail());
@@ -34,7 +40,7 @@ public class ProfilePage {
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                checkForProfilePhoto(photo,student,operation,frame);
+                checkForProfilePhoto(photo);
             }
         });
         changePasswordButton.addActionListener(new ActionListener() {
@@ -74,10 +80,9 @@ public class ProfilePage {
             }
         });
 
-
     }
 
-    public void checkForProfilePhoto(File photo,Student student,DatabaseOperation operation,JFrame frame){
+    public void checkForProfilePhoto(File photo){
         JFileChooser j = new JFileChooser();
         j.showSaveDialog(null);
         photo = j.getSelectedFile();
@@ -105,6 +110,5 @@ public class ProfilePage {
     public JPanel getProfilePPanel() {
         return profilePPanel;
     }
-
 
 }

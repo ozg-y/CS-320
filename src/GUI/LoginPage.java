@@ -23,7 +23,6 @@ public class LoginPage {
     private JPanel topPanel;
     private JLabel iconLabel;
     private DatabaseOperation operation;
-    private LoginPage loginPage = this;
 
 
     public LoginPage(JFrame frame, DatabaseOperation operation) {
@@ -97,9 +96,9 @@ public class LoginPage {
         boolean loginCheck = operation.checkForLogin(email, password);
 
         if (email.equals("ozyegingarage@gmail.com") && loginCheck) {
-            permitProduct permit = new permitProduct(frame, operation, loginPage);
+            PermitProduct permit = new PermitProduct(frame, operation, this);
 
-            if (permit.isOK) {
+            if (permit.isOK == 1) {
                 frame.getContentPane().removeAll();
                 frame.add(permit.permitPanel);
 
@@ -107,6 +106,9 @@ public class LoginPage {
                 frame.repaint();
                 frame.revalidate();
 
+                return true;
+            }
+            else if (permit.isOK == -1) {
                 return true;
             }
         }

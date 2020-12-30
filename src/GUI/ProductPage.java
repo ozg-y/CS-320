@@ -13,13 +13,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class ProductPage {
@@ -40,17 +37,20 @@ public class ProductPage {
     private Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Comment> pullComments = new ArrayList<>();
-    private Student student;
-
+    private final Student student;
+    private final DatabaseOperation operation;
+    private final int productID;
 
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
 
         this.student = student;
+        this.operation = operation;
+        this.productID = productID;
 
         product = operation.pull_product(productID);
 
-        productPhotoLabel.setIcon(new ImageIcon(product.getProductPhoto().getImage().getScaledInstance(240,240, Image.SCALE_DEFAULT)));
+        productPhotoLabel.setIcon(new ImageIcon(product.getProductPhoto().getImage().getScaledInstance(240, 240, Image.SCALE_DEFAULT)));
         productName.setText(product.getProductName());
         sellerInfoLabel.setText(product.getProductSeller().getStudentEmail());
         productPrice.setText(Double.toString(product.getProductPrice()));
@@ -65,14 +65,7 @@ public class ProductPage {
         }
         productComments.setText(finishedComment);
 
-        commentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                checkForComment(textArea1.getText(),operation,student,textArea1,productID,size,sellerInfoLabel,comments,finishedComment,productComments);
-
-            }
-        });
+        commentButton.addActionListener(new CommentListener());
 
         scheduler.scheduleAtFixedRate(() -> {
 
@@ -91,7 +84,7 @@ public class ProductPage {
 
     }
 
-    public boolean checkForComment(String comment,DatabaseOperation operation,Student student,JTextArea textArea1,int productID,int size,JLabel sellerInfoLabel,ArrayList<Comment> comments,String finishedComment,JEditorPane productComments){
+    public boolean postComment(String comment) {
 
         if (comment.equals("") || comment.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -101,7 +94,7 @@ public class ProductPage {
         operation.push_comment(productID, comment, student.getStudentEmail());
         size++;
         textArea1.setText("");
-        sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
+        sendNotification(sellerInfoLabel.getText(), "ozyegingarage@gmail.com");
         comments = operation.pull_comment(productID);
         finishedComment = "";
 
@@ -161,6 +154,13 @@ public class ProductPage {
 
     public JPanel getProductPPanel() {
         return productPPanel;
+    }
+
+    public class CommentListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            postComment(textArea1.getText());
+        }
     }
 
 }
