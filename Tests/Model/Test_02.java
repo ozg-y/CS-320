@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.io.File;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,12 +25,15 @@ public class Test_02 {
 
     String photoPath = dir + "\\Tests\\Resources\\test.jpg"; // shadowing the PATH
     ImageIcon icon = new ImageIcon(photoPath);
+
     Student student = new Student("Emin", "Arslan", icon, "aleyna.olmezcan@ozu.edu.tr", "aleyna123");
 
     int id = 2;
     ProductPage productPage = new ProductPage(id, op, student);
     Garage garage = new Garage(frame, op, student);
-    LPanel lpa = new LPanel(frame, op, garage, student);
+    LPanel lPanel = new LPanel(frame, op, garage, student);
+
+    AddProductPage addProductPage = new AddProductPage(op,student,frame);
 
     @Test
     public void test_02_01() { // if email is not in proper format
@@ -161,6 +168,76 @@ public class Test_02 {
     }
 
     @Test
+    public void test_04_01() {
+
+        assertTrue(garage.sort_date_earliest());
+        assertTrue(garage.sort_date_latest());;
+        assertTrue(garage.sort_price_decreasing());
+        assertTrue(garage.sort_price_increasing());
+
+    }
+
+    @Test
+    public void test_04_02() {
+
+        assertTrue(garage.getProduct(2));
+
+    }
+
+    @Test
+    public void test_05_01_and_05_02() {
+
+        File photo =  new File(photoPath);
+        String title = "Test";
+        String price = "1099";
+        String description = "Test description";
+        String productCategory = "Book";
+
+        assertFalse(addProductPage.addProduct(null,title,price,description,productCategory));
+
+        title = "";
+        assertFalse(addProductPage.addProduct(photo,title,price,description,productCategory));
+
+        title = "Test";
+        price = "";
+        assertFalse(addProductPage.addProduct(photo,title,price,description,productCategory));
+
+        price = "Non-numeric";
+        assertFalse(addProductPage.addProduct(photo,title,price,description,productCategory));
+
+        price = "1199";
+        description = "";
+        assertFalse(addProductPage.addProduct(photo,title,price,description,productCategory));
+
+        description = "Test description";
+        productCategory = "";
+        assertFalse(addProductPage.addProduct(photo,title,price,description,productCategory));
+
+        productCategory = "Garbled Category";
+        assertFalse(addProductPage.addProduct(photo,title,price,description,productCategory));
+
+        productCategory = "Book";
+        assertTrue(addProductPage.addProduct(photo,title,price,description,productCategory));
+
+    }
+
+    @Test
+    public void test_05_03() {
+        PermitProduct permitProduct = new PermitProduct(frame,op,loginPage);
+        ArrayList<Integer> pID = op.pull_product_not_permitted();
+        int not_permitted = pID.get(0);
+
+        assertFalse(garage.getProductIds().contains(not_permitted));
+
+        assertTrue(permitProduct.permitProduct(not_permitted));
+
+        garage = new Garage(frame,op,student);
+
+        assertTrue(garage.getProductIds().contains(not_permitted));
+
+    }
+
+    @Test
     public void test_06_01() {
         String comment = "";
 
@@ -174,7 +251,7 @@ public class Test_02 {
 
         assertTrue(productPage.postComment(comment));
 
-        comment = "Dollar is 10 you want 30 lira. Cmooooon";
+        comment = "Dollar is 10 you want 30 liras. Cmooooon";
 
         assertTrue(productPage.postComment(comment));
     }
@@ -182,7 +259,7 @@ public class Test_02 {
     @Test
     public void test_09_01() {
 
-        assertTrue(lpa.goToProfilePage());
+        assertTrue(lPanel.goToProfilePage());
 
     }
 

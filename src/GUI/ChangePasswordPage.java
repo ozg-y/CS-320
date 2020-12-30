@@ -15,33 +15,17 @@ public class ChangePasswordPage {
     private JPasswordField passwordField2;
     private JButton changePasswordButton;
     private JPanel passwordPanel;
-    private Student student;
-    private DatabaseOperation operation;
+    private final Student student;
+    private final DatabaseOperation operation;
+    private final JFrame frame;
 
     public ChangePasswordPage(JFrame frame, DatabaseOperation operation, Student student) {
 
         this.student = student;
-        changePasswordButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String newPassword1 = passwordField1.getText();
-                String newPassword2 = passwordField2.getText();
+        this.operation = operation;
+        this.frame = frame;
 
-                if (newPassword1.equals(newPassword2)) {
-                    student.setStudentPassword(newPassword1);
-                    operation.change_student_password(student.getStudentEmail(), newPassword1);
-                    JOptionPane.showMessageDialog(null, "Password updated.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (newPassword1.equals("") || newPassword2.equals("") || newPassword1.trim().isEmpty() || newPassword2.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Password fields cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
-                    passwordField1.setText("");
-                    passwordField2.setText("");
-                } else { //if the passwords do not match each other, error
-                    JOptionPane.showMessageDialog(null, "Passwords do not match each other.", "Error", JOptionPane.ERROR_MESSAGE);
-                    passwordField1.setText("");
-                    passwordField2.setText("");
-                }
-            }
-        });
+        changePasswordButton.addActionListener(new changePasswordListener());
         changePasswordButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -59,7 +43,35 @@ public class ChangePasswordPage {
         });
     }
 
+    private boolean changePassword(String newPassword1, String newPassword2) {
+
+        if (newPassword1.equals(newPassword2)) {
+            student.setStudentPassword(newPassword1);
+            operation.change_student_password(student.getStudentEmail(), newPassword1);
+            JOptionPane.showMessageDialog(null, "Password updated.", "Success", JOptionPane.ERROR_MESSAGE);
+            return true;
+        } else if (newPassword1.equals("") || newPassword2.equals("") || newPassword1.trim().isEmpty() || newPassword2.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password fields cannot be blank.", "Error", JOptionPane.ERROR_MESSAGE);
+            passwordField1.setText("");
+            passwordField2.setText("");
+            return false;
+        } else { //if the passwords do not match each other, error
+            JOptionPane.showMessageDialog(null, "Passwords do not match each other.", "Error", JOptionPane.ERROR_MESSAGE);
+            passwordField1.setText("");
+            passwordField2.setText("");
+            return false;
+        }
+    }
+
     public JPanel getPasswordPanel() {
         return passwordPanel;
+    }
+
+    public class changePasswordListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            changePassword(passwordField1.getText(), passwordField2.getText());
+        }
     }
 }

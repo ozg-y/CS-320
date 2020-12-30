@@ -34,11 +34,14 @@ public class PermitProduct {
     private int productID;
     private int index = 0;
     private int size = 0;
+    private LoginPage loginPage;
+    private JFrame frame;
 
 
     public PermitProduct(JFrame frame, DatabaseOperation operation, LoginPage loginPage) {
-
+        this.frame = frame;
         this.operation = operation;
+        this.loginPage = loginPage;
 
         try {
             productIDs = operation.pull_product_not_permitted();
@@ -74,32 +77,7 @@ public class PermitProduct {
             isOK = 0;
         }
 
-        permitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                try {
-
-                    String query = "UPDATE Product set productPermit = 1 where productID = " + productID + ";";
-
-                    operation.statement = operation.con.createStatement();
-                    operation.statement.executeUpdate(query);
-
-                    // Gets the last inserted productID
-                    operation.statement = operation.con.createStatement();
-                    ResultSet set = operation.statement.executeQuery("SELECT productID FROM Product ORDER BY productID DESC");
-
-                    int productID = 0;
-
-                    if (set.next()) {
-                        productID = set.getInt(1);
-                    }
-
-                } catch (SQLException throwable) {
-                    throwable.printStackTrace();
-                }
-            }
-        });
+        permitButton.addActionListener(new PermissionListener());
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -131,7 +109,6 @@ public class PermitProduct {
                 }
             }
         });
-
         nextButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -203,6 +180,38 @@ public class PermitProduct {
 
             }
         });
+    }
+
+    public class PermissionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            permitProduct(productID);
+        }
+    }
+
+    public boolean permitProduct(int productID)
+    {
+        try {
+
+            String query = "UPDATE Product set productPermit = 1 where productID = " + productID + ";";
+
+            operation.statement = operation.con.createStatement();
+            operation.statement.executeUpdate(query);
+
+            // Gets the last inserted productID
+            operation.statement = operation.con.createStatement();
+            ResultSet set = operation.statement.executeQuery("SELECT productID FROM Product ORDER BY productID DESC");
+
+            productID = 0;
+
+            if (set.next()) {
+                productID = set.getInt(1);
+            }
+            return true;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return false;
+        }
     }
 
 }

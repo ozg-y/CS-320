@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static GUI.LPanel.scaleFile;
 
@@ -50,13 +51,17 @@ public class Garage {
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
+    private JFrame frame;
+    private Student student;
+    private Garage garage = this;
+
 
     public Garage(JFrame frame, DatabaseOperation operation, Student student) {
-
+        this.frame = frame;
+        this.operation = operation;
+        this.student = student;
 
         placeHolder = new PlaceHolder(searchBar, "Search in OzU-Garage");
-
-        this.operation = operation;
 
         upScrollButton.setEnabled(false);
 
@@ -88,27 +93,9 @@ public class Garage {
 
         update_garage("ALL");
 
-        ActionListener getProductDetails = e -> {
-
-            int selectedProductIndex = productButtons.indexOf(e.getSource()) + ((pageNumber - 1) * 12);
-            int productID = productIds.get(selectedProductIndex);
-            ProductPage productPage = new ProductPage(productID, operation, student);
-
-            frame.getContentPane().removeAll();
-            frame.setLayout(new BorderLayout());
-            frame.repaint();
-
-            LPanel lPanel = new LPanel(frame, operation, this, student);
-            frame.getContentPane().add(productPage.getProductPPanel(), BorderLayout.CENTER);
-            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
-            frame.pack();
-            frame.repaint();
-            frame.revalidate();
-        };
-
         // Added all buttons to getProductDetails actionListener
         for (JButton but : productButtons) {
-            but.addActionListener(getProductDetails);
+            but.addActionListener(new GetProductListener());
         }
 
         downScrollButton.addActionListener(new ActionListener() {
@@ -161,25 +148,7 @@ public class Garage {
             }
         });
 
-        filterComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String productOrder = (String) filterComboBox.getSelectedItem();
-
-
-                imageArrayIndex = 0;
-
-                if (productOrder.equals("Cheapest first")) {
-                    sort_price_increasing();
-                } else if (productOrder.equals("Most expensive first")) {
-                    sort_price_decreasing();
-                } else if (productOrder.equals("Newest first")) {
-                    sort_date_latest();
-                } else if (productOrder.equals("Oldest first")) {
-                    sort_date_earliest();
-                }
-            }
-        });
-
+        filterComboBox.addActionListener(new FilterListener());
 
         refreshButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -196,12 +165,62 @@ public class Garage {
                 refreshButton.setForeground(Color.white);
             }
         });
+
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 refresh();
             }
         });
+    }
+
+    public class GetProductListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            getProduct(productButtons.indexOf(e.getSource()) + ((pageNumber - 1) * 12));
+        }
+    }
+
+    public boolean getProduct(int selectedProductIndex)
+    {
+        int productID = productIds.get(selectedProductIndex);
+        ProductPage productPage = new ProductPage(productID, operation, student);
+
+        frame.getContentPane().removeAll();
+        frame.setLayout(new BorderLayout());
+        frame.repaint();
+
+        LPanel lPanel = new LPanel(frame, operation, garage, student);
+        frame.getContentPane().add(productPage.getProductPPanel(), BorderLayout.CENTER);
+        frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+        frame.pack();
+        frame.repaint();
+        frame.revalidate();
+
+        return true;
+    }
+
+    public class FilterListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            filter((String) Objects.requireNonNull(filterComboBox.getSelectedItem()));
+        }
+    }
+
+    public boolean filter(String productOrder) {
+        imageArrayIndex = 0;
+
+        if (productOrder.equals("Cheapest first")) {
+            return sort_price_increasing();
+        } else if (productOrder.equals("Most expensive first")) {
+            return sort_price_decreasing();
+        } else if (productOrder.equals("Newest first")) {
+            return sort_date_latest();
+        } else if (productOrder.equals("Oldest first")) {
+            return sort_date_earliest();
+        }
+        return false;
     }
 
     public void update_garage(String condition) {
@@ -409,7 +428,7 @@ public class Garage {
         this.productImages = productImages;
     }
 
-    public void sort_price_increasing() {
+    public boolean sort_price_increasing() {
         try {
 
             functionCode = 1;
@@ -439,14 +458,17 @@ public class Garage {
 
             display_garage();
 
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
-    public void sort_price_decreasing() {
+    public boolean sort_price_decreasing() {
         try {
 
             functionCode = 2;
@@ -475,15 +497,17 @@ public class Garage {
             }
 
             display_garage();
-
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
-    public void sort_date_latest() {
+    public boolean sort_date_latest() {
         try {
 
             functionCode = 3;
@@ -512,16 +536,18 @@ public class Garage {
             }
 
             display_garage();
-
+            return true;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
-    public void sort_date_earliest() {
+    public boolean sort_date_earliest() {
         try {
 
             functionCode = 4;
@@ -550,11 +576,13 @@ public class Garage {
             }
 
             display_garage();
-
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
