@@ -185,7 +185,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_05_01_and_05_02() {
+    public void test_05_01() {
 
         File photo =  new File(photoPath);
         String title = "Test";
