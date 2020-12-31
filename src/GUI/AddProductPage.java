@@ -22,8 +22,6 @@ public class AddProductPage {
     private JPanel addPanel;
     private File photo;
     private JComboBox<String> comboBox1;
-    private File productPhoto;
-    private String productCategory;
     private final JFrame frame;
     private final DatabaseOperation operation;
     private final Student student;

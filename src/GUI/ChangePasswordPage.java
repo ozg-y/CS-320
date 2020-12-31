@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 public class ChangePasswordPage {
     private final Student student;
     private final DatabaseOperation operation;
-    private final JFrame frame;
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private JButton changePasswordButton;
@@ -20,7 +19,6 @@ public class ChangePasswordPage {
 
         this.student = student;
         this.operation = operation;
-        this.frame = frame;
 
         changePasswordButton.addActionListener(new changePasswordListener());
 

@@ -380,28 +380,8 @@ public class Garage {
         return productPanel;
     }
 
-    public ArrayList<JButton> getProductButtons() {
-        return productButtons;
-    }
-
-    public void setProductButtons(ArrayList<JButton> productButtons) {
-        this.productButtons = productButtons;
-    }
-
     public ArrayList<Integer> getProductIds() {
         return productIds;
-    }
-
-    public void setProductIds(ArrayList<Integer> productIds) {
-        this.productIds = productIds;
-    }
-
-    public ArrayList<ImageIcon> getProductImages() {
-        return productImages;
-    }
-
-    public void setProductImages(ArrayList<ImageIcon> productImages) {
-        this.productImages = productImages;
     }
 
     public boolean sort_price_increasing() {

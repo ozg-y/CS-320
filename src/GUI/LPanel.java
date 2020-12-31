@@ -20,14 +20,6 @@ public class LPanel {
     public JButton category2IconButton;
     public JButton category3IconButton;
     public JPanel lPanel;
-    private HomePage homePage;
-    private JTextField searchBar;
-    private JButton profile;
-    private JButton electronics;
-    private JButton tickets;
-    private JButton furniture;
-    private JButton other;
-    private JComboBox filter;
     private JButton home;
     private JButton profilePhotoButton;
     private JButton addProduct;

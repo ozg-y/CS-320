@@ -27,7 +27,6 @@ public class ProductPage {
     String finishedComment = "";
     int size = 0;
     private JEditorPane productDetails;
-    private String comment;
     private JPanel productPPanel;
     private JTextArea textArea1;
     private JButton commentButton;
@@ -36,7 +35,6 @@ public class ProductPage {
     private JLabel productName;
     private JLabel productPhotoLabel;
     private JEditorPane productComments;
-    private File photo;
     private final Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Comment> pullComments = new ArrayList<>();

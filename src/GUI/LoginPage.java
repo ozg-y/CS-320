@@ -18,7 +18,6 @@ public class LoginPage {
     private JButton loginButton;
     private JButton signUpButton;
     private JPanel MainPanel;
-    private JPanel topPanel;
     private JLabel iconLabel;
     private final DatabaseOperation operation;
 

@@ -66,16 +66,16 @@ public class ProfilePage {
 
     }
 
-    public boolean changeProfilePhoto(File photo) {
+    public boolean changeProfilePhoto(File newPhoto) {
 
-        if (photo == null) {
+        if (newPhoto == null) {
             JOptionPane.showMessageDialog(null, "Choose a photo", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
-
-            ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+            photo = newPhoto;
+            ImageIcon icon = new ImageIcon(newPhoto.getAbsolutePath());
             student.setStudentProfilePhoto(icon);
-            operation.change_student_photo(student.getStudentEmail(), photo.getAbsolutePath());
+            operation.change_student_photo(student.getStudentEmail(), newPhoto.getAbsolutePath());
 
             profilePhotoButton.setText(null);
             profilePhotoButton.setBackground(new java.awt.Color(187, 187, 187));
@@ -86,10 +86,11 @@ public class ProfilePage {
             frame.getContentPane().removeAll();
             frame.setLayout(new BorderLayout());
 
-            Garage garage = new Garage(frame, operation, student);
+            ProfilePage profilePage = new ProfilePage(frame,operation,student);
+            Garage garage = new Garage(frame,operation,student);
             LPanel lPanel = new LPanel(frame, operation, garage, student);
 
-            frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(profilePage.profilePPanel, BorderLayout.CENTER);
             frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
 
             frame.pack();

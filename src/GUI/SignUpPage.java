@@ -24,10 +24,6 @@ public class SignUpPage {
     private JTextField textField2;
     private JTextField textField3;
     private final DatabaseOperation operation;
-    private String studentName;
-    private String studentSurname;
-    private String studentProfilePhoto;
-    private String studentEmail;
     private File photo;
     private String photoPath;
     private final JFrame frame;
