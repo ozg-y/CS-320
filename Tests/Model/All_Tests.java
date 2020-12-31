@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class Test_02 {
+public class All_Tests {
 
     String dir = System.getProperty("user.dir");
 
