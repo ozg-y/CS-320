@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import java.io.File;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +34,13 @@ public class Test_02 {
     LPanel lPanel = new LPanel(frame, op, garage, student);
 
     AddProductPage addProductPage = new AddProductPage(op,student,frame);
+
+    @Test
+    public void Test_001(){
+
+        assertTrue(op.checkForConnection());
+
+    }
 
     @Test
     public void test_002_01() { // if email is not in proper format
