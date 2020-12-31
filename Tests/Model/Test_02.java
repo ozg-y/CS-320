@@ -35,7 +35,7 @@ public class Test_02 {
     AddProductPage addProductPage = new AddProductPage(op,student,frame);
 
     @Test
-    public void test_02_01() { // if email is not in proper format
+    public void test_002_01() { // if email is not in proper format
         String studentEmail = "";
         String photoPath = "";
         String p1 = "";
@@ -57,7 +57,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_02_02() {  // if the photo path is empty
+    public void test_002_02() {  // if the photo path is empty
         String studentEmail = "abdullah.saydemir@ozu.edu.tr";
         String photoPath = "";
         String p1 = "";
@@ -72,7 +72,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_02_03() { // If the password field is empty
+    public void test_002_03() { // If the password field is empty
         String studentEmail = "abdullah.saydemir@ozu.edu.tr";
         String p1 = "";
         String p2 = "";
@@ -100,7 +100,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_02_04() { // If the name field is empty
+    public void test_002_04() { // If the name field is empty
         String studentEmail = "abdullah.saydemir@ozu.edu.tr";
 
         String p1 = "aleyna123";
@@ -121,7 +121,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_02_05() { // If all correct
+    public void test_002_05() { // If all correct
         String studentEmail = "abdullah.saydemir@ozu.edu.tr";
 
         String p1 = "aleyna123";
@@ -135,7 +135,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_03_01() {
+    public void test_003_01() {
         String studentEmail = "";
         String studentPassword = "";
         assertFalse(loginPage.checkLogin(studentEmail, studentPassword));
@@ -167,7 +167,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_04_01() {
+    public void test_004_01() {
 
         assertTrue(garage.filter("Cheapest first"));
         assertTrue(garage.filter("Most expensive first"));;
@@ -178,14 +178,14 @@ public class Test_02 {
     }
 
     @Test
-    public void test_04_02() {
+    public void test_004_02() {
 
         assertTrue(garage.getProduct(2));
 
     }
 
     @Test
-    public void test_05_01() { // This test actually covers 05_01 and 05_02
+    public void test_005_01() { // This test actually covers 05_01 and 05_02
 
         File photo =  new File(photoPath);
         String title = "Test";
@@ -222,7 +222,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_05_03() {
+    public void test_005_03() {
         PermitProduct permitProduct = new PermitProduct(frame,op,loginPage);
         ArrayList<Integer> pID = op.pull_product_not_permitted();
         int not_permitted = pID.get(0);
@@ -239,7 +239,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_06_01() {
+    public void test_006_01() {
         String comment = "";
 
         assertFalse(productPage.postComment(comment));
@@ -258,7 +258,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_07_01() {
+    public void test_007_01() {
 
         garage.search_bar("Test");
         int pID = garage.getProductIds().get(0);
@@ -276,7 +276,7 @@ public class Test_02 {
 
 
     @Test
-    public void test_08_01() {
+    public void test_008_01() {
 
         garage.functionCode = 1;
         assertTrue(garage.refresh());
@@ -302,14 +302,13 @@ public class Test_02 {
     }
 
     @Test
-    public void test_09_01()
+    public void test_009_01()
     {
         assertTrue(lPanel.goToProfilePage());
     }
 
     @Test
-    public void test_10_01()
-    {
+    public void test_010_01() {
         ChangePasswordPage changePasswordPage = new ChangePasswordPage(frame,op,student);
 
         String pw1 = "";
