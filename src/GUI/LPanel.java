@@ -7,13 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 
 
 public class LPanel {
 
+    private final JFrame frame;
+    private final DatabaseOperation operation;
+    private final Garage garage;
+    private final Student student;
     public JButton category1IconButton;
     public JButton category2IconButton;
     public JButton category3IconButton;
@@ -29,10 +31,6 @@ public class LPanel {
     private JButton home;
     private JButton profilePhotoButton;
     private JButton addProduct;
-    private final JFrame frame;
-    private final DatabaseOperation operation;
-    private final Garage garage;
-    private final Student student;
 
 
     public LPanel(JFrame frame, DatabaseOperation operation, Garage garage, Student student) {
@@ -74,9 +72,7 @@ public class LPanel {
 
             }
         });
-
         profilePhotoButton.addActionListener(new profilePageListener());
-
         category1IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,7 +88,6 @@ public class LPanel {
                 frame.revalidate();
             }
         });
-
         category2IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,7 +104,6 @@ public class LPanel {
                 frame.revalidate();
             }
         });
-
         category3IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,7 +121,6 @@ public class LPanel {
 
             }
         });
-
         home.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,23 +141,8 @@ public class LPanel {
             }
         });
 
-        MouseAdapter listener = new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                ((JButton) e.getSource()).setBackground(Color.white);
-                ((JButton) e.getSource()).setForeground(new Color(163, 0, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                ((JButton) e.getSource()).setBackground(new Color(163, 0, 80));
-                ((JButton) e.getSource()).setForeground(Color.white);
-            }
-        };
-        home.addMouseListener(listener);
-        addProduct.addMouseListener(listener);
+        home.addMouseListener(new ButtonColorListener());
+        addProduct.addMouseListener(new ButtonColorListener());
     }
 
     public static ImageIcon scaleFile(int width, int height, String filename) {

@@ -3,23 +3,18 @@ package GUI;
 import Model.DatabaseOperation;
 import Model.Product;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PermitProduct {
-    private DatabaseOperation operation;
     public JPanel permitPanel;
     public int isOK = 0;
+    private final DatabaseOperation operation;
     private JTextArea productDescription;
     private JButton nextButton;
     private JLabel productPhotoLabel;
@@ -34,8 +29,8 @@ public class PermitProduct {
     private int productID;
     private int index = 0;
     private int size = 0;
-    private LoginPage loginPage;
-    private JFrame frame;
+    private final LoginPage loginPage;
+    private final JFrame frame;
 
 
     public PermitProduct(JFrame frame, DatabaseOperation operation, LoginPage loginPage) {
@@ -53,7 +48,7 @@ public class PermitProduct {
             System.out.println(index);
             Product product = operation.pull_product(productIDs.get(index));
 
-            Image image = productPhoto.getImage().getScaledInstance(240, 240,  Image.SCALE_FAST);
+            Image image = productPhoto.getImage().getScaledInstance(240, 240, Image.SCALE_FAST);
             productPhoto = new ImageIcon(image);
             productPhotoLabel.setIcon(productPhoto);
 
@@ -83,7 +78,7 @@ public class PermitProduct {
             public void actionPerformed(ActionEvent e) {
                 if (index == size) {
                     nextButton.setEnabled(false);
-                    JOptionPane.showMessageDialog(null,"No more products");
+                    JOptionPane.showMessageDialog(null, "No more products");
                 } else {
                     Product product = operation.pull_product(productIDs.get(index));
                     try {
@@ -93,7 +88,7 @@ public class PermitProduct {
                     }
                     productID = productIDs.get(index);
 
-                    Image image = productPhoto.getImage().getScaledInstance(240, 240,  Image.SCALE_FAST);
+                    Image image = productPhoto.getImage().getScaledInstance(240, 240, Image.SCALE_FAST);
                     productPhoto = new ImageIcon(image);
                     productPhotoLabel.setIcon(productPhoto);
 
@@ -107,32 +102,6 @@ public class PermitProduct {
 
                     index++;
                 }
-            }
-        });
-        nextButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                nextButton.setForeground(new Color(0, 32, 96));
-                nextButton.setBackground(Color.WHITE);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                nextButton.setForeground(Color.WHITE);
-                nextButton.setBackground(new Color(0, 32, 96));
-            }
-        });
-        permitButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                permitButton.setForeground(new Color(65, 163, 81));
-                permitButton.setBackground(Color.WHITE);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                permitButton.setForeground(Color.WHITE);
-                permitButton.setBackground(new Color(65, 163, 81));
             }
         });
         declineButton.addActionListener(new ActionListener() {
@@ -152,45 +121,14 @@ public class PermitProduct {
                 frame.revalidate();
             }
         });
-        goToLogin.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                goToLogin.setForeground(new Color(60, 163, 209));
-                goToLogin.setBackground(Color.WHITE);
 
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                goToLogin.setForeground(Color.WHITE);
-                goToLogin.setBackground(new Color(60, 163, 209));
-            }
-        });
-        declineButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                declineButton.setForeground(new Color(209, 60, 62));
-                declineButton.setBackground(Color.WHITE);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                declineButton.setForeground(Color.WHITE);
-                declineButton.setBackground(new Color(209, 60, 62));
-
-            }
-        });
+        nextButton.addMouseListener(new ButtonColorListener());
+        permitButton.addMouseListener(new ButtonColorListener());
+        goToLogin.addMouseListener(new ButtonColorListener());
+        declineButton.addMouseListener(new ButtonColorListener());
     }
 
-    public class PermissionListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            permitProduct(productID);
-        }
-    }
-
-    public boolean permitProduct(int productID)
-    {
+    public boolean permitProduct(int productID) {
         try {
 
             String query = "UPDATE Product set productPermit = 1 where productID = " + productID + ";";
@@ -211,6 +149,13 @@ public class PermitProduct {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
             return false;
+        }
+    }
+
+    public class PermissionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            permitProduct(productID);
         }
     }
 

@@ -9,8 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
@@ -24,6 +22,9 @@ import static GUI.LPanel.scaleFile;
 public class Garage {
 
     private final DatabaseOperation operation;
+    private final JFrame frame;
+    private final Student student;
+    private final Garage garage = this;
     public JPanel productPanel;
     public int functionCode = -1;
     int imageArrayIndex = 0;
@@ -51,9 +52,6 @@ public class Garage {
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
-    private final JFrame frame;
-    private final Student student;
-    private final Garage garage = this;
 
 
     public Garage(JFrame frame, DatabaseOperation operation, Student student) {
@@ -118,7 +116,6 @@ public class Garage {
                     downScrollButton.setEnabled(false);
             }
         });
-
         upScrollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,9 +134,15 @@ public class Garage {
                     upScrollButton.setEnabled(false);
             }
         });
-
-        // filter based on title -> product Name
-        searchBar.addActionListener(new ActionListener() {
+        filterComboBox.addActionListener(new FilterListener());
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refresh();
+            }
+        });
+        searchBar.addActionListener(new ActionListener() // filter based on title -> product Name
+        {
             @Override
             public void actionPerformed(ActionEvent e) {
                 searchBarText = e.getActionCommand();
@@ -148,30 +151,7 @@ public class Garage {
             }
         });
 
-        filterComboBox.addActionListener(new FilterListener());
-
-        refreshButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                refreshButton.setBackground(Color.white);
-                refreshButton.setForeground(new Color(163, 0, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                refreshButton.setBackground(new Color(163, 0, 80));
-                refreshButton.setForeground(Color.white);
-            }
-        });
-
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refresh();
-            }
-        });
+        refreshButton.addMouseListener(new ButtonColorListener());
     }
 
     public boolean getProduct(int selectedProductIndex) {

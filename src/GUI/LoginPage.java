@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 
 import static GUI.LPanel.scaleFile;
@@ -22,7 +20,7 @@ public class LoginPage {
     private JPanel MainPanel;
     private JPanel topPanel;
     private JLabel iconLabel;
-    private DatabaseOperation operation;
+    private final DatabaseOperation operation;
 
 
     public LoginPage(JFrame frame, DatabaseOperation operation) {
@@ -44,7 +42,6 @@ public class LoginPage {
         frame.getRootPane().setDefaultButton(loginButton);
 
         loginButton.addActionListener(new LoginListener());
-
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,38 +54,8 @@ public class LoginPage {
             }
         });
 
-        loginButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                loginButton.setBackground(Color.white);
-                loginButton.setForeground(new Color(163, 0, 80));
-            }
-        });
-
-        loginButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                loginButton.setBackground(new Color(163, 0, 80));
-                loginButton.setForeground(Color.white);
-            }
-        });
-        signUpButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                signUpButton.setBackground(Color.white);
-                signUpButton.setForeground(new Color(163, 0, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                signUpButton.setBackground(new Color(163, 0, 80));
-                signUpButton.setForeground(Color.white);
-            }
-        });
+        loginButton.addMouseListener(new ButtonColorListener());
+        signUpButton.addMouseListener(new ButtonColorListener());
     }
 
     public boolean checkLogin(String email, String password) {
@@ -107,8 +74,7 @@ public class LoginPage {
                 frame.revalidate();
 
                 return true;
-            }
-            else if (permit.isOK == -1) {
+            } else if (permit.isOK == -1) {
                 return true;
             }
         }

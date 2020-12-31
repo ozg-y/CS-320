@@ -21,6 +21,9 @@ import java.util.concurrent.TimeUnit;
 
 public class ProductPage {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final Student student;
+    private final DatabaseOperation operation;
+    private final int productID;
     String finishedComment = "";
     int size = 0;
     private JEditorPane productDetails;
@@ -34,12 +37,9 @@ public class ProductPage {
     private JLabel productPhotoLabel;
     private JEditorPane productComments;
     private File photo;
-    private Product product;
+    private final Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Comment> pullComments = new ArrayList<>();
-    private final Student student;
-    private final DatabaseOperation operation;
-    private final int productID;
 
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
@@ -66,7 +66,7 @@ public class ProductPage {
         productComments.setText(finishedComment);
 
         commentButton.addActionListener(new CommentListener());
-
+        commentButton.addMouseListener(new ButtonColorListener());
         scheduler.scheduleAtFixedRate(() -> {
 
             pullComments = operation.pull_comment(productID);

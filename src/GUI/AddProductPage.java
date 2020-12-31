@@ -8,13 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class AddProductPage {
     private JButton productPhotoButton;
@@ -27,11 +24,10 @@ public class AddProductPage {
     private JComboBox<String> comboBox1;
     private File productPhoto;
     private String productCategory;
-    private JFrame frame;
-    private DatabaseOperation operation;
-    private Student student;
+    private final JFrame frame;
+    private final DatabaseOperation operation;
+    private final Student student;
     private ImageIcon imageIcon;
-
 
 
     public AddProductPage(DatabaseOperation operation, Student student, JFrame frame) {
@@ -44,52 +40,22 @@ public class AddProductPage {
         comboBox1.addItem("Book");
 
         addButton.addActionListener(new AddProductListener());
-
         productPhotoButton.addActionListener(new UploadPhotoListener());
 
-        addButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                addButton.setBackground(Color.white);
-                addButton.setForeground(new Color(163, 0, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                addButton.setBackground(new Color(163, 0, 80));
-                addButton.setForeground(Color.white);
-            }
-        });
-
-        productPhotoButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                productPhotoButton.setBackground(Color.white);
-                productPhotoButton.setForeground(new Color(163, 0, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                productPhotoButton.setBackground(new Color(163, 0, 80));
-                productPhotoButton.setForeground(Color.white);
-            }
-        });
+        addButton.addMouseListener(new ButtonColorListener());
+        productPhotoButton.addMouseListener(new ButtonColorListener());
     }
 
-    public class UploadPhotoListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            JFileChooser j = new JFileChooser();
-            j.showSaveDialog(null);
-            photo = j.getSelectedFile();
-            uploadPhoto(photo.getAbsolutePath());
-
+    public static boolean isNumeric(String str) {
+        if (str == null) {
+            return false;
         }
+        try {
+            double d = Double.parseDouble(str);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
     public boolean uploadPhoto(String path) {
@@ -99,8 +65,8 @@ public class AddProductPage {
         try {
             in = ImageIO.read(new File(path));
         } catch (IOException e) {
-           JOptionPane.showMessageDialog(null,"Error occurred while loading the photo. Please try again!","Error",JOptionPane.ERROR_MESSAGE);
-           return false;
+            JOptionPane.showMessageDialog(null, "Error occurred while loading the photo. Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
 
         BufferedImage newImage = new BufferedImage(
@@ -112,9 +78,9 @@ public class AddProductPage {
 
 
         try {
-            ImageIO.write((RenderedImage) newImage,"png",photo);
+            ImageIO.write(newImage, "png", photo);
         } catch (IOException ioException) {
-            JOptionPane.showMessageDialog(null,"Error occurred while loading the photo. Please try again!","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error occurred while loading the photo. Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -126,13 +92,6 @@ public class AddProductPage {
         imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH));
         productPhotoButton.setIcon(imageIcon);
         return true;
-    }
-
-    public class AddProductListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            addProduct(photo,textField1.getText(),textField2.getText(),textArea1.getText(),(String)comboBox1.getSelectedItem());
-        }
     }
 
     public boolean addProduct(File photo, String title, String price, String description, String productCategory) {
@@ -180,19 +139,26 @@ public class AddProductPage {
         }
     }
 
-    public static boolean isNumeric(String str) {
-        if (str == null) {
-            return false;
-        }
-        try {
-            double d = Double.parseDouble(str);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
     public JPanel getAddPanel() {
         return addPanel;
+    }
+
+    public class UploadPhotoListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            JFileChooser j = new JFileChooser();
+            j.showSaveDialog(null);
+            photo = j.getSelectedFile();
+            uploadPhoto(photo.getAbsolutePath());
+
+        }
+    }
+
+    public class AddProductListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            addProduct(photo, textField1.getText(), textField2.getText(), textArea1.getText(), (String) comboBox1.getSelectedItem());
+        }
     }
 }

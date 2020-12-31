@@ -8,11 +8,8 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,14 +23,14 @@ public class SignUpPage {
     private JButton photoButton;
     private JTextField textField2;
     private JTextField textField3;
-    private DatabaseOperation operation;
+    private final DatabaseOperation operation;
     private String studentName;
     private String studentSurname;
     private String studentProfilePhoto;
     private String studentEmail;
     private File photo;
     private String photoPath;
-    private JFrame frame;
+    private final JFrame frame;
 
     public SignUpPage(JFrame frame, DatabaseOperation operation) {
 
@@ -41,23 +38,6 @@ public class SignUpPage {
         this.frame = frame;
 
         signUpButton.addActionListener(new SignUpListener());
-
-        signUpButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                signUpButton.setBackground(Color.white);
-                signUpButton.setForeground(new Color(163, 0, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                signUpButton.setBackground(new Color(163, 0, 80));
-                signUpButton.setForeground(Color.white);
-            }
-        });
-
         photoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,10 +54,18 @@ public class SignUpPage {
 
             }
         });
-
+        signUpButton.addMouseListener(new ButtonColorListener());
     }
 
-    public boolean signUp(String password1,String password2,String email,String name,String surname,String photoPath){
+    public static boolean isValidEmail(String email) {
+        // create the EmailValidator instance
+        EmailValidator validator = EmailValidator.getInstance();
+
+        // check for valid email addresses using isValid method
+        return validator.isValid(email);
+    }
+
+    public boolean signUp(String password1, String password2, String email, String name, String surname, String photoPath) {
 
         boolean b = isValidEmail(email);
 
@@ -99,8 +87,7 @@ public class SignUpPage {
         } else if (email.equals("")) {
             JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        }
-        else if (password1.equals(password2)) {
+        } else if (password1.equals(password2)) {
 
             operation.push_student(name, surname, photoPath, email, password1);
             int confirmationCode = sendEmail(email, "ozyegingarage@gmail.com");
@@ -118,22 +105,6 @@ public class SignUpPage {
             passwordField2.setText("");
             JOptionPane.showMessageDialog(null, "Passwords don't match", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        }
-    }
-
-    public static boolean isValidEmail(String email) {
-        // create the EmailValidator instance
-        EmailValidator validator = EmailValidator.getInstance();
-
-        // check for valid email addresses using isValid method
-        return validator.isValid(email);
-    }
-
-
-    public class SignUpListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            signUp(passwordField1.getText(),passwordField2.getText(),textField1.getText(),textField2.getText(),textField3.getText(),photoPath);
         }
     }
 
@@ -187,5 +158,12 @@ public class SignUpPage {
             mex.printStackTrace();
         }
         return 0;
+    }
+
+    public class SignUpListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            signUp(passwordField1.getText(), passwordField2.getText(), textField1.getText(), textField2.getText(), textField3.getText(), photoPath);
+        }
     }
 }

@@ -9,11 +9,10 @@ import static GUI.LPanel.scaleFile;
 
 public class HomePage {
 
-    private JPanel homePanel;
     public JFrame frame;
     public LoginPage login;
-
-    ImageIcon icon = scaleFile(200,200,"OzU.png");
+    ImageIcon icon = scaleFile(200, 200, "OzU.png");
+    private JPanel homePanel;
 
     public HomePage(DatabaseOperation operation) {
 
@@ -31,7 +30,7 @@ public class HomePage {
 
         SwingUtilities.invokeLater(() -> {
 
-            frame = new JFrame("Program");
+            frame = new JFrame("OzU-Garage");
             frame.setSize(1600, 900);
             frame.setResizable(false);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
