@@ -25,9 +25,9 @@ public class Garage {
 
     private final DatabaseOperation operation;
     public JPanel productPanel;
+    public int functionCode = -1;
     int imageArrayIndex = 0;
     int pageNumber = 1;
-    int functionCode = -1;
     String searchBarText = "";
     String filterOption = "";
     PlaceHolder placeHolder;
@@ -51,9 +51,9 @@ public class Garage {
     private ArrayList<JButton> productButtons = new ArrayList<>();
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
-    private JFrame frame;
-    private Student student;
-    private Garage garage = this;
+    private final JFrame frame;
+    private final Student student;
+    private final Garage garage = this;
 
 
     public Garage(JFrame frame, DatabaseOperation operation, Student student) {
@@ -174,15 +174,7 @@ public class Garage {
         });
     }
 
-    public class GetProductListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            getProduct(productButtons.indexOf(e.getSource()) + ((pageNumber - 1) * 12));
-        }
-    }
-
-    public boolean getProduct(int selectedProductIndex)
-    {
+    public boolean getProduct(int selectedProductIndex) {
         int productID = productIds.get(selectedProductIndex);
         ProductPage productPage = new ProductPage(productID, operation, student);
 
@@ -200,14 +192,6 @@ public class Garage {
         return true;
     }
 
-    public class FilterListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            filter((String) Objects.requireNonNull(filterComboBox.getSelectedItem()));
-        }
-    }
-
     public boolean filter(String productOrder) {
         imageArrayIndex = 0;
 
@@ -223,7 +207,7 @@ public class Garage {
         return false;
     }
 
-    public void update_garage(String condition) {
+    public boolean update_garage(String condition) {
 
         productIds.clear();
         productImages.clear();
@@ -262,11 +246,13 @@ public class Garage {
                 }
 
                 display_garage();
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
         } else if (condition.equals("book")) {
             try {
@@ -294,11 +280,13 @@ public class Garage {
 
                 display_garage();
 
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                return false;
             }
 
         } else if (condition.equals("furniture")) {
@@ -326,14 +314,17 @@ public class Garage {
                 }
 
                 display_garage();
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                return false;
             }
 
-        } else if (condition.equals("ticket")) {
+        } else if
+        (condition.equals("ticket")) {
             try {
 
                 functionCode = 8;
@@ -358,13 +349,16 @@ public class Garage {
                 }
 
                 display_garage();
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                return false;
             }
         }
+        return false;
     }
 
     public void display_garage() {
@@ -379,25 +373,27 @@ public class Garage {
         }
     }
 
-    public void refresh() {
+    public boolean refresh() {
         if (functionCode == 0)
-            search_bar(searchBarText);
+            return search_bar(searchBarText);
         else if (functionCode == 1)
-            sort_price_increasing();
+            return sort_price_increasing();
         else if (functionCode == 2)
-            sort_price_decreasing();
+            return sort_price_decreasing();
         else if (functionCode == 3)
-            sort_date_latest();
+            return sort_date_latest();
         else if (functionCode == 4)
-            sort_date_earliest();
+            return sort_date_earliest();
         else if (functionCode == 5)
-            update_garage("ALL");
+            return update_garage("ALL");
         else if (functionCode == 6)
-            update_garage("book");
+            return update_garage("book");
         else if (functionCode == 7)
-            update_garage("furniture");
+            return update_garage("furniture");
         else if (functionCode == 8)
-            update_garage("ticket");
+            return update_garage("ticket");
+
+        return false;
     }
 
     public JPanel getProductPanel() {
@@ -451,7 +447,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
@@ -491,7 +487,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
@@ -530,7 +526,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
@@ -570,7 +566,7 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
@@ -586,7 +582,7 @@ public class Garage {
         }
     }
 
-    public void search_bar(String search_request) {
+    public boolean search_bar(String search_request) {
         functionCode = 0;
 
         for (int i = 0; i < productButtons.size(); i++) {
@@ -629,13 +625,30 @@ public class Garage {
             for (JButton b : productButtons) {
                 b.setEnabled(b.getIcon() != null);
             }
-
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
 
+    }
+
+    public class GetProductListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            getProduct(productButtons.indexOf(e.getSource()) + ((pageNumber - 1) * 12));
+        }
+    }
+
+    public class FilterListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            filter((String) Objects.requireNonNull(filterComboBox.getSelectedItem()));
+        }
     }
 }
 

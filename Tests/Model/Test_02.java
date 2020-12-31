@@ -9,8 +9,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class Test_02 {
@@ -170,10 +169,11 @@ public class Test_02 {
     @Test
     public void test_04_01() {
 
-        assertTrue(garage.sort_date_earliest());
-        assertTrue(garage.sort_date_latest());;
-        assertTrue(garage.sort_price_decreasing());
-        assertTrue(garage.sort_price_increasing());
+        assertTrue(garage.filter("Cheapest first"));
+        assertTrue(garage.filter("Most expensive first"));;
+        assertTrue(garage.filter("Newest first"));
+        assertTrue(garage.filter("Oldest first"));
+        assertFalse(garage.filter("Garbled filtering condition"));
 
     }
 
@@ -185,7 +185,7 @@ public class Test_02 {
     }
 
     @Test
-    public void test_05_01() {
+    public void test_05_01() { // This test actually covers 05_01 and 05_02
 
         File photo =  new File(photoPath);
         String title = "Test";
@@ -231,7 +231,8 @@ public class Test_02 {
 
         assertTrue(permitProduct.permitProduct(not_permitted));
 
-        garage = new Garage(frame,op,student);
+        garage.functionCode = 5;
+        garage.refresh();
 
         assertTrue(garage.getProductIds().contains(not_permitted));
 
@@ -251,15 +252,94 @@ public class Test_02 {
 
         assertTrue(productPage.postComment(comment));
 
-        comment = "Dollar is 10 you want 30 liras. Cmooooon";
+        comment = "Dollar is 10 you want 30 lira. Cmooooon";
 
         assertTrue(productPage.postComment(comment));
     }
 
     @Test
-    public void test_09_01() {
+    public void test_07_01() {
 
+        garage.search_bar("Test");
+        int pID = garage.getProductIds().get(0);
+
+        assertEquals(op.pull_product(pID).getProductName(), "Test");
+
+        garage.search_bar("Macbook13");
+        pID = garage.getProductIds().get(0);
+
+        assertEquals(op.pull_product(pID).getProductName(), "Macbook13");
+    }
+
+    // Requirements 07_02  will not be tested since the implementation of the project differed
+    // from original proposal.
+
+
+    @Test
+    public void test_08_01() {
+
+        garage.functionCode = 1;
+        assertTrue(garage.refresh());
+
+        garage.functionCode = 2;
+        assertTrue(garage.refresh());
+
+        garage.functionCode = 3;
+        assertTrue(garage.refresh());
+
+        garage.functionCode = 4;
+        assertTrue(garage.refresh());
+
+        garage.functionCode = 5;
+        assertTrue(garage.refresh());
+
+        garage.functionCode = 6;
+        assertTrue(garage.refresh());
+
+        garage.functionCode = 7;
+        assertTrue(garage.refresh());
+
+    }
+
+    @Test
+    public void test_09_01()
+    {
         assertTrue(lPanel.goToProfilePage());
+    }
+
+    @Test
+    public void test_10_01()
+    {
+        ChangePasswordPage changePasswordPage = new ChangePasswordPage(frame,op,student);
+
+        String pw1 = "";
+        String pw2 = "";
+
+        assertFalse(changePasswordPage.changePassword(pw1,pw2));
+
+        pw1 = "123";
+        assertFalse(changePasswordPage.changePassword(pw1,pw2));
+
+        pw2 = "123";
+        pw1 = "";
+        assertFalse(changePasswordPage.changePassword(pw1,pw2));
+
+        pw1 = "     ";
+        assertFalse(changePasswordPage.changePassword(pw1,pw2));
+
+        pw1 = "1234";
+        assertFalse(changePasswordPage.changePassword(pw1,pw2));
+
+        pw1 = "123";
+        assertTrue(changePasswordPage.changePassword(pw1,pw2));
+
+
+        ProfilePage profilePage = new ProfilePage(frame,op,student);
+        File photo = new File(photoPath);
+
+        assertFalse(profilePage.changeProfilePhoto(null));
+
+        assertTrue(profilePage.changeProfilePhoto(photo));
 
     }
 

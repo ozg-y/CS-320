@@ -13,15 +13,15 @@ import java.io.File;
 
 
 public class ProfilePage {
+    private final JFrame frame;
+    private final DatabaseOperation operation;
+    private final Student student;
     private JButton profilePhotoButton;
     private JButton changePasswordButton;
     private JPanel profilePPanel;
     private JLabel name;
     private JLabel email;
     private File photo;
-    private final JFrame frame;
-    private final DatabaseOperation operation;
-    private final Student student;
 
     public ProfilePage(JFrame frame, DatabaseOperation operation, Student student) {
         this.frame = frame;
@@ -88,30 +88,36 @@ public class ProfilePage {
 
     public boolean changeProfilePhoto(File photo) {
 
-        ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
-        student.setStudentProfilePhoto(icon);
-        operation.change_student_photo(student.getStudentEmail(), photo.getAbsolutePath());
+        if (photo == null) {
+            JOptionPane.showMessageDialog(null, "Choose a photo", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
 
-        profilePhotoButton.setText(null);
-        profilePhotoButton.setBackground(new java.awt.Color(187, 187, 187));
-        profilePhotoButton.setOpaque(true);
-        profilePhotoButton.setBorderPainted(false);
-        profilePhotoButton.setIcon(icon);
+            ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+            student.setStudentProfilePhoto(icon);
+            operation.change_student_photo(student.getStudentEmail(), photo.getAbsolutePath());
 
-        frame.getContentPane().removeAll();
-        frame.setLayout(new BorderLayout());
+            profilePhotoButton.setText(null);
+            profilePhotoButton.setBackground(new java.awt.Color(187, 187, 187));
+            profilePhotoButton.setOpaque(true);
+            profilePhotoButton.setBorderPainted(false);
+            profilePhotoButton.setIcon(icon);
 
-        Garage garage = new Garage(frame, operation, student);
-        LPanel lPanel = new LPanel(frame, operation, garage, student);
+            frame.getContentPane().removeAll();
+            frame.setLayout(new BorderLayout());
 
-        frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
-        frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+            Garage garage = new Garage(frame, operation, student);
+            LPanel lPanel = new LPanel(frame, operation, garage, student);
 
-        frame.pack();
-        frame.repaint();
-        frame.revalidate();
+            frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
 
-        return true;
+            frame.pack();
+            frame.repaint();
+            frame.revalidate();
+
+            return true;
+        }
     }
 
     public JPanel getProfilePPanel() {
