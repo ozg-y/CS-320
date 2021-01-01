@@ -9,24 +9,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static GUI.LPanel.scaleFile;
 
 public class Garage {
 
     private final DatabaseOperation operation;
+    private final JFrame frame;
+    private final Student student;
+    private final Garage garage = this;
     public JPanel productPanel;
+    public int functionCode = -1;
     int imageArrayIndex = 0;
     int pageNumber = 1;
-    int functionCode = -1;
     String searchBarText = "";
     String filterOption = "";
     PlaceHolder placeHolder;
@@ -51,12 +53,13 @@ public class Garage {
     private ArrayList<Integer> productIds = new ArrayList<>();
     private ArrayList<ImageIcon> productImages = new ArrayList<>();
 
-    public Garage(JFrame frame, DatabaseOperation operation, Student student) {
 
+    public Garage(JFrame frame, DatabaseOperation operation, Student student) {
+        this.frame = frame;
+        this.operation = operation;
+        this.student = student;
 
         placeHolder = new PlaceHolder(searchBar, "Search in OzU-Garage");
-
-        this.operation = operation;
 
         upScrollButton.setEnabled(false);
 
@@ -88,27 +91,9 @@ public class Garage {
 
         update_garage("ALL");
 
-        ActionListener getProductDetails = e -> {
-
-            int selectedProductIndex = productButtons.indexOf(e.getSource()) + ((pageNumber - 1) * 12);
-            int productID = productIds.get(selectedProductIndex);
-            ProductPage productPage = new ProductPage(productID, operation, student);
-
-            frame.getContentPane().removeAll();
-            frame.setLayout(new BorderLayout());
-            frame.repaint();
-
-            LPanel lPanel = new LPanel(frame, operation, this, student);
-            frame.getContentPane().add(productPage.getProductPPanel(), BorderLayout.CENTER);
-            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
-            frame.pack();
-            frame.repaint();
-            frame.revalidate();
-        };
-
         // Added all buttons to getProductDetails actionListener
         for (JButton but : productButtons) {
-            but.addActionListener(getProductDetails);
+            but.addActionListener(new GetProductListener());
         }
 
         downScrollButton.addActionListener(new ActionListener() {
@@ -131,7 +116,6 @@ public class Garage {
                     downScrollButton.setEnabled(false);
             }
         });
-
         upScrollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,9 +134,15 @@ public class Garage {
                     upScrollButton.setEnabled(false);
             }
         });
-
-        // filter based on title -> product Name
-        searchBar.addActionListener(new ActionListener() {
+        filterComboBox.addActionListener(new FilterListener());
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refresh();
+            }
+        });
+        searchBar.addActionListener(new ActionListener() // filter based on title -> product Name
+        {
             @Override
             public void actionPerformed(ActionEvent e) {
                 searchBarText = e.getActionCommand();
@@ -161,50 +151,43 @@ public class Garage {
             }
         });
 
-        filterComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String productOrder = (String) filterComboBox.getSelectedItem();
-
-
-                imageArrayIndex = 0;
-
-                if (productOrder.equals("Cheapest first")) {
-                    sort_price_increasing();
-                } else if (productOrder.equals("Most expensive first")) {
-                    sort_price_decreasing();
-                } else if (productOrder.equals("Newest first")) {
-                    sort_date_latest();
-                } else if (productOrder.equals("Oldest first")) {
-                    sort_date_earliest();
-                }
-            }
-        });
-
-
-        refreshButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                refreshButton.setBackground(Color.white);
-                refreshButton.setForeground(new Color(163, 0, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                refreshButton.setBackground(new Color(163, 0, 80));
-                refreshButton.setForeground(Color.white);
-            }
-        });
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refresh();
-            }
-        });
+        refreshButton.addMouseListener(new ButtonColorListener());
     }
 
-    public void update_garage(String condition) {
+    public boolean getProduct(int selectedProductIndex) {
+        int productID = productIds.get(selectedProductIndex);
+        ProductPage productPage = new ProductPage(productID, operation, student);
+
+        frame.getContentPane().removeAll();
+        frame.setLayout(new BorderLayout());
+        frame.repaint();
+
+        LPanel lPanel = new LPanel(frame, operation, garage, student);
+        frame.getContentPane().add(productPage.getProductPPanel(), BorderLayout.CENTER);
+        frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+        frame.pack();
+        frame.repaint();
+        frame.revalidate();
+
+        return true;
+    }
+
+    public boolean filter(String productOrder) {
+        imageArrayIndex = 0;
+
+        if (productOrder.equals("Cheapest first")) {
+            return sort_price_increasing();
+        } else if (productOrder.equals("Most expensive first")) {
+            return sort_price_decreasing();
+        } else if (productOrder.equals("Newest first")) {
+            return sort_date_latest();
+        } else if (productOrder.equals("Oldest first")) {
+            return sort_date_earliest();
+        }
+        return false;
+    }
+
+    public boolean update_garage(String condition) {
 
         productIds.clear();
         productImages.clear();
@@ -243,11 +226,13 @@ public class Garage {
                 }
 
                 display_garage();
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
         } else if (condition.equals("book")) {
             try {
@@ -275,11 +260,13 @@ public class Garage {
 
                 display_garage();
 
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                return false;
             }
 
         } else if (condition.equals("furniture")) {
@@ -307,14 +294,17 @@ public class Garage {
                 }
 
                 display_garage();
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                return false;
             }
 
-        } else if (condition.equals("ticket")) {
+        } else if
+        (condition.equals("ticket")) {
             try {
 
                 functionCode = 8;
@@ -339,13 +329,16 @@ public class Garage {
                 }
 
                 display_garage();
-
+                return true;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return false;
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                return false;
             }
         }
+        return false;
     }
 
     public void display_garage() {
@@ -360,56 +353,38 @@ public class Garage {
         }
     }
 
-    public void refresh() {
+    public boolean refresh() {
         if (functionCode == 0)
-            search_bar(searchBarText);
+            return search_bar(searchBarText);
         else if (functionCode == 1)
-            sort_price_increasing();
+            return sort_price_increasing();
         else if (functionCode == 2)
-            sort_price_decreasing();
+            return sort_price_decreasing();
         else if (functionCode == 3)
-            sort_date_latest();
+            return sort_date_latest();
         else if (functionCode == 4)
-            sort_date_earliest();
+            return sort_date_earliest();
         else if (functionCode == 5)
-            update_garage("ALL");
+            return update_garage("ALL");
         else if (functionCode == 6)
-            update_garage("book");
+            return update_garage("book");
         else if (functionCode == 7)
-            update_garage("furniture");
+            return update_garage("furniture");
         else if (functionCode == 8)
-            update_garage("ticket");
+            return update_garage("ticket");
+
+        return false;
     }
 
     public JPanel getProductPanel() {
         return productPanel;
     }
 
-    public ArrayList<JButton> getProductButtons() {
-        return productButtons;
-    }
-
-    public void setProductButtons(ArrayList<JButton> productButtons) {
-        this.productButtons = productButtons;
-    }
-
     public ArrayList<Integer> getProductIds() {
         return productIds;
     }
 
-    public void setProductIds(ArrayList<Integer> productIds) {
-        this.productIds = productIds;
-    }
-
-    public ArrayList<ImageIcon> getProductImages() {
-        return productImages;
-    }
-
-    public void setProductImages(ArrayList<ImageIcon> productImages) {
-        this.productImages = productImages;
-    }
-
-    public void sort_price_increasing() {
+    public boolean sort_price_increasing() {
         try {
 
             functionCode = 1;
@@ -432,21 +407,24 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
 
             display_garage();
 
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
-    public void sort_price_decreasing() {
+    public boolean sort_price_decreasing() {
         try {
 
             functionCode = 2;
@@ -469,21 +447,23 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
 
             display_garage();
-
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
-    public void sort_date_latest() {
+    public boolean sort_date_latest() {
         try {
 
             functionCode = 3;
@@ -506,22 +486,24 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
 
             display_garage();
-
+            return true;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
-    public void sort_date_earliest() {
+    public boolean sort_date_earliest() {
         try {
 
             functionCode = 4;
@@ -544,21 +526,23 @@ public class Garage {
                 while (myRst.next()) {
                     InputStream x = (myRst.getBinaryStream("productPhoto"));
                     Image image = ImageIO.read(x);
-                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240,240,Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 240, Image.SCALE_DEFAULT));
                     productImages.add(icon);
                 }
             }
 
             display_garage();
-
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
     }
 
-    public void search_bar(String search_request) {
+    public boolean search_bar(String search_request) {
         functionCode = 0;
 
         for (int i = 0; i < productButtons.size(); i++) {
@@ -601,13 +585,30 @@ public class Garage {
             for (JButton b : productButtons) {
                 b.setEnabled(b.getIcon() != null);
             }
-
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            return false;
         }
 
+    }
+
+    public class GetProductListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            getProduct(productButtons.indexOf(e.getSource()) + ((pageNumber - 1) * 12));
+        }
+    }
+
+    public class FilterListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            filter((String) Objects.requireNonNull(filterComboBox.getSelectedItem()));
+        }
     }
 }
 

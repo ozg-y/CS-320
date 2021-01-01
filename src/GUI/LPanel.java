@@ -7,48 +7,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 
 
 public class LPanel {
 
-    private HomePage homePage;
-    private JTextField searchBar;
-    private JButton profile;
-    private JButton electronics;
-    private JButton tickets;
-    private JButton furniture;
-    private JButton other;
-    private JComboBox filter;
+    private final JFrame frame;
+    private final DatabaseOperation operation;
+    private final Garage garage;
+    private final Student student;
+    public JButton category1IconButton;
+    public JButton category2IconButton;
+    public JButton category3IconButton;
+    public JPanel lPanel;
     private JButton home;
-    private JButton category1IconButton;
-    private JButton category2IconButton;
-    private JButton category3IconButton;
     private JButton profilePhotoButton;
     private JButton addProduct;
-    public JPanel lPanel;
-
-
-    public JPanel getLPanel() {
-        return lPanel;
-    }
-
 
 
     public LPanel(JFrame frame, DatabaseOperation operation, Garage garage, Student student) {
+        this.frame = frame;
+        this.operation = operation;
+        this.garage = garage;
+        this.student = student;
 
-        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(195,220,Image.SCALE_SMOOTH));
+        ImageIcon PIcon = new ImageIcon((student.getStudentProfilePhoto()).getImage().getScaledInstance(195, 220, Image.SCALE_SMOOTH));
         profilePhotoButton.setIcon(PIcon);
 
-        ImageIcon bIcon = scaleFile(200,210,"book.png");
+        ImageIcon bIcon = scaleFile(200, 210, "book.png");
         category1IconButton.setIcon(bIcon);
 
-        ImageIcon fIcon = scaleFile(250,150,"furniture2.png");
+        ImageIcon fIcon = scaleFile(250, 150, "furniture2.png");
         category2IconButton.setIcon(fIcon);
 
-        ImageIcon tIcon = scaleFile(135,135,"ticket.png");
+        ImageIcon tIcon = scaleFile(135, 135, "ticket.png");
         category3IconButton.setIcon(tIcon);
 
         addProduct.addActionListener(new ActionListener() {
@@ -72,28 +64,7 @@ public class LPanel {
 
             }
         });
-        profilePhotoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-
-                category1IconButton.setEnabled(false);
-                category2IconButton.setEnabled(false);
-                category3IconButton.setEnabled(false);
-              
-                ProfilePage profilePage = new ProfilePage(frame, operation, student);
-
-
-                frame.getContentPane().removeAll();
-                frame.setLayout(new BorderLayout());
-
-                frame.getContentPane().add(profilePage.getProfilePPanel(), BorderLayout.CENTER);
-                frame.getContentPane().add(lPanel, BorderLayout.WEST);
-                frame.pack();
-                frame.repaint();
-                frame.revalidate();
-            }
-        });
+        profilePhotoButton.addActionListener(new profilePageListener());
         category1IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,7 +80,6 @@ public class LPanel {
                 frame.revalidate();
             }
         });
-
         category2IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,7 +96,6 @@ public class LPanel {
                 frame.revalidate();
             }
         });
-
         category3IconButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,7 +113,6 @@ public class LPanel {
 
             }
         });
-
         home.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -165,41 +133,68 @@ public class LPanel {
             }
         });
 
-        MouseAdapter listener = new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                ((JButton)e.getSource()).setBackground(Color.white);
-                ((JButton)e.getSource()).setForeground(new Color(163,0,80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                ((JButton)e.getSource()).setBackground(new Color(163,0,80));
-                ((JButton)e.getSource()).setForeground(Color.white);
-            }
-        };
-        home.addMouseListener(listener);
-        addProduct.addMouseListener(listener);
+        home.addMouseListener(new ButtonColorListener());
+        addProduct.addMouseListener(new ButtonColorListener());
     }
 
     public static ImageIcon scaleFile(int width, int height, String filename) {
         String path = System.getProperty("user.dir");
         String OS = System.getProperty("os.name");
 
-        if (OS.contains("Mac") || OS.contains("Linux") ) {
+        if (OS.contains("Mac") || OS.contains("Linux")) {
             File file = new File(path + "/src/Icons/" + filename);
             ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-            Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
+            Image transformed = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
             return icon;
         } else {
             File file = new File(path + "\\src\\Icons\\" + filename);
             ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-            Image transformed = icon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
+            Image transformed = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
             return icon;
+        }
+    }
+
+    public JPanel getLPanel() {
+        return lPanel;
+    }
+
+    public boolean goToProfilePage() {
+
+        try {
+            category1IconButton.setEnabled(false);
+            category2IconButton.setEnabled(false);
+            category3IconButton.setEnabled(false);
+
+            ProfilePage profilePage = new ProfilePage(frame, operation, student);
+
+            frame.getContentPane().removeAll();
+            frame.setLayout(new BorderLayout());
+
+            frame.getContentPane().add(profilePage.getProfilePPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(lPanel, BorderLayout.WEST);
+            frame.pack();
+            frame.repaint();
+            frame.revalidate();
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+
+    public class profilePageListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            goToProfilePage();
+
         }
     }
 }
