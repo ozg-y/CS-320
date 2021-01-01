@@ -11,7 +11,7 @@ public class DatabaseOperation {
     public Connection con;
     public Statement statement;
     public PreparedStatement preparedStatement;
-
+    public boolean isConnected=false;
     public DatabaseOperation() {
 
         JFrame frame = new JFrame();
@@ -269,6 +269,10 @@ public class DatabaseOperation {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public boolean checkForConnection(){
+        return isConnected;
     }
 
     public ArrayList<Integer> pull_product_not_permitted() {

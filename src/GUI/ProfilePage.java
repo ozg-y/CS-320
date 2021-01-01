@@ -2,17 +2,18 @@ package GUI;
 
 import Model.DatabaseOperation;
 import Model.Student;
-import GUI.LPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 
 
 public class ProfilePage {
+    private final JFrame frame;
+    private final DatabaseOperation operation;
+    private final Student student;
     private JButton profilePhotoButton;
     private JButton changePasswordButton;
     private JPanel profilePPanel;
@@ -21,6 +22,9 @@ public class ProfilePage {
     private File photo;
 
     public ProfilePage(JFrame frame, DatabaseOperation operation, Student student) {
+        this.frame = frame;
+        this.operation = operation;
+        this.student = student;
 
         name.setText(student.getStudentName() + " " + student.getStudentSurname());
         email.setText(student.getStudentEmail());
@@ -31,31 +35,13 @@ public class ProfilePage {
             profilePhotoButton.setText("");
         }
 
-
         profilePhotoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser j = new JFileChooser();
                 j.showSaveDialog(null);
                 photo = j.getSelectedFile();
-                ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
-                student.setStudentProfilePhoto(icon);
-                operation.change_student_photo(student.getStudentEmail(),photo.getAbsolutePath());
-                profilePhotoButton.setText(null);
-                profilePhotoButton.setBackground(new java.awt.Color(187, 187, 187));
-                profilePhotoButton.setOpaque(true);
-                profilePhotoButton.setBorderPainted(false);
-                profilePhotoButton.setIcon(icon);
-                frame.getContentPane().removeAll();
-                frame.setLayout(new BorderLayout());
-
-                Garage garage = new Garage(frame, operation, student);
-                LPanel lPanel = new LPanel(frame, operation, garage, student);
-                frame.getContentPane().add(garage.getProductPanel(), BorderLayout.CENTER);
-                frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
-                frame.pack();
-                frame.repaint();
-                frame.revalidate();
+                changeProfilePhoto(photo);
             }
         });
         changePasswordButton.addActionListener(new ActionListener() {
@@ -76,31 +62,47 @@ public class ProfilePage {
                 frame.revalidate();
             }
         });
+        changePasswordButton.addMouseListener(new ButtonColorListener());
 
-        changePasswordButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                changePasswordButton.setBackground(Color.white);
-                changePasswordButton.setForeground(new Color(163, 0, 80));
-            }
-        });
+    }
 
-        changePasswordButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                changePasswordButton.setBackground(new Color(163, 0, 80));
-                changePasswordButton.setForeground(Color.white);
-            }
-        });
+    public boolean changeProfilePhoto(File newPhoto) {
 
+        if (newPhoto == null) {
+            JOptionPane.showMessageDialog(null, "Choose a photo", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            photo = newPhoto;
+            ImageIcon icon = new ImageIcon(newPhoto.getAbsolutePath());
+            student.setStudentProfilePhoto(icon);
+            operation.change_student_photo(student.getStudentEmail(), newPhoto.getAbsolutePath());
 
+            profilePhotoButton.setText(null);
+            profilePhotoButton.setBackground(new java.awt.Color(187, 187, 187));
+            profilePhotoButton.setOpaque(true);
+            profilePhotoButton.setBorderPainted(false);
+            profilePhotoButton.setIcon(icon);
+
+            frame.getContentPane().removeAll();
+            frame.setLayout(new BorderLayout());
+
+            ProfilePage profilePage = new ProfilePage(frame,operation,student);
+            Garage garage = new Garage(frame,operation,student);
+            LPanel lPanel = new LPanel(frame, operation, garage, student);
+
+            frame.getContentPane().add(profilePage.profilePPanel, BorderLayout.CENTER);
+            frame.getContentPane().add(lPanel.lPanel, BorderLayout.WEST);
+
+            frame.pack();
+            frame.repaint();
+            frame.revalidate();
+
+            return true;
+        }
     }
 
     public JPanel getProfilePPanel() {
         return profilePPanel;
     }
-
 
 }
