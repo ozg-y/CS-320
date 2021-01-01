@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import static GUI.LPanel.scaleFile;
 
 public class LoginPage {
+    private final DatabaseOperation operation;
     JFrame frame;
     private JTextField textField1;
     private JPasswordField passwordField1;
@@ -19,24 +19,14 @@ public class LoginPage {
     private JButton signUpButton;
     private JPanel MainPanel;
     private JLabel iconLabel;
-    private final DatabaseOperation operation;
 
 
     public LoginPage(JFrame frame, DatabaseOperation operation) {
         this.operation = operation;
         this.frame = frame;
 
-        String path = System.getProperty("user.dir");
-        String OS = System.getProperty("os.name");
-
-        if (OS.contains("Mac") || OS.contains("Linux")) {
-            File ozuLogo = new File(path + "/src/Icons/OzU_logo.png");
-            iconLabel.setIcon(new ImageIcon(ozuLogo.getAbsolutePath()));
-        } else {
-            ImageIcon ozuLogo = scaleFile(400, 200, "OzU_logo.png");
-            iconLabel.setIcon(ozuLogo);
-        }
-
+        ImageIcon ozuLogo = scaleFile(400, 200, "OzU_logo.png");
+        iconLabel.setIcon(ozuLogo);
 
         frame.getRootPane().setDefaultButton(loginButton);
 
