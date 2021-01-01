@@ -38,10 +38,6 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public int getProductID() {
-        return productID;
-    }
-
     public String getProductName() {
         return productName;
     }
@@ -50,53 +46,20 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
-    }
-
     public ImageIcon getProductPhoto() {
         return productPhoto;
-    }
-
-    public void setProductPhotos(ImageIcon productPhoto) {
-        this.productPhoto = productPhoto;
     }
 
     public double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public ArrayList<String> getProductComments() {
-        return productComments;
-    }
-
-    public void setProductComments(ArrayList<String> productComments) {
-        this.productComments = productComments;
-    }
-
     public Student getProductSeller() {
         return productSeller;
-    }
-
-    public void setProductSeller(Student productSeller) {
-        this.productSeller = productSeller;
     }
 
     public String getProductDescription() {
         return productDescription;
     }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
 
 }
