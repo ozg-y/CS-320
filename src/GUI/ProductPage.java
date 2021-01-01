@@ -13,21 +13,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class ProductPage {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final Student student;
+    private final DatabaseOperation operation;
+    private final int productID;
     String finishedComment = "";
     int size = 0;
     private JEditorPane productDetails;
-    private String comment;
     private JPanel productPPanel;
     private JTextArea textArea1;
     private JButton commentButton;
@@ -36,21 +35,20 @@ public class ProductPage {
     private JLabel productName;
     private JLabel productPhotoLabel;
     private JEditorPane productComments;
-    private File photo;
-    private Product product;
+    private final Product product;
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Comment> pullComments = new ArrayList<>();
-    private Student student;
-
 
 
     public ProductPage(int productID, DatabaseOperation operation, Student student) {
 
         this.student = student;
+        this.operation = operation;
+        this.productID = productID;
 
         product = operation.pull_product(productID);
 
-        productPhotoLabel.setIcon(new ImageIcon(product.getProductPhoto().getImage().getScaledInstance(240,240, Image.SCALE_DEFAULT)));
+        productPhotoLabel.setIcon(new ImageIcon(product.getProductPhoto().getImage().getScaledInstance(240, 240, Image.SCALE_DEFAULT)));
         productName.setText(product.getProductName());
         sellerInfoLabel.setText(product.getProductSeller().getStudentEmail());
         productPrice.setText(Double.toString(product.getProductPrice()));
@@ -65,33 +63,8 @@ public class ProductPage {
         }
         productComments.setText(finishedComment);
 
-        commentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                comment = textArea1.getText();
-
-                if (textArea1.getText().equals("") || textArea1.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                operation.push_comment(productID, comment, student.getStudentEmail());
-                size++;
-                textArea1.setText("");
-                sendNotification(sellerInfoLabel.getText(),"ozyegingarage@gmail.com");
-                comments = operation.pull_comment(productID);
-                finishedComment = "";
-
-                for (Comment c : comments) {
-                    finishedComment += c.studentName + " : " + c.comment + "\n \n";
-                }
-
-                productComments.setText(finishedComment);
-
-            }
-        });
-
+        commentButton.addActionListener(new CommentListener());
+        commentButton.addMouseListener(new ButtonColorListener());
         scheduler.scheduleAtFixedRate(() -> {
 
             pullComments = operation.pull_comment(productID);
@@ -106,6 +79,30 @@ public class ProductPage {
             }
 
         }, 10, 10, TimeUnit.SECONDS);
+
+    }
+
+    public boolean postComment(String comment) {
+
+        if (comment.equals("") || comment.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You cannot post a blank comment.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        operation.push_comment(productID, comment, student.getStudentEmail());
+        size++;
+        textArea1.setText("");
+        sendNotification(sellerInfoLabel.getText(), "ozyegingarage@gmail.com");
+        comments = operation.pull_comment(productID);
+        finishedComment = "";
+
+        for (Comment c : comments) {
+            finishedComment += c.studentName + " : " + c.comment + "\n \n";
+        }
+
+        productComments.setText(finishedComment);
+
+        return true;
 
     }
 
@@ -157,8 +154,14 @@ public class ProductPage {
         return productPPanel;
     }
 
-}
+    public class CommentListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            postComment(textArea1.getText());
+        }
+    }
 
+}
 
 
 
