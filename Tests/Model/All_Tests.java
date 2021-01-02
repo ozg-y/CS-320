@@ -1,5 +1,3 @@
-package Model;
-
 import GUI.*;
 import Model.DatabaseOperation;
 import Model.Student;
@@ -8,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 
 import java.io.File;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +35,8 @@ public class All_Tests {
 
     @Test
     public void Test_001(){
-
+        String[] args = null;
+        Main.main(args);
         assertTrue(op.checkForConnection());
 
     }
@@ -180,7 +177,7 @@ public class All_Tests {
     public void test_004_01() {
 
         assertTrue(garage.filter("Cheapest first"));
-        assertTrue(garage.filter("Most expensive first"));;
+        assertTrue(garage.filter("Most expensive first"));
         assertTrue(garage.filter("Newest first"));
         assertTrue(garage.filter("Oldest first"));
         assertFalse(garage.filter("Garbled filtering condition"));
