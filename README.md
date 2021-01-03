@@ -2,7 +2,7 @@
 
 
 ## Introduction
-OzU-G is a project for CS 320 course at Ozyegin University. OzU-Garage allows Ozyegin University students to buy and sell their book, electronic, furniture and ticket items. 
+OzU-G is a project for CS 320 course at Ozyegin University. OzU-Garage allows Ozyegin University students to buy and sell their book, electronic, furniture and ticket items 
 
 
 ## Members
@@ -15,7 +15,8 @@ OzU-G is a project for CS 320 course at Ozyegin University. OzU-Garage allows Oz
 
 
 ## Tools
-Recommended IDE is IntelliJ IDEA. Other IDEs/editors can also be used
+Recommended IDE is IntelliJ IDEA. Other IDEs/editors can also be used. Make sure that your IDE/editor 
+supports or at least has a plugin to support Java Swing
 
 
 ## Instructions
