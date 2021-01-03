@@ -146,10 +146,12 @@ public class AddProductPage {
         public void actionPerformed(ActionEvent e) {
 
             JFileChooser j = new JFileChooser();
-            j.showSaveDialog(null);
-            photo = j.getSelectedFile();
-            uploadPhoto(photo.getAbsolutePath());
+            int fileSelected = j.showSaveDialog(null);
 
+            if(fileSelected == JFileChooser.APPROVE_OPTION){
+                photo = j.getSelectedFile();
+                uploadPhoto(photo.getAbsolutePath());
+            }
         }
     }
 

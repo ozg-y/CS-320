@@ -3,11 +3,14 @@ package GUI;
 import Model.DatabaseOperation;
 import Model.Student;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 
 public class LPanel {
@@ -138,22 +141,17 @@ public class LPanel {
     }
 
     public static ImageIcon scaleFile(int width, int height, String filename) {
-        String path = System.getProperty("user.dir");
-        String OS = System.getProperty("os.name");
-
-        if (OS.contains("Mac") || OS.contains("Linux")) {
-            File file = new File(path + "/src/Icons/" + filename);
-            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+        ImageIcon icon;
+        URL imageUrl = ClassLoader.getSystemResource(filename);
+        try {
+            icon = new ImageIcon(ImageIO.read(imageUrl));
             Image transformed = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
             icon = new ImageIcon(transformed);
-            return icon;
-        } else {
-            File file = new File(path + "\\src\\Icons\\" + filename);
-            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-            Image transformed = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            icon = new ImageIcon(transformed);
-            return icon;
-        }
+                return icon;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
     }
 
     public JPanel getLPanel() {

@@ -38,16 +38,18 @@ public class SignUpPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser j = new JFileChooser();
-                j.showSaveDialog(null);
-                photo = j.getSelectedFile();
-                photoPath = photo.getAbsolutePath();
-                ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
-                photoButton.setText(null);
-                photoButton.setBackground(new java.awt.Color(187, 187, 187));
-                photoButton.setOpaque(true);
-                photoButton.setBorderPainted(false);
-                photoButton.setIcon(icon);
+                int fileSelected = j.showSaveDialog(null);
 
+                if (fileSelected == JFileChooser.APPROVE_OPTION) {
+                    photo = j.getSelectedFile();
+                    photoPath = photo.getAbsolutePath();
+                    ImageIcon icon = new ImageIcon(photo.getAbsolutePath());
+                    photoButton.setText(null);
+                    photoButton.setBackground(new java.awt.Color(187, 187, 187));
+                    photoButton.setOpaque(true);
+                    photoButton.setBorderPainted(false);
+                    photoButton.setIcon(icon);
+                }
             }
         });
         signUpButton.addMouseListener(new ButtonColorListener());
@@ -65,8 +67,15 @@ public class SignUpPage {
 
         boolean b = isValidEmail(email);
 
+
         if (!b) {
             JOptionPane.showMessageDialog(null, "Sign up with your OzU email");
+            return false;
+        } else if (email.equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (!email.contains("ozu.edu.tr") || !email.contains("ozyegin.edu.tr")) {
+            JOptionPane.showMessageDialog(null, "Sign up wtih your OzU Email", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (photoPath == null || photoPath.equals("")) {
             JOptionPane.showMessageDialog(null, "Select a photo");
@@ -79,9 +88,6 @@ public class SignUpPage {
             return false;
         } else if (surname.equals("")) {
             JOptionPane.showMessageDialog(null, "Enter your surname", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else if (email.equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (password1.equals(password2)) {
 

@@ -37,6 +37,12 @@
               </grid>
             </constraints>
             <properties>
+              <background color="-6094769"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <font name="Verdana" size="20" style="1"/>
+              <foreground color="-1"/>
+              <opaque value="true"/>
               <text value="Photo"/>
             </properties>
           </component>

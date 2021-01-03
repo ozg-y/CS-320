@@ -39,9 +39,12 @@ public class ProfilePage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser j = new JFileChooser();
-                j.showSaveDialog(null);
-                photo = j.getSelectedFile();
-                changeProfilePhoto(photo);
+                int fileSelected = j.showSaveDialog(null);
+
+                if(fileSelected == JFileChooser.APPROVE_OPTION){
+                    photo = j.getSelectedFile();
+                    changeProfilePhoto(photo);
+                }
             }
         });
         changePasswordButton.addActionListener(new ActionListener() {
