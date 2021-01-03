@@ -67,7 +67,7 @@ public class DatabaseOperation {
 
     }
 
-    public void push_student(String studentName, String studentSurname, String studentPhoto, String studentEmail, String studentPassword) {
+    public boolean push_student(String studentName, String studentSurname, String studentPhoto, String studentEmail, String studentPassword) {
         try {
 
             // Changing type of the studentPhoto
@@ -80,11 +80,15 @@ public class DatabaseOperation {
             // Pushing the studentPhoto in binary format
             preparedStatement.setBinaryStream(1, sqlPhoto);
             preparedStatement.executeUpdate();
-
+            return true;
+        } catch (SQLIntegrityConstraintViolationException e) {
+            return false;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
 
     }

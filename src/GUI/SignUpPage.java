@@ -74,8 +74,8 @@ public class SignUpPage {
         } else if (email.equals("")) {
             JOptionPane.showMessageDialog(null, "Enter your e-mail", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if (!email.contains("ozu.edu.tr") || !email.contains("ozyegin.edu.tr")) {
-            JOptionPane.showMessageDialog(null, "Sign up wtih your OzU Email", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!email.contains("ozu.edu.tr") && !email.contains("ozyegin.edu.tr")) {
+            JOptionPane.showMessageDialog(null, "Sign up with your OzU Email", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (photoPath == null || photoPath.equals("")) {
             JOptionPane.showMessageDialog(null, "Select a photo");
@@ -91,17 +91,31 @@ public class SignUpPage {
             return false;
         } else if (password1.equals(password2)) {
 
-            operation.push_student(name, surname, photoPath, email, password1);
-            int confirmationCode = sendEmail(email, "ozyegingarage@gmail.com");
-            operation.push_student_confirmation(email, confirmationCode);
+            boolean success = operation.push_student(name, surname, photoPath, email, password1);
+            if (success) {
+                int confirmationCode = sendEmail(email, "ozyegingarage@gmail.com");
+                operation.push_student_confirmation(email, confirmationCode);
 
-            SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, email);
-            frame.getContentPane().removeAll();
-            frame.repaint();
+                SignUpConfirmPage confirm = new SignUpConfirmPage(frame, operation, email);
+                frame.getContentPane().removeAll();
+                frame.repaint();
 
-            frame.getContentPane().add(confirm.getpanelC());
-            frame.revalidate();
-            return true;
+                frame.getContentPane().add(confirm.getpanelC());
+                frame.revalidate();
+                return true;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "You have already created an account", "Error", JOptionPane.ERROR_MESSAGE);
+                LoginPage reLogin = new LoginPage(frame, operation);
+                frame.getContentPane().removeAll();
+                frame.repaint();
+
+                frame.getContentPane().add(reLogin.getMainPanel());
+                frame.revalidate();
+                return false;
+            }
+
+
         } else {
             passwordField1.setText("");
             passwordField2.setText("");
